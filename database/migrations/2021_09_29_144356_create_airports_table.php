@@ -14,14 +14,15 @@ class CreateAirportsTable extends Migration
     public function up()
     {
         Schema::create('itr_arpt', function (Blueprint $table) {
-            $table->id('CD_ARPT');
-
-            $table->unsignedBigInteger('CD_PAIS');
-            $table->string('SG_UF', 2);
-            $table->string('NM_CIDD');
-
-            $table->foreign('CD_PAIS')->references('CD_PAIS')->on('itr_pais')->onDelete('cascade');
-            $table->foreign('SG_UF')->references('SG_UF')->on('itr_uf')->onDelete('cascade');
+            $table->string('CD_ARPT', 3);
+            
+            $table->string('CD_PAIS', 2);
+            $table->string('SG_UF', 2)->nullable();
+            $table->string('NM_CIDD', 30);
+            
+            $table->primary('CD_ARPT');
+            $table->foreign('CD_PAIS')->references('CD_PAIS')->on('itr_pais');
+            $table->foreign('SG_UF')->references('SG_UF')->on('itr_uf');
         });
     }
 

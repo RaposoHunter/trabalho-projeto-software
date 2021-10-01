@@ -14,9 +14,10 @@ class CreateCountriesTable extends Migration
     public function up()
     {
         Schema::create('itr_pais', function (Blueprint $table) {
-            $table->id('CD_PAIS');
-
-            $table->string('NM_PAIS');
+            $table->string('CD_PAIS', 2);
+            
+            $table->primary('CD_PAIS');
+            $table->string('NM_PAIS', 25)->nullable();
             $table->integer('QT_PPLC_PAIS');
         });
     }

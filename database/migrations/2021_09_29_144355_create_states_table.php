@@ -15,7 +15,7 @@ class CreateStatesTable extends Migration
     {
         Schema::create('itr_uf', function (Blueprint $table) {
             $table->string('SG_UF', 2);
-            $table->string('NM_UF');
+            $table->string('NM_UF', 25);
 
             $table->primary('SG_UF');
         });

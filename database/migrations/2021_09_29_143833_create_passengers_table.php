@@ -16,15 +16,15 @@ class CreatePassengersTable extends Migration
         Schema::create('itr_psgr', function (Blueprint $table) {
             $table->id('CD_PSGR');
             
-            $table->string('NM_PSGR');
-            $table->string('IC_SEXO_PSGR');
-            $table->date('DT_NASC_PSGR');
-            $table->unsignedBigInteger('CD_PAIS');
-            $table->string('IC_ESTD_CIVIL');
+            $table->string('NM_PSGR', 30);
+            $table->string('IC_SEXO_PSGR', 1)->nullable();
+            $table->string('DT_NASC_PSGR', 10)->nullable();
+            $table->string('CD_PAIS', 2)->nullable();
+            $table->enum('IC_ESTD_CIVIL', ['C', 'S']);
             $table->unsignedBigInteger('CD_PSGR_RESP')->nullable();
 
-            $table->foreign('CD_PAIS')->references('CD_PAIS')->on('itr_pais')->onDelete('cascade');
-            $table->foreign('CD_PSGR_RESP')->references('CD_PSGR')->on('itr_psgr')->onDelete('cascade');
+            $table->foreign('CD_PAIS')->references('CD_PAIS')->on('itr_pais');
+            $table->foreign('CD_PSGR_RESP')->references('CD_PSGR')->on('itr_psgr');
         });
     }
 

@@ -14,15 +14,15 @@ class CreateFlightsTable extends Migration
     public function up()
     {
         Schema::create('itr_voo', function (Blueprint $table) {
-            $table->unsignedBigInteger('NR_VOO');
+            $table->integer('NR_VOO');
             
-            $table->datetime('DT_SAIDA_VOO');
-            $table->unsignedBigInteger('NR_ROTA_VOO');
-            $table->unsignedBigInteger('CD_ARNV');
+            $table->date('DT_SAIDA_VOO');
+            $table->integer('NR_ROTA_VOO');
+            $table->string('CD_ARNV', 5);
 
             $table->primary(['NR_VOO', 'DT_SAIDA_VOO']);
-            $table->foreign('NR_ROTA_VOO')->references('NR_ROTA_VOO')->on('itr_rota_voo')->onDelete('cascade');
-            $table->foreign('CD_ARNV')->references('CD_ARNV')->on('itr_arnv')->onDelete('cascade');
+            $table->foreign('NR_ROTA_VOO')->references('NR_ROTA_VOO')->on('itr_rota_voo');
+            $table->foreign('CD_ARNV')->references('CD_ARNV')->on('itr_arnv');
         });
     }
 

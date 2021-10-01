@@ -14,13 +14,14 @@ class CreateAirshipsTable extends Migration
     public function up()
     {
         Schema::create('itr_arnv', function (Blueprint $table) {
-            $table->id('CD_ARNV');
+            $table->string('CD_ARNV', 5);
             
-            $table->unsignedBigInteger('CD_EQPT');
-            $table->unsignedBigInteger('CD_CMPN_AEREA');
-
-            $table->foreign('CD_EQPT')->references('CD_EQPT')->on('itr_eqpt')->onDelete('cascade');
-            $table->foreign('CD_CMPN_AEREA')->references('CD_CMPN_AEREA')->on('itr_cmpn_aerea')->onDelete('cascade');
+            $table->string('CD_EQPT', 3);
+            $table->string('CD_CMPN_AEREA', 2);
+            
+            $table->primary('CD_ARNV');
+            $table->foreign('CD_EQPT')->references('CD_EQPT')->on('itr_eqpt')->onDelete('restrict');
+            $table->foreign('CD_CMPN_AEREA')->references('CD_CMPN_AEREA')->on('itr_cmpn_aerea')->onDelete('restrict');
         });
     }
 
