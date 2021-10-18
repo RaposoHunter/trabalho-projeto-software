@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Airport extends Model
 {
-    protected $table = 'itr_arpr';
+    protected $table = 'itr_arpt';
     protected $primaryKey = 'CD_ARPT';
     protected $keyType = 'string';
     public $incrementing = false;

@@ -16,8 +16,13 @@ class Equipment extends Model
         'CD_EQPT',
         'NM_EQPT',
         'DC_TIPO_EQPT',
-        'QT_MOTO',
+        'QT_MOTOR',
         'IC_TIPO_PRPS',
         'QT_PSGR',
     ];
+
+    public function airships()
+    {
+        return $this->hasMany(Airship::class, 'CD_EQPT');
+    }
 }
