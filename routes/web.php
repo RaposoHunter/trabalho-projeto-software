@@ -22,7 +22,12 @@ use Illuminate\Support\Facades\Route;
     }
 });*/
 
-Route::group(['prefix' => '/'], function () {
+Route::get('/login', 'Auth\LoginController@login')->name('login');
+Route::post('/login', 'Auth\LoginController@authenticate')->name('authenticate');
+Route::post('/cadastrar', 'Auth\LoginController@register')->name('register');
+Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::group(['prefix' => '/', 'middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@index')->name('index');
 
     Route::group(['prefix' => 'equipamentos'], function () {

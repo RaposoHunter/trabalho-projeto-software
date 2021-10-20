@@ -16,7 +16,7 @@
 	<div id="table">
 		<table>
 			<thead>
-				<tr>
+				<tr style="text-align: center">
 					<th>Código</th>
 					<th>Nome</th>
 					<th>Tipo</th>
@@ -28,7 +28,7 @@
 			</thead>
 			<tbody>
 				@foreach ($equipments as $equipment)
-					<tr data-id="{{ $equipment->CD_EQPT }}">
+					<tr data-id="{{ $equipment->CD_EQPT }}" style="border-top: 1px solid rgba(0,0,0,0.15)">
 						<td data-id="{{ $equipment->CD_EQPT }}" data-index="CD_EQPT">{{ $equipment->CD_EQPT ?? '---'}}</td>
 						<td data-id="{{ $equipment->CD_EQPT }}" data-index="NM_EQPT">{{ $equipment->NM_EQPT ?? '---'}}</td>
 						<td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">{{ $equipment->DC_TIPO_EQPT ?? '---'}}</td>
@@ -85,7 +85,6 @@
 
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-						<button data-id="" type="button" class="eqpt-edit-submit vb-event-container btn btn-primary">Editar</button>
 					</div>
 				</div>
 			</div>
