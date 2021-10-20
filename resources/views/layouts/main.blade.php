@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="{{ asset('css/fontawesome/css/font-awesome.min.css') }}"> 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
         
+        @stack('css')
+
         <style>
             * {
                 font-family: Arial, Helvetica, sans-serif;
@@ -15,6 +17,10 @@
 
             td {
                 text-align: center;
+            }
+
+            a {
+                text-decoration: none;
             }
 
             #sidebar ul {
@@ -37,23 +43,23 @@
     <body>
         <div id="sidebar">
             <ul>
-                <li data-id="home" class="sidebar-link">Home</li>
-                <li data-id="usuarios" class="sidebar-link">Usuários</li>
-                <li data-id="passageiros" class="sidebar-link">Passageiros</li>
-                <li data-id="voos" class="sidebar-link">Vôos</li>
-                <li data-id="aeroportos" class="sidebar-link">Aeroportos</li>
-                <li data-id="aeronaves" class="sidebar-link">Aeronaves</li>
-                <li data-id="companhias-aereas" class="sidebar-link">C. Aéreas</li>
-                <li data-id="paises" class="sidebar-link">Países</li>
-                <li data-id="estados" class="sidebar-link">UFs</li>
-                <li data-id="equipamentos" class="sidebar-link">Equipamentos</li>
-                <li data-id="rotas-de-voo" class="sidebar-link">Rotas de Vôo</li>
-                <li data-id="reservas" class="sidebar-link">Reservas</li>
+                <a href="{{ route('index') }}"><li data-id="home" class="sidebar-link">Home</li></a>
+                <a href="{{ '#' }}"><li data-id="usuarios" class="sidebar-link">Usuários</li></a>
+                <a href="{{ route('passengers.index') }}"><li data-id="passageiros" class="sidebar-link">Passageiros</li></a>
+                <a href="{{ route('flights.index') }}"><li data-id="voos" class="sidebar-link">Vôos</li></a>
+                <a href="{{ route('airports.index') }}"><li data-id="aeroportos" class="sidebar-link">Aeroportos</li></a>
+                <a href="{{ route('airships.index') }}"><li data-id="aeronaves" class="sidebar-link">Aeronaves</li></a>
+                <a href="{{ route('airlines.index') }}"><li data-id="companhias-aereas" class="sidebar-link">C. Aéreas</li></a>
+                <a href="{{ route('countries.index') }}"><li data-id="paises" class="sidebar-link">Países</li></a>
+                <a href="{{ route('states.index') }}"><li data-id="estados" class="sidebar-link">UFs</li></a>
+                <a href="{{ route('equipments.index') }}"><li data-id="equipamentos" class="sidebar-link">Equipamentos</li></a>
+                <a href="{{ route('flightroutes.index') }}"><li data-id="rotas-de-voo" class="sidebar-link">Rotas de Vôo</li></a>
+                <a href="{{ route('reserves.index') }}"><li data-id="reservas" class="sidebar-link">Reservas</li></a>
             </ul>
         </div>
 
         <div id="container" class="content">
-            @include('home')
+            @yield('container')
         </div>
     </body>
 
@@ -61,33 +67,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
-        $(function () {
-            // NOTE: Pensar em usar o carregamento da pagina por AJAX como em Single-Page Applications
+        $(function () {         
             
-            $('.sidebar-link').on('click', function () {
-                const page = this.dataset.id;
-
-                $.ajax({
-                    method: 'GET',
-                    url: `/${page}`,
-                    success: res => {
-                        toastr.clear();
-
-                        $('.vb-event-container').unbind();
-                        $('#container').html(res);
-                    },
-
-                    error: err => {
-                        toastr.clear();
-                        if(err.status == 404) {
-                            toastr.error('Desculpe, a página que você requisitou não existe! Tente atualizar a página.');
-                        } else {
-                            console.log(err);
-                            toastr.error('Desculpe, algo deu errado. Tente novamente mais tarde!');
-                        }
-                    },
-                })
-            });
         });
     </script>
+    @stack('js')
 </html>

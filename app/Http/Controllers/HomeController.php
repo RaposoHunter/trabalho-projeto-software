@@ -10,14 +10,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function main()
-    {
-        $home_statistics = $this->getHomeStatistics();
-
-        return view('layouts.main', $home_statistics);
-    }
-
-    public function home()
+    public function index()
     {
         $home_statistics = $this->getHomeStatistics();
 

@@ -18,7 +18,7 @@ class CreateEquipmentTable extends Migration
 
             $table->string('NM_EQPT', 38);
             $table->string('DC_TIPO_EQPT', 13);
-            $table->integer('QT_MOTO');
+            $table->integer('QT_MOTOR');
             $table->enum('IC_TIPO_PRPS', ['M', 'R'])->comment('IC Tipo de Propulsor');
             $table->integer('QT_PSGR')->nullable();
 
