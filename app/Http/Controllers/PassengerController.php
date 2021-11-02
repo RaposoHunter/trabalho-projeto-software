@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use App\Passenger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ class PassengerController extends Controller
     {
         $passengers = Passenger::all();
 
-        return view('passengers', compact('passengers'));
+        return view('passengers.index', compact('passengers'));
     }
 
     public function store(Request $request)
@@ -31,6 +32,17 @@ class PassengerController extends Controller
         }
 
         return response()->json('Passageiro adicionado com sucesso', 200);
+    }
+
+    public function create()
+    {
+        $passengers = Passenger::all();
+        $countries = Country::all();
+
+        return view('passengers.create', [
+            'passengers' => $passengers,
+            'countries' => $countries,
+        ]);
     }
 
     // show e edit

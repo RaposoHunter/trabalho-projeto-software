@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Airport;
 use App\FlightRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ class FlightRouteController extends Controller
     {
         $flight_routes = FlightRoute::all();
 
-        return view('flight_routes', compact('flight_routes'));
+        return view('flight_routes.index', compact('flight_routes'));
     }
 
     public function store(Request $request)
@@ -31,6 +32,15 @@ class FlightRouteController extends Controller
         }
 
         return response()->json('Rota de Vôo adicionada com sucesso', 200);
+    }
+
+    public function create()
+    {
+        $airports = Airport::all();
+
+        return view('flight_routes.create', [
+            'airports' => $airports,
+        ]);
     }
 
     // show e edit

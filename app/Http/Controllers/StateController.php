@@ -12,7 +12,7 @@ class StateController extends Controller
     {
         $states = State::all();
 
-        return view('states', compact('states'));
+        return view('states.index', compact('states'));
     }
 
     public function store(Request $request)
@@ -31,6 +31,11 @@ class StateController extends Controller
         }
 
         return response()->json('Estado adicionado com sucesso', 200);
+    }
+
+    public function create()
+    {
+        return view('states.create');
     }
 
     // show e edit

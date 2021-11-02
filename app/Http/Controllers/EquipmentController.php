@@ -12,7 +12,7 @@ class EquipmentController extends Controller
     {
         $equipments = Equipment::all();
 
-        return view('equipments', compact('equipments'));
+        return view('equipments.index', compact('equipments'));
     }
 
     public function store(Request $request)
@@ -31,6 +31,11 @@ class EquipmentController extends Controller
         }
 
         return response()->json('Equipamento adicionado com sucesso', 200);
+    }
+
+    public function create()
+    {
+        return view('equipments.create');
     }
 
     // show e edit

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,7 +12,7 @@ class AirlineController extends Controller
     {
         $airlines = Airline::all();
 
-        return view('airlines', compact('airlines'));
+        return view('airlines.index', compact('airlines'));
     }
 
     public function store(Request $request)
@@ -30,6 +31,15 @@ class AirlineController extends Controller
         }
 
         return response()->json('Companhia aérea adicionada com sucesso', 200);
+    }
+
+    public function create()
+    {
+        $countries = Country::all();
+
+        return view('airlines.create', [
+            'countries' => $countries,
+        ]);
     }
 
     // show e edit

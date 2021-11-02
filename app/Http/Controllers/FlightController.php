@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Flight;
+use App\Airship;
+use App\FlightRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,7 @@ class FlightController extends Controller
     {
         $flights = Flight::all();
 
-        return view('flights', compact('flights'));
+        return view('flights.index', compact('flights'));
     }
 
     public function store(Request $request)
@@ -31,6 +33,17 @@ class FlightController extends Controller
         }
 
         return response()->json('Vôo adicionado com sucesso', 200);
+    }
+
+    public function create()
+    {
+        $airships = Airship::all();
+        $flight_routes = FlightRoute::all();
+
+        return view('flights.create', [
+            'airships' => $airships,
+            'flight_routes' => $flight_routes,
+        ]);
     }
 
     // show e edit

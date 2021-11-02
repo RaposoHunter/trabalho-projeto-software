@@ -9,12 +9,17 @@
 @endpush
 
 @section('container')
-	<div id="title">
-		<h1>Equipamentos</h1>
+	<div class="row">
+		<div id="title" class="col-md-6">
+			<h1>Equipamentos</h1>
+		</div>
+		<div class="d-flex col-md-6 justify-content-end p-3">
+			<button class="btn btn-default btn-info" data-toggle="modal" data-target=""><i class="fa fa-filter mr-2"></i>Filtrar</button>
+			<button onclick="location.href = `{{ route('equipments.create') }}`" class="btn btn-default btn-success ml-2"><i class="fa fa-plus mr-2"></i>Cadastrar</button>
+		</div>
 	</div>
-
 	<div id="table">
-		<table>
+		<table style="width: 100%">
 			<thead>
 				<tr style="text-align: center">
 					<th>Código</th>

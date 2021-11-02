@@ -47,20 +47,9 @@
         </style>
     </head>
     <body>
-        <?php $user = auth()->user() ?>
-        <div id="profile">
-            <h4>Nome: <span style="font-size: 0.65em">{{ $user->name }}</span></h4>
-            <h4>Cargo: <span style="font-size: 0.65em">{{ strtoupper($user->getRoles()[0]) }}</span></h4>
-            <h4>Membro desde: <span style="font-size: 0.65em">{{ \Carbon\Carbon::parse($user->created_at)->format('d/m/Y') }}</span></h4>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button>Sair&nbsp;<i class="fa fa-sign-out"></i></button>
-            </form>
-        </div>
         <div id="sidebar">
             <ul>
                 <a href="{{ route('index') }}"><li data-id="home" class="sidebar-link">Home</li></a>
-                @if(auth()->user()->isA('admin'))<a href="{{ '#' }}"><li data-id="usuarios" class="sidebar-link">Usuários</li></a>@endif
                 <a href="{{ route('passengers.index') }}"><li data-id="passageiros" class="sidebar-link">Passageiros</li></a>
                 <a href="{{ route('flights.index') }}"><li data-id="voos" class="sidebar-link">Vôos</li></a>
                 <a href="{{ route('airports.index') }}"><li data-id="aeroportos" class="sidebar-link">Aeroportos</li></a>
@@ -83,9 +72,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <script>
-        $(function () {         
-            
-        });
+
     </script>
     @stack('js')
 </html>

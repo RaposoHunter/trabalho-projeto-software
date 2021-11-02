@@ -12,7 +12,7 @@ class CountryController extends Controller
     {
         $countries = Country::all();
 
-        return view('countries', compact('countries'));
+        return view('countries.index', compact('countries'));
     }
 
     public function store(Request $request)
@@ -31,6 +31,11 @@ class CountryController extends Controller
         }
 
         return response()->json('País adicionado com sucesso', 200);
+    }
+
+    public function create()
+    {
+        return view('countries.create');
     }
 
     // show e edit

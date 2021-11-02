@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Flight;
 use App\Reserve;
+use App\Passenger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,7 @@ class ReserveController extends Controller
     {
         $reserves = Reserve::all();
 
-        return view('reserves', compact('reserves'));
+        return view('reserves.index', compact('reserves'));
     }
 
     public function store(Request $request)
@@ -31,6 +33,17 @@ class ReserveController extends Controller
         }
 
         return response()->json('Reserva adicionada com sucesso', 200);
+    }
+
+    public function create()
+    {
+        $passengers = Passenger::all();
+        $flights = Flight::all();
+
+        return view('reserves.create', [
+            'passengers' => $passengers,
+            'flights' => $flights,
+        ]);
     }
 
     // show e edit

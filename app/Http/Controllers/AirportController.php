@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\State;
 use App\Airport;
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -12,7 +14,7 @@ class AirportController extends Controller
     {
         $airports = Airport::all();
 
-        return view('airports', compact('airports'));
+        return view('airports.index', compact('airports'));
     }
 
     public function store(Request $request)
@@ -31,6 +33,17 @@ class AirportController extends Controller
         }
 
         return response()->json('Aeroporto adicionado com sucesso', 200);
+    }
+
+    public function create()
+    {
+        $countries = Country::all();
+        $states = State::all();
+
+        return view('airports.create', [
+            'countries' => $countries,
+            'states' => $states,
+        ]);
     }
 
     // show e edit
