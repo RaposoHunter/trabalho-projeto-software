@@ -5,7 +5,7 @@
 @endpush
 
 @push('css')
-	
+
 @endpush
 
 @section('container')
@@ -48,7 +48,7 @@
 					</tr>
 				@endforeach
 			</tbody>
-		
+
 		</table>
 	</div>
 
@@ -63,7 +63,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					
+
 					<div class="modal-body">
 						<div class="row ml-1 mb-2">
 							Código:&nbsp;<span id="eqpt-show-CD_EQPT"></span>
@@ -83,7 +83,7 @@
 						<div class="row ml-1">
 							Qtd. de Passageiros:&nbsp;<span id="eqpt-show-QT_PSGR"></span>
 						</div>
-							
+
 						{{-- NOTE: Pensar em adicionar, talvez, mais informações como "número de aeronaves/companhias aéreas que usam este equipamento... --}}
 
 					</div>
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		{{-- UPDATE --}}
 		<div class="modal fade vb-event-container" id="eqptUpdateModal" tabindex="-1" role="dialog" aria-labelledby="eqptUpdateModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -105,7 +105,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					
+
 					<div class="modal-body">
 						<div class="row">
 
@@ -157,7 +157,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
-					
+
 					<div class="modal-body">
 						<h5>Deseja realmente apagar o equipamento <em id="eqpt-delete-code-em"></em>?</h5>
 					</div>
@@ -189,14 +189,14 @@
 				url: `/equipamentos/${id}`,
 				success: res => {
 					$('#eqpt-show-code').html(res.CD_EQPT);
-					
+
 					$('#eqpt-show-CD_EQPT').html(res.CD_EQPT);
 					$('#eqpt-show-NM_EQPT').html(res.NM_EQPT);
 					$('#eqpt-show-DC_TIPO_EQPT').html(res.DC_TIPO_EQPT);
 					$('#eqpt-show-QT_MOTOR').html(res.QT_MOTOR);
 					$('#eqpt-show-IC_TIPO_PRPS').html(res.IC_TIPO_PRPS);
 					$('#eqpt-show-QT_PSGR').html(res.QT_PSGR);
-					
+
 					$('#eqptShowModal').modal('show');
 				},
 				error: err => {
@@ -229,14 +229,14 @@
 				url: `/equipamentos/${id}`,
 				success: res => {
 					$('#eqpt-edit-code').html(res.CD_EQPT);
-					
+
 					$('input#CD_EQPT').val(res.CD_EQPT);
 					$('input[name=NM_EQPT]').val(res.NM_EQPT);
 					$('input[name=DC_TIPO_EQPT]').val(res.DC_TIPO_EQPT);
 					$('input[name=QT_MOTOR]').val(res.QT_MOTOR);
 					$('select[name=IC_TIPO_PRPS]').val(res.IC_TIPO_PRPS);
 					$('input[name=QT_PSGR]').val(res.QT_PSGR);
-					
+
 					$('.eqpt-edit-submit').attr('data-id', res.CD_EQPT);
 
 					$('#eqptUpdateModal').modal('show');
@@ -267,7 +267,7 @@
 					IC_TIPO_PRPS: $('select[name=IC_TIPO_PRPS]').val(),
 					QT_PSGR: $('input[name=QT_PSGR]').val(),
 				},
-				success: res => {				
+				success: res => {
 					$('#eqptUpdateModal').modal('hide');
 
 					toastr.success(res.message);
@@ -325,7 +325,7 @@
 					'_token': $('meta[name=csrf-token]').attr('content'),
 					'_method': 'DELETE',
 				},
-				success: res => {				
+				success: res => {
 					$('#eqptDeleteModal').modal('hide');
 					$(`tr[data-id=${id}]`).remove()
 

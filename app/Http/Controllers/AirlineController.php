@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Country;
+use App\Airline;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -57,7 +58,7 @@ class AirlineController extends Controller
         if(!$airline = Airline::find($id)) {
             return response()->json('Esta companhia aérea não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();
