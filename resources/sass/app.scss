@@ -1,6 +1,9 @@
 // sass --watch resources/sass/app.scss:public/css/style.css
 @import 'variables';
 @import 'metronic';
+@import 'table';
+@import 'button';
+@import 'form';
 @import 'home';
 
 *{
@@ -19,11 +22,11 @@ html{
 body{
     -webkit-font-smoothing: antialiased;
 }
-body, input, textarea, button{
+body {
     font-family: 'Mulish SemiBold', sans-serif !important;
     font-weight: normal;
 }
-h1, h2, h3, h4, h5, h6{
+h1, h2, h3, h4, h5, h6, button{
     color: $black;
     font-weight: normal;
     font-family: 'Mulish Bold', sans-serif !important;

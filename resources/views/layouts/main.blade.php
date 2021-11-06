@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <title>@yield('title')</title>
-    <meta name="description" content="Accordion examples">
+    <meta name="description" content="Voe bem">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
     {{-- FONT IMPORT --}}
@@ -18,6 +18,8 @@
     <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
+
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{{ asset('assets/demo/default/media/img/logo/logo.svg') }}" />
@@ -194,7 +196,9 @@
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/jquery.slim.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/select.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('mask/dist/jquery.mask.min.js') }}" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     @stack('js')
 
     <!--end::Base Scripts -->
