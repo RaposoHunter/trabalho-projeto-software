@@ -12,6 +12,9 @@
     &.btn-blue{
         background-color: $blue-2;
     }
+    &.btn-red{
+        background-color: $red;
+    }
     transition: filter 0.2s;
     &:hover{
         filter: brightness(0.9);

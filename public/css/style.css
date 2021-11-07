@@ -99,6 +99,9 @@ table tbody .icon:hover {
 .btn-default.btn-blue {
   background-color: #007BFF;
 }
+.btn-default.btn-red {
+  background-color: #DC3545;
+}
 .btn-default:hover {
   filter: brightness(0.9);
 }
@@ -360,6 +363,34 @@ table tbody .icon:hover {
 }
 .main-container .main-card ul .second-li .link-number {
   margin-left: auto;
+}
+
+.modal .modal-dialog {
+  margin-top: 12rem;
+}
+.modal .modal-dialog .modal-content-delete {
+  height: 260px;
+  width: 500px;
+  border-radius: 12px;
+}
+.modal .modal-dialog .modal-content-delete .modal-header-delete {
+  position: relative;
+  padding: 20px 25px;
+  border-bottom: 3px solid #3751FF;
+}
+.modal .modal-dialog .modal-content-delete .modal-header-delete h5 {
+  font-size: 22px;
+}
+.modal .modal-dialog .modal-content-delete .modal-body .modal-text {
+  font-size: 20px;
+  font-family: "Mulish Regular", Arial, Helvetica, sans-serif;
+}
+.modal .modal-dialog .modal-content-delete .modal-body .btn-div {
+  margin-top: 4.75rem;
+}
+.modal .modal-dialog .modal-content-delete .modal-body .btn-div .btn-default {
+  border-radius: 12px;
+  width: 100px;
 }
 
 * {

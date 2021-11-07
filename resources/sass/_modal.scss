@@ -1,0 +1,31 @@
+.modal {
+    .modal-dialog {
+        margin-top: 12rem;
+        .modal-content-delete {
+            height: 260px;
+            width: 500px;
+            border-radius: 12px;
+            .modal-header-delete {
+                position: relative;
+                padding: 20px 25px;
+                border-bottom: 3px solid $blue;
+                h5 {
+                    font-size: 22px;
+                }
+            }
+            .modal-body {
+                .modal-text {
+                    font-size: 20px;
+                    font-family: "Mulish Regular", Arial, Helvetica, sans-serif;
+                }
+                .btn-div {
+                    margin-top: 4.75rem;
+                    .btn-default {
+                        border-radius: 12px;
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+}

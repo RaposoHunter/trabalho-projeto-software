@@ -40,10 +40,32 @@
                     </tbody>
                 </table>
             </div>
-
         </div>
+    </div>
+    {{-- DELETE --}}
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-delete" role="document">
+            <div class="modal-content modal-content-delete">
+                <div class="modal-header-delete text-white">
+                    <h5 class="modal-title" id="deleteModalLabel">
+                        Deletar linha de Reservas
+                    </h5>
+                </div>
 
+                <div class="modal-body">
+                    <p class="modal-text">
+                        Deseja realmente deletar a Reserva
+                        <span id="delete-code-em"></span>?
+                    </p>
+                    <div class="btn-div d-flex justify-content-end">
+                        <button type="button" class="delete-dismiss btn-default btn-red" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
+                    </div>
+                </div>
 
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -54,6 +76,9 @@
                 language: {
                     url: 'http://projeto.software/js/datatable.json'
                 }
+            });
+            $('.delete-dismiss').on('click', function(){
+                $('#deleteModal').modal('hide');
             });
         });
     </script>

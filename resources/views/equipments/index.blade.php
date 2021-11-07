@@ -28,30 +28,31 @@
                     </thead>
                     <tbody>
                         @foreach ($equipments as $equipment)
-                        <td class="first-column" data-id="{{ $equipment->CD_EQPT }}" data-index="CD_EQPT">
-                            {{ $equipment->CD_EQPT ?? '---' }}</td>
-                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="NM_EQPT">{{ $equipment->NM_EQPT ?? '---' }}
-                        </td>
-                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">
-                            {{ $equipment->DC_TIPO_EQPT ?? '---' }}</td>
-                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_MOTOR">
-                            {{ $equipment->QT_MOTOR ?? '---' }}
-                        </td>
-                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="IC_TIPO_PRPS">
-                            {{ $equipment->IC_TIPO_PRPS ?? '---' }}</td>
-                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_PSGR">
-                            {{ $equipment->QT_PSGR ?? '---' }}
-                        </td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-edit eqpt-edit">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-delete eqpt-delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                            <td class="first-column" data-id="{{ $equipment->CD_EQPT }}" data-index="CD_EQPT">
+                                {{ $equipment->CD_EQPT ?? '---' }}</td>
+                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="NM_EQPT">
+                                {{ $equipment->NM_EQPT ?? '---' }}
+                            </td>
+                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">
+                                {{ $equipment->DC_TIPO_EQPT ?? '---' }}</td>
+                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_MOTOR">
+                                {{ $equipment->QT_MOTOR ?? '---' }}
+                            </td>
+                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="IC_TIPO_PRPS">
+                                {{ $equipment->IC_TIPO_PRPS ?? '---' }}</td>
+                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_PSGR">
+                                {{ $equipment->QT_PSGR ?? '---' }}
+                            </td>
+                            <td class="last-column">
+                                <div class="d-flex justify-content-center">
+                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-edit eqpt-edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-delete delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
                         @endforeach
                     </tbody>
                 </table>
@@ -115,26 +116,27 @@
         </div>
 
         {{-- DELETE --}}
-        <div class="modal fade " id="eqptDeleteModal" tabindex="-1" role="dialog" aria-labelledby="eqptDeleteModalLabel"
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title" id="eqptDeleteModalLabel">Visualizando equipamento <strong
-                                id="eqpt-delete-code">---</strong></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            <div class="modal-dialog modal-dialog-delete" role="document">
+                <div class="modal-content modal-content-delete">
+                    <div class="modal-header-delete text-white">
+                        <h5 class="modal-title" id="deleteModalLabel">
+                            Deletar linha de Equipamentos
+                        </h5>
                     </div>
 
                     <div class="modal-body">
-                        <h5>Deseja realmente apagar o equipamento <em id="eqpt-delete-code-em"></em>?</h5>
+                        <p class="modal-text">
+                            Deseja realmente deletar a Companhia Aérea
+                            <span id="delete-code-em"></span>?
+                        </p>
+                        <div class="btn-div d-flex justify-content-end">
+                            <button type="button" class="delete-dismiss btn-default btn-red">Cancelar</button>
+                            <button type="button" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
+                        </div>
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                        <button data-id="" type="button" class="eqpt-delete-submit  btn btn-danger">Sim, deletar</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -229,7 +231,7 @@
             // EVENTOS RELACIONADOS COM O UPDATE - END
 
             // EVENTOS RELACIONADOS COM O DELETE - BEGIN
-            $('.eqpt-delete').on('click', function() {
+            $('.delete').on('click', function() {
                 console.log(10);
                 const id = this.dataset.id;
 
@@ -238,14 +240,14 @@
                     return;
                 }
 
-                $('#eqpt-delete-code').html(id);
-                $('#eqpt-delete-code-em').html(id);
-                $('.eqpt-delete-submit').attr('data-id', id);
+                $('#delete-code').html(id);
+                $('#delete-code-em').html(id);
+                $('.delete-submit').attr('data-id', id);
 
-                $('#eqptDeleteModal').modal('show');
+                $('#deleteModal').modal('show');
             });
 
-            $('.eqpt-delete-submit').on('click', function() {
+            $('.delete-submit').on('click', function() {
                 const id = this.dataset.id;
 
                 if (!id) {
@@ -261,7 +263,7 @@
                         '_method': 'DELETE',
                     },
                     success: res => {
-                        $('#eqptDeleteModal').modal('hide');
+                        $('#deleteModal').modal('hide');
                         $(`tr[data-id=${id}]`).remove()
 
                         toastr.success(res);
@@ -273,11 +275,15 @@
                 });
             });
 
-            $('#eqptDeleteModal').on('hidden.bs.modal', function() {
-                $('#eqpt-delete-code').html('');
-                $('#eqpt-delete-code-em').html('');
-                $('.eqpt-delete-submit').attr('data-id', '');
+            $('#deleteModal').on('hidden.bs.modal', function() {
+                $('#delete-code').html('');
+                $('#delete-code-em').html('');
+                $('.delete-submit').attr('data-id', '');
             });
+
+            $('.delete-dismiss').on('click', function(){
+                $('#deleteModal').modal('hide')
+            })
             // EVENTOS RELACIONADOS COM O DELETE - END
         });
     </script>
