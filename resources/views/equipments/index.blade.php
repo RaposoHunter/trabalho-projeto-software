@@ -45,10 +45,10 @@
                             </td>
                             <td class="last-column">
                                 <div class="d-flex justify-content-center">
-                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-edit eqpt-edit">
+                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-edit eqpt-edit" data-toggle="modal" data-target="#editModal">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-delete delete">
+                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-delete delete" data-toggle="modal" data-target="#deleteModal">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -128,13 +128,71 @@
 
                     <div class="modal-body">
                         <p class="modal-text">
-                            Deseja realmente deletar a Companhia Aérea
+                            Deseja realmente deletar o Equipamento
                             <span id="delete-code-em"></span>?
                         </p>
                         <div class="btn-div d-flex justify-content-end">
                             <button type="button" class="delete-dismiss btn-default btn-red">Cancelar</button>
                             <button type="button" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
                         </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{-- EDITAR --}}
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content modal-content-default">
+                    <div class="modal-header-default text-white">
+                        <h5 class="modal-title" id="editModalLabel">
+                            Editar tabela de Equipamentos
+                        </h5>
+                    </div>
+
+                    <div class="modal-body">
+                        <form action="">
+                            @csrf
+                            <div class="form-row">
+                                <div class="col-md-6 px-5 my-2 my-md-4">
+                                    <label class="register-label" for="">Nome do Equipamento</label>
+                                    <input class="register-input" type="text" placeholder="Insira o nome do equipamento">
+                                </div>
+                                <div class="col-md-6 px-5 my-2 my-md-4">
+                                    <label class="register-label" for="">Código do Equipamento</label>
+                                    <input class="register-input" type="text" placeholder="Insira o código do equipamento">
+                                </div>
+                                <div class="col-md-6 px-5 my-2 my-md-4">
+                                    <label class="register-label" for="">Selecione o Tipo do Equipamento</label>
+                                    <div class="custom-select-2">
+                                        <select class="register-input" name="">
+                                            <option value="">Selecione o tipo do equipamento</option>
+                                            <option value="O">xd</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 px-5 my-2 my-md-4">
+                                    <label class="register-label" for="">Descrição do Tipo</label>
+                                    <input class="register-input" type="text" placeholder="Insira a descrição do tipo">
+                                </div>
+                                <div class="col-md-6 px-5 my-2 my-md-4">
+                                    <label class="register-label" for="">Quantidade de Passageiros</label>
+                                    <input class="register-input" type="text"
+                                        placeholder="Insira a quantidade de passageiros">
+                                </div>
+                                <div class="col-md-6 px-5 my-2 my-md-4">
+                                    <label class="register-label" for="">Quantidade de Motores</label>
+                                    <input class="register-input" type="text" placeholder="Insira a quantidade de motores">
+                                </div>
+                            </div>
+
+                            <div class="btn-div d-flex justify-content-end">
+                                <button type="button" class="delete-dismiss btn-default btn-red"
+                                    data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="delete-submit btn-default btn-blue ml-4">Editar</button>
+                            </div>
+                        </form>
                     </div>
 
                 </div>
@@ -281,7 +339,7 @@
                 $('.delete-submit').attr('data-id', '');
             });
 
-            $('.delete-dismiss').on('click', function(){
+            $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide')
             })
             // EVENTOS RELACIONADOS COM O DELETE - END

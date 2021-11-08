@@ -26,7 +26,6 @@
                         <label class="register-label" for="">Valor da Passagem</label>
                         <input class="register-input" type="text" placeholder="Insira o código do aeroporto de origem">
                     </div>
-
                 </div>
                 <div class="d-flex justify-content-end mt-4">
                     <button type="reset" class="btn-default btn-blue ml-2 mr-4">Limpar</button>

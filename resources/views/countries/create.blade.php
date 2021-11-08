@@ -14,13 +14,14 @@
             <form action="">
                 @csrf
                 <div class="form-row">
-                    <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Nome do País</label>
-                        <input class="register-input" type="text" placeholder="Insira o nome do país">
-                    </div>
+
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do País</label>
                         <input class="register-input" type="text" placeholder="Insira o código do país">
+                    </div>
+                    <div class="col-md-6 px-5 my-2 my-md-4">
+                        <label class="register-label" for="">Nome do País</label>
+                        <input class="register-input" type="text" placeholder="Insira o nome do país">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">População do País</label>
