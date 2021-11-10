@@ -27,10 +27,10 @@ class AirlineController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de uma Companhia Aérea: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de uma Companhia Aérea: '.$e->getMessage());
         }
 
-        return response()->json('Companhia aérea adicionada com sucesso', 200);
+        return redirect()->route('airlines.index')->with('success', 'Companhia aérea cadastrada com sucesso!');
     }
 
     public function create()
