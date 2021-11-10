@@ -1,78 +1,209 @@
 <!DOCTYPE html>
+
 <html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Laravel') }} | Home</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ asset('css/fontawesome/css/font-awesome.min.css') }}"> 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-        
-        @stack('css')
 
-        <style>
-            * {
-                font-family: Arial, Helvetica, sans-serif;
-            }
+<!-- begin::Head -->
 
-            td {
-                text-align: center;
-            }
+<head>
+    <meta charset="utf-8" />
+    <title>@yield('title')</title>
+    <meta name="description" content="Voe bem">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
 
-            a {
-                width: 15%;
-                text-decoration: none;
-            }
+    {{-- FONT IMPORT --}}
+    <link href="{{ asset('font/style.css') }}" rel="stylesheet">
 
-            a:hover {
-                width: 15%;
-                text-decoration: none;
-            }
+    <!--begin::Base Styles -->
+    <link href="{{ asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" rel="stylesheet">
 
-            #sidebar ul {
-                list-style-type: none;
-                padding: 0;
-            }
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <!--end::Base Styles -->
+    <link rel="shortcut icon" href="{{ asset('assets/demo/default/media/img/logo/logo.svg') }}" />
 
-            .sidebar-link {
-                cursor: pointer;
-                width: 15%;
-                min-width: 129px;
-                padding: 0.5em;
-            }
+</head>
 
-            .sidebar-link:hover {
-                background: rgb(245, 245, 245);
-            }
-        </style>
-    </head>
-    <body>
-        <div id="sidebar">
-            <ul>
-                <a href="{{ route('index') }}"><li data-id="home" class="sidebar-link">Home</li></a>
-                <a href="{{ route('passengers.index') }}"><li data-id="passageiros" class="sidebar-link">Passageiros</li></a>
-                <a href="{{ route('flights.index') }}"><li data-id="voos" class="sidebar-link">Vôos</li></a>
-                <a href="{{ route('airports.index') }}"><li data-id="aeroportos" class="sidebar-link">Aeroportos</li></a>
-                <a href="{{ route('airships.index') }}"><li data-id="aeronaves" class="sidebar-link">Aeronaves</li></a>
-                <a href="{{ route('airlines.index') }}"><li data-id="companhias-aereas" class="sidebar-link">C. Aéreas</li></a>
-                <a href="{{ route('countries.index') }}"><li data-id="paises" class="sidebar-link">Países</li></a>
-                <a href="{{ route('states.index') }}"><li data-id="estados" class="sidebar-link">UFs</li></a>
-                <a href="{{ route('equipments.index') }}"><li data-id="equipamentos" class="sidebar-link">Equipamentos</li></a>
-                <a href="{{ route('flightroutes.index') }}"><li data-id="rotas-de-voo" class="sidebar-link">Rotas de Vôo</li></a>
-                <a href="{{ route('reserves.index') }}"><li data-id="reservas" class="sidebar-link">Reservas</li></a>
-            </ul>
+<!-- end::Head -->
+
+<!-- begin::Body -->
+
+<body class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed page-loading"
+    cz-shortcut-listen="false">
+
+    <!-- begin:: Page -->
+    <div class="m-grid m-grid--hor m-grid--root m-page">
+
+        <!-- BEGIN: Header -->
+        <header id="m_header" class="m-grid__item m-header ">
+            <div class="m-container m-container--fluid m-container--full-height">
+                <div class="m-stack m-stack--ver m-stack--desktop">
+
+                    <!-- BEGIN: Brand -->
+                    <div class="m-stack__item m-brand" style="background: #363740 !important">
+                        <div class="m-stack m-stack--ver m-stack--general">
+                            <div class="m-stack__item m-stack__item--middle m-brand__logo">
+                                <a href="{{ route('index') }}" class="m-brand__logo-wrapper">
+                                    <img alt="" src="{{ asset('assets/demo/default/media/img/logo/voe-bem.svg') }}" />
+                                </a>
+                            </div>
+                            <div class="m-stack__item m-stack__item--middle m-brand__tools">
+                                <!-- BEGIN: Responsive Aside Left Menu Toggler -->
+                                <a href="javascript:;" id="m_aside_left_offcanvas_toggle"
+                                    class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
+                                    <span></span>
+                                </a>
+
+                                <!-- END -->
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END: Brand -->
+                    <div class="m-stack__item m-stack__item--fluid m-header-head" id="m_header_nav"
+                        style="background: #F7F8FC !important; box-shadow:none">
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- END: Header -->
+
+        <!-- begin::Body -->
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-body">
+
+            <!-- BEGIN: Left Aside -->
+            <button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn">
+                <i class="la la-close"></i>
+            </button>
+            <div id="m_aside_left" class="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+
+                <!-- BEGIN: Aside Menu -->
+                <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark" m-menu-vertical="1"
+                    m-menu-scrollable="1" m-menu-dropdown-timeout="500"
+                    style="position: relative;background: #363740 !important">
+                    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/home.svg') }}" alt="">
+                                <span class="m-menu__link-text menu-span">Home</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('passengers.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/passengers.svg') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Passageiros</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('flights.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/flights.svg')}}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Voos</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('airports.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/airports.svg') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Aeroportos</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('airships.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/airplanes.svg') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Aeronaves</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('airlines.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/airlines.svg')}}" alt="">
+
+                                <span class="m-menu__link-text menu-span">C. Aéreas</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('countries.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/country.svg')}}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Países</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('states.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/states.svg') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">UFs</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('equipments.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/equipments.svg') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Equipamento</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('flightroutes.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/rotes.png') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Rotas de Voos</span>
+
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a href="{{ route('reserves.index') }}" class="m-menu__link ">
+                                <img src="{{ asset('images/side-icons/reserves.svg') }}" alt="">
+
+                                <span class="m-menu__link-text menu-span">Reservas</span>
+
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <!-- END: Aside Menu -->
+            </div>
+            <!-- END: Left Aside -->
+
+            <div class="m-grid__item m-grid__item--fluid m-wrapper" style="background: #F7F8FC !important">
+                @yield('container')
+            </div>
         </div>
 
-        <div id="container" class="content">
-            @yield('container')
-        </div>
-    </body>
+        <!-- end:: Body -->
+    </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script>
+    <!-- end:: Page -->
 
-    </script>
+    <!--begin::Base Scripts -->
+
+    <script src="{{ asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/select.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('mask/dist/jquery.mask.min.js') }}" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     @stack('js')
+
+    <!--end::Base Scripts -->
+</body>
+
+<!-- end::Body -->
+
 </html>

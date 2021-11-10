@@ -1,0 +1,70 @@
+.blue-card {
+    border-top: 5px solid $blue !important;
+}
+table {
+    font-family: "Mulish Bold", Arial, Helvetica, sans-serif;
+    thead {
+        .first-column {
+            padding-left: 2rem !important;
+        }
+        .last-column {
+            width: 100px !important;
+        }
+    }
+    tbody {
+        .first-column {
+            padding-left: 2rem !important;
+        }
+        td {
+            padding: 10px 18px !important;
+        }
+        .icon {
+            border: none;
+            background: transparent;
+            margin: 0 0.5rem;
+            i {
+                font-size: 22px;
+            }
+
+            &.icon-edit {
+                i {
+                    color: $light-blue;
+                }
+            }
+            &.icon-delete {
+                i {
+                    color: $red;
+                }
+            }
+            transition: filter 0.2s;
+            transition: transform 0.2s;
+            &:hover {
+                filter: brightness(0.9);
+                transform: scale(1.05);
+            }
+        }
+    }
+}
+.dataTables_wrapper {
+    font-family: "Mulish Bold", Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+.dataTables_length {
+    padding: 1.25rem 2rem;
+    label {
+        margin-bottom: 0;
+    }
+}
+.dataTables_filter {
+    padding: 1.25rem 0;
+    padding-right: 4rem;
+    label {
+        margin-bottom: 0;
+    }
+}
+.paging_simple_numbers {
+    padding: 1.25rem 2rem;
+}
+.dataTables_info {
+    padding: 1.25rem 2rem;
+}

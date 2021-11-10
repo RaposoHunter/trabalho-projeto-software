@@ -1,0 +1,14 @@
+.menu-span{
+    font-size: 16px !important;
+    padding-left: 3.5rem !important;
+}
+.m-aside-left.m-aside-left--skin-dark, .m-aside-left-close.m-aside-left-close--skin-dark{
+    background-color: $nav-background;
+}
+
+.m-brand .m-brand__tools .m-brand__toggler.m-brand__toggler--left span,.m-brand .m-brand__tools .m-brand__toggler.m-brand__toggler--left span:before, .m-brand .m-brand__tools .m-brand__toggler span::before, .m-brand .m-brand__tools .m-brand__toggler span::after{
+    background-color: $purple;
+}
+.m-grid.m-grid--hor:not(.m-grid--desktop):not(.m-grid--desktop-and-tablet):not(.m-grid--tablet):not(.m-grid--tablet-and-mobile):not(.m-grid--mobile)>.m-grid__item.m-grid__item--fluid, .m-grid.m-grid--hor:not(.m-grid--desktop):not(.m-grid--desktop-and-tablet):not(.m-grid--tablet):not(.m-grid--tablet-and-mobile):not(.m-grid--mobile)>.m-grid__item.m-grid__item--fluid-general{
+    background-color: $background;
+}
