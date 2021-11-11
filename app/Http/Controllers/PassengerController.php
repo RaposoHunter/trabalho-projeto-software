@@ -19,6 +19,7 @@ class PassengerController extends Controller
     public function store(Request $request)
     {
         // TODO: Tratativa dos inputs
+        /* ME CONSERTA */
         try {
             DB::beginTransaction();
 
@@ -28,10 +29,10 @@ class PassengerController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de um Passageiro: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de um Passageiro: '.$e->getMessage());
         }
+        return redirect()->route('passengers.index')->with('success', 'Passageiro adicionado com sucesso!');
 
-        return response()->json('Passageiro adicionado com sucesso', 200);
     }
 
     public function create()
@@ -60,7 +61,7 @@ class PassengerController extends Controller
         if(!$passenger = Passenger::find($id)) {
             return response()->json('Este passageiro não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

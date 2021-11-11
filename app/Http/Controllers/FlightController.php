@@ -28,11 +28,10 @@ class FlightController extends Controller
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
-
-            return response()->json('Erro na adição de um Vôo: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de um Vôo: '.$e->getMessage());
         }
 
-        return response()->json('Vôo adicionado com sucesso', 200);
+        return redirect()->route('flights.index')->with('success', 'Vôo adicionado com sucesso!');
     }
 
     public function create()
@@ -61,7 +60,7 @@ class FlightController extends Controller
         if(!$flight = Flight::find($id)) {
             return response()->json('Este vôo não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

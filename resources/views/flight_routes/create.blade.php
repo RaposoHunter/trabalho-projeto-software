@@ -11,20 +11,20 @@
         <h1 class="page-title">Cadastro de Rotas de Voos</h1>
 
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{route('flightroutes.store')}}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Aeroporto de Origem</label>
-                        <input class="register-input" type="text" placeholder="Insira o código do aeroporto de origem">
+                        <input class="register-input" type="text" name="CD_ARPT_ORIG" placeholder="Insira o código do aeroporto de origem">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Aeroporto de Destino</label>
-                        <input class="register-input" type="text" placeholder="Insira o código do aeroporto de destino">
+                        <input class="register-input" type="text" name="CD_ARPT_DEST" placeholder="Insira o código do aeroporto de destino">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Valor da Passagem</label>
-                        <input class="register-input" type="text" placeholder="Insira o código do aeroporto de origem">
+                        <input class="register-input" type="text" name="VR_PASG" placeholder="Insira o código do aeroporto de origem">
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">

@@ -16,12 +16,12 @@
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código da Aeronave</label>
-                        <input class="register-input" type="text" placeholder="Insira o código da aeronave">
+                        <input class="register-input" type="text" name="CD_ARNV" placeholder="Insira o código da aeronave">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código da Companhia Aérea</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="CMPN_AEREA">
                                 <option value="">Selecione código da companhia aérea</option>
                                 <option value="O">xd</option>
                             </select>
@@ -30,7 +30,7 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Equipamento</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="CD_EQPT">
                                 <option value="">Selecione código do equipamento</option>
                                 <option value="O">xd</option>
                             </select>

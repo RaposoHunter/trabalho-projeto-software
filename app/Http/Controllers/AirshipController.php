@@ -29,10 +29,10 @@ class AirshipController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de uma Aeronave: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de uma Aeronave: '.$e->getMessage());
         }
 
-        return response()->json('Aeronave adicionada com sucesso', 200);
+        return redirect()->route('airlines.index')->with('success', 'Aeronave adicionada com sucesso!');
     }
 
     public function create()
@@ -61,7 +61,7 @@ class AirshipController extends Controller
         if(!$airship = Airship::find($id)) {
             return response()->json('Esta aeronave não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

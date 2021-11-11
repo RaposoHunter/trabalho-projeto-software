@@ -27,10 +27,10 @@ class StateController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de um estado: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de um estado: '.$e->getMessage());
         }
+        return redirect()->route('states.index')->with('success', 'Estado adicionado com sucesso!');
 
-        return response()->json('Estado adicionado com sucesso', 200);
     }
 
     public function create()
@@ -53,7 +53,7 @@ class StateController extends Controller
         if(!$state = State::find($id)) {
             return response()->json('Este estado não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

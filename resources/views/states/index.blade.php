@@ -15,6 +15,7 @@
 
         <div class="main-card blue-card">
             <div class="table-responsive">
+
                 <table id="table-id" class="table table-stripped dt-bootstrap5">
                     <thead>
                         <th class="first-column">Nome do estado</th>
@@ -22,20 +23,26 @@
                         <th class="last-column">Ações</th>
                     </thead>
                     <tbody>
-                        <td class="first-column">Rio de Janeiro</td>
-                        <td>RJ</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($states as $state)
+                            <tr>
+                                <td class="first-column" data-id="{{ $state->NM_UF }}" data-index="NM_UF">
+                                    {{ $state->NM_UF }}</td>
+                                <td data-id="{{ $state->SG_UF }}" data-index="SG_UF">{{ $state->SG_UF }}</td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
     </div>

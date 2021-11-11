@@ -22,22 +22,28 @@
                         <th class="first-column">Cód. do Passageiro</th>
                         <th>N° do Voo</th>
                         <th>Data de saída</th>
+                        <th>Desconto da Passagem</th>
                         <th class="last-column">Ações</th>
                     </thead>
                     <tbody>
-                        <td class="first-column">01</td>
-                        <td>45</td>
-                        <td>28/12/2000</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($reserves as $reserve)
+                            <tr>
+                                <td class="first-column">{{$reserves->CD_PSGR}}</td>
+                                <td>{{$reserves->NR_VOO}}</td>
+                                <td>{{$reserves->DT_SAIDA_VOO}}</td>
+                                <td>{{$reserves->PC_DESC_PASG}}</td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

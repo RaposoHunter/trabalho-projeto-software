@@ -11,22 +11,17 @@
         <h1 class="page-title">Cadastro de Aeroportos</h1>
 
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{route('airports.store')}}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Código da Aeroporto</label>
-                        <div class="custom-select-2">
-                            <select class="register-input" name="">
-                                <option value="">Selecione o código do país</option>
-                                <option value="M">xd</option>
-                            </select>
-                        </div>
+                        <label class="register-label" for="">Código do Aeroporto</label>
+                        <input class="register-input" type="text" name="CD_ARPT" placeholder="Insira o código do aeroporto">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do País</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="CD_PAIS">
                                 <option value="">Selecione o código do país</option>
                                 <option value="O">xd</option>
                             </select>
@@ -35,7 +30,7 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Unidade Federativa</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="SG_UF">
                                 <option value="">Selecione sua unidade federativa</option>
                                 <option value="O">xd</option>
                             </select>
@@ -44,7 +39,7 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Cidade</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="NM_CIDD">
                                 <option value="">Selecione a Cidade</option>
                                 <option value="O">xd</option>
                             </select>

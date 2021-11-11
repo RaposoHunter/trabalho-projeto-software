@@ -27,10 +27,10 @@ class EquipmentController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de um Equipamento: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de um Equipamento: '.$e->getMessage());
         }
 
-        return response()->json('Equipamento adicionado com sucesso', 200);
+        return redirect()->route('equipments.index')->with('success', 'Equipamento adicionado com sucesso!');
     }
 
     public function create()
@@ -75,7 +75,7 @@ class EquipmentController extends Controller
         if(!$equipment = Equipment::find($id)) {
             return response()->json('Este equipamento não existe! Tente recarregar a página.', 404);
         }
-   
+
         try {
             DB::beginTransaction();
 
@@ -84,7 +84,7 @@ class EquipmentController extends Controller
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
-            
+
             $message = $e->getCode() == 23000 ? "Existem {$equipment->airships->count()} aeronaves que utilizam este equipamento. Você deve apagá-las primeiro." : $e->getMessage();
 
             return response()->json("Erro na exclusão do Equipamento {$id}: ".$message, 500);

@@ -28,10 +28,9 @@ class FlightRouteController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de uma Rota de Vôo: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de uma Rota de Vôo: '.$e->getMessage());
         }
-
-        return response()->json('Rota de Vôo adicionada com sucesso', 200);
+        return redirect()->route('flightroutes.index')->with('success', 'Rota de Vôo adicionada com sucesso!');
     }
 
     public function create()
@@ -58,7 +57,7 @@ class FlightRouteController extends Controller
         if(!$flight_route = FlightRoute::find($id)) {
             return response()->json('Esta rota de vôo não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

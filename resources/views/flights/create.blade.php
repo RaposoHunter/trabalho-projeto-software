@@ -11,18 +11,19 @@
         <h1 class="page-title">Cadastro de Voo</h1>
 
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{route('flights.store')}}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">N° do Voo</label>
-                        <input class="register-input" type="text" placeholder="Insira o número do voo">
+                        <input class="register-input" name="NR_VOO" type="text" placeholder="Insira o número do voo">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">N° da Rota</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="NR_ROTA_VOO">
                                 <option value="">Selecione o número da rota</option>
+                                <option value="1">teste</option>
 
                             </select>
                         </div>
@@ -31,15 +32,16 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código da Aeronave</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="CD_ARNV">
                                 <option value="">Selecione o código da aeronave</option>
+                                <option value="1">teste</option>
 
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Data de Saída</label>
-                        <input class="register-input date" type="text" placeholder="Insira a data de saída">
+                        <input class="register-input date" type="text" name="DT_SAIDA_VOO" placeholder="Insira a data de saída">
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">

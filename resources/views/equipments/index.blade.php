@@ -62,58 +62,7 @@
     </div>
 
     <div id="modals">
-        {{-- UPDATE --}}
-        <div class="modal fade " id="eqptUpdateModal" tabindex="-1" role="dialog" aria-labelledby="eqptUpdateModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="eqptUpdateModalLabel">Editando equipamento <strong
-                                id="eqpt-edit-code">---</strong></h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
 
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <label>Cód.</label>
-                                <input class="form-control" type="text" id="CD_EQPT" disabled>
-                            </div>
-                            <div class="col-md-12">
-                                <label for="NM_EQPT">Nome</label>
-                                <input class="form-control" name="NM_EQPT" type="text" id="NM_EQPT">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="DC_TIPO_EQPT">Tipo</label>
-                                <input class="form-control" name="DC_TIPO_EQPT" type="text" id="DC_TIPO_EQPT">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="QT_MOTOR">Nº de motores</label>
-                                <input class="form-control" name="QT_MOTOR" type="number" id="QT_MOTOR" min="0">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="IC_TIPO_PRPS">Tipo de propulsor</label>
-                                <select class="form-control" name="IC_TIPO_PRPS" id="IC_TIPO_PRPS">
-                                    <option value="M">M</option>
-                                    <option value="R">R</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="QT_PSGR">Qtd. Passageiros</label>
-                                <input class="form-control" name="QT_PSGR" type="number" id="QT_PSGR" min="0">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Voltar</button>
-                        <button data-id="" type="button" class="eqpt-edit-submit  btn btn-primary">Editar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         {{-- DELETE --}}
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
@@ -157,16 +106,16 @@
                             <div class="form-row">
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Nome do Equipamento</label>
-                                    <input class="register-input" type="text" placeholder="Insira o nome do equipamento">
+                                    <input class="register-input" type="text" name="NM_EQPT" id="NM_EQPT" placeholder="Insira o nome do equipamento">
                                 </div>
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Código do Equipamento</label>
-                                    <input class="register-input" type="text" placeholder="Insira o código do equipamento">
+                                    <input class="register-input" type="text" id="CD_EQPT" disabled placeholder="Insira o código do equipamento">
                                 </div>
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Selecione o Tipo do Equipamento</label>
                                     <div class="custom-select-2">
-                                        <select class="register-input" name="">
+                                        <select class="register-input" name="DC_TIPO_EQPT" id="DC_TIPO_EQPT">
                                             <option value="">Selecione o tipo do equipamento</option>
                                             <option value="O">xd</option>
                                         </select>
@@ -178,19 +127,19 @@
                                 </div>
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Quantidade de Passageiros</label>
-                                    <input class="register-input" type="text"
+                                    <input class="register-input" name="QT_PSGR" type="number" id="QT_PSGR" min="0"
                                         placeholder="Insira a quantidade de passageiros">
                                 </div>
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Quantidade de Motores</label>
-                                    <input class="register-input" type="text" placeholder="Insira a quantidade de motores">
+                                    <input class="register-input" type="text" name="QT_MOTOR" id="QT_MOTOR" min="0" placeholder="Insira a quantidade de motores">
                                 </div>
                             </div>
 
                             <div class="btn-div d-flex justify-content-end">
                                 <button type="button" class="delete-dismiss btn-default btn-red"
                                     data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="delete-submit btn-default btn-blue ml-4">Editar</button>
+                                <button type="button" class="edit-submit btn-default btn-blue ml-4">Editar</button>
                             </div>
                         </form>
                     </div>
@@ -242,7 +191,7 @@
                 });
             });
 
-            $('.eqpt-edit-submit').on('click', function() {
+            $('.edit-submit').on('click', function() {
                 const id = this.dataset.id;
 
                 if (!id) {

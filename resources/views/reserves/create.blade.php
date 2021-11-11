@@ -16,12 +16,12 @@
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Passageiro</label>
-                        <input class="register-input" type="text" placeholder="Insira o código do passageiro">
+                        <input class="register-input" name="CD_PSGR" type="text" placeholder="Insira o código do passageiro">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">N° do Voo</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="NR_VOO">
                                 <option value="">Selecione o número do voo</option>
                                 <option value="M">Masculino</option>
                                 <option value="F">Feminino</option>
@@ -31,9 +31,12 @@
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Data de Saída</label>
-                        <input class="register-input" type="text" placeholder="Insira a data de saída">
+                        <input class="register-input" type="text" name="DT_SAIDA_VOO" placeholder="Insira a data de saída">
                     </div>
-
+                    <div class="col-md-6 px-5 my-2 my-md-4">
+                        <label class="register-label" for="">Desconto da Passagem</label>
+                        <input class="register-input descount" type="text" name="PC_DESC_PASG" placeholder="Insira o desconto da passagem">
+                    </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
                     <button type="reset" class="btn-default btn-blue ml-2 mr-4">Limpar</button>
@@ -53,6 +56,7 @@
                 $(this).find('.select-selected').addClass('select-item-black');
             });
             $('.date').mask('00/00/0000');
+            $('.descount').mask('99');
         });
     </script>
 

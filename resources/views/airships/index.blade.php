@@ -23,19 +23,23 @@
                         <th class="last-column">Ações</th>
                     </thead>
                     <tbody>
-                        <td class="first-column">01</td>
-                        <td>164</td>
-                        <td>48964</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($airships as $airship)
+                            <tr>
+                                <td class="first-column">{{$airship->CD_ARNV}}</td>
+                                <td>{{$airship->CMPN_AEREA}}</td>
+                                <td>{{$airship->CD_EQPT}}</td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

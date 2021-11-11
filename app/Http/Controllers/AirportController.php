@@ -29,10 +29,10 @@ class AirportController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de um Aeroporto: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de um Aeroporto: '.$e->getMessage());
         }
+        return redirect()->route('airlines.index')->with('success', 'Aeroporto adicionado com sucesso!');
 
-        return response()->json('Aeroporto adicionado com sucesso', 200);
     }
 
     public function create()
@@ -61,7 +61,7 @@ class AirportController extends Controller
         if(!$airport = Airport::find($id)) {
             return response()->json('Este aeroporto não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

@@ -24,19 +24,23 @@
                         <th class="last-column">Ações</th>
                     </thead>
                     <tbody>
-                        <td class="first-column">01</td>
-                        <td>Brasil</td>
-                        <td>202.000.000</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($countries as $country)
+                            <tr>
+                                <td class="first-column">{{$country->CD_PAIS}}</td>
+                                <td>{{$country->NM_PAIS}}</td>
+                                <td>{{$country->QT_PPLC_PAIS}}</td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

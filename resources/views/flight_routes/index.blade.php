@@ -24,21 +24,27 @@
                         <th>Valor da Passagem</th>
                         <th class="last-column">Ações</th>
                     </thead>
+
                     <tbody>
-                        <td class="first-column">01</td>
-                        <td>58</td>
-                        <td>65</td>
-                        <td>R$ 1.000,00</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($flight_routes as $flight_route)
+                            <tr>
+                                <td class="first-column">{{$flight_route->NR_ROTA_VOO}}</td>
+                                <td>{{$flight_route->CD_ARPT_ORIG}}</td>
+                                <td>{{$flight_route->CD_ARPT_DEST}}</td>
+                                <td>{{$flight_route->VR_PASG}}</td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+
                     </tbody>
                 </table>
             </div>

@@ -10,7 +10,7 @@
     <div class="main-container">
         <h1 class="page-title">Aeroportos</h1>
         <div class="d-flex justify-content-end">
-            <a href="{{route('airports.create')}}">
+            <a href="{{ route('airports.create') }}">
                 <button class="btn-default btn-green mr-4">Cadastrar</button>
             </a>
             <button class="btn-default btn-blue ml-2 mr-1">Filtrar</button>
@@ -27,20 +27,24 @@
                         <th class="last-column">Ações</th>
                     </thead>
                     <tbody>
-                        <td class="first-column">01</td>
-                        <td>54</td>
-                        <td>RJ</td>
-                        <td>Rio de Janeiro</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($airports as $airport)
+                        <tr>
+                            <td class="first-column">{{$airport->CD_ARPT}}</td>
+                            <td>{{$airport->CD_PAIS}}</td>
+                            <td>{{$airport->SG_UF}}</td>
+                            <td>{{$airport->NM_CIDD}}</td>
+                            <td class="last-column">
+                                <div class="d-flex justify-content-center">
+                                    <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -64,7 +68,8 @@
                         <span id="delete-code-em"></span>?
                     </p>
                     <div class="btn-div d-flex justify-content-end">
-                        <button type="button" class="delete-dismiss btn-default btn-red" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="delete-dismiss btn-default btn-red"
+                            data-dismiss="modal">Cancelar</button>
                         <button type="button" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
                     </div>
                 </div>
@@ -148,11 +153,10 @@
                 }
             });
 
-            $('.delete-dismiss').on('click', function(){
+            $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide')
             })
         });
     </script>
 
 @endpush
-

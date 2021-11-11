@@ -29,10 +29,10 @@ class ReserveController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de uma Reserva: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de uma Reserva: '.$e->getMessage());
         }
 
-        return response()->json('Reserva adicionada com sucesso', 200);
+        return redirect()->route('reserves.index')->with('success', 'Reserva adicionada com sucesso!');
     }
 
     public function create()
@@ -61,7 +61,7 @@ class ReserveController extends Controller
         if(!$reserve = Reserve::find($id)) {
             return response()->json('Esta reserva não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

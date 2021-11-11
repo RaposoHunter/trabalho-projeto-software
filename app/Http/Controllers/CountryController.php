@@ -27,10 +27,10 @@ class CountryController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json('Erro na adição de um País: '.$e->getMessage(), 500);
+            return back()->with('error', 'Erro na adição de um País: '.$e->getMessage());
         }
 
-        return response()->json('País adicionado com sucesso', 200);
+        return redirect()->route('countries.index')->with('success', 'País adicionado com sucesso!');
     }
 
     public function create()
@@ -53,7 +53,7 @@ class CountryController extends Controller
         if(!$country = Country::find($id)) {
             return response()->json('Este país não existe! Tente recarregar a página.', 404);
         }
-        
+
         // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();

@@ -28,23 +28,27 @@
                         <th class="last-column">Ações</th>
                     </thead>
                     <tbody>
-                        <td class="first-column">01</td>
-                        <td>Victor de Oliveira</td>
-                        <td>M</td>
-                        <td>28/12/2000</td>
-                        <td>18</td>
-                        <td>Solteiro</td>
-                        <td>Não</td>
-                        <td class="last-column">
-                            <div class="d-flex justify-content-center">
-                                <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
+                        @foreach ($passengers as $passenger)
+                            <tr>
+                                <td class="first-column">{{$passenger->CD_PSGR}}</td>
+                                <td>{{$passenger->NM_PSGR}}</td>
+                                <td>{{$passenger->IC_SEXO_PSGR}}</td>
+                                <td>{{$passenger->DT_NASC_PSGR}}</td>
+                                <td>{{$passenger->CD_PAIS}}</td>
+                                <td>{{$passenger->IC_ESTD_CIVIL}}</td>
+                                <td>{{$passenger->CD_PSGR_RESP}}</td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -172,6 +176,14 @@
                                         <div class="register-label ml-4">Sim</div>
                                     </div>
                                 </div>
+                                <div id="responsible-div" class="my-2 my-md-4 collapse">
+                                    <label class="register-label" for="">Selecione o Responsável</label>
+                                    <div class="custom-select-2">
+                                        <select class="register-input" name="">
+                                            <option value="">Selecione o responsável</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -198,7 +210,14 @@
             });
             $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide')
-            })
+            });
+            $('.radio-input').on('change', function() {
+                if ($(this).val() == "1") {
+                    $('#responsible-div').collapse('show')
+                } else if ($(this).val() == "0") {
+                    $('#responsible-div').collapse('hide')
+                }
+            });
         });
     </script>
 

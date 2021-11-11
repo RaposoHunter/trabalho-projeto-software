@@ -9,23 +9,22 @@
 @section('container')
     <div class="main-container">
         <h1 class="page-title">Cadastro de Companhias Aéreas</h1>
-
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{route('airlines.store')}}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Nome da Companhia</label>
-                        <input class="register-input" type="text" placeholder="Insira o nome da companhia">
+                        <input class="register-input" type="text" name="NM_CMPN_AEREA" placeholder="Insira o nome da companhia">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código da Companhia</label>
-                        <input class="register-input" type="text" placeholder="Insira o código do país">
+                        <input class="register-input" type="text" name="CD_CMPN_AEREA" placeholder="Insira o código do país">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Códido do País</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="">
+                            <select class="register-input" name="CD_PAIS">
                                 <option value="">Selecione o código do país</option>
                                 <option value="O">xd</option>
                             </select>

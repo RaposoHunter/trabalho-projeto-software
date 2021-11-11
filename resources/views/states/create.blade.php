@@ -11,16 +11,16 @@
         <h1 class="page-title">Cadastro de Unidades Federativas</h1>
 
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{route('states.store')}}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Nome do estado</label>
-                        <input class="register-input" type="text" placeholder="Insira o nome d estado">
+                        <input class="register-input" name="NM_UF" type="text" placeholder="Insira o nome do estado">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Sigla do estado</label>
-                        <input class="register-input" type="text" placeholder="Insira a sigla do estado">
+                        <input class="register-input" name="SG_UF" type="text" placeholder="Insira a sigla do estado">
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">

@@ -152,7 +152,7 @@
                             <a href="{{ route('equipments.index') }}" class="m-menu__link ">
                                 <img src="{{ asset('images/side-icons/equipments.svg') }}" alt="">
 
-                                <span class="m-menu__link-text menu-span">Equipamento</span>
+                                <span class="m-menu__link-text menu-span">Equipamentos</span>
 
                             </a>
                         </li>
