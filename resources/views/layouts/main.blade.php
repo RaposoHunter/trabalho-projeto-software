@@ -186,8 +186,9 @@
         </div>
 
         <!-- end:: Body -->
-    </div>
 
+    </div>
+    <div id="alerts"></div>
     <!-- end:: Page -->
 
     <!--begin::Base Scripts -->
@@ -200,6 +201,34 @@
     <script src="{{ asset('mask/dist/jquery.mask.min.js') }}" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
     @stack('js')
+
+    @if(Session::has('success'))
+    <script>
+        const success = new popupAlert('<?= Session::get('success'); ?>', 1, 3000 );
+        success.create();
+    </script>
+    @endif
+
+    @if(Session::has('error'))
+    <script>
+        const error = new popupAlert('<?= Session::get('error'); ?>', 2, 3000 );
+        error.create();
+    </script>
+    @endif
+
+    @if(Session::has('info'))
+    <script>
+        const info = new popupAlert('<?= Session::get('info'); ?>', 1, 3000 );
+        info.create();
+    </script>
+    @endif
+
+    @if(Session::has('warning'))
+    <script>
+        const warning = new popupAlert('<?= Session::get('warning'); ?>', 2, 3000 );
+        warning.create();
+    </script>
+    @endif
 
     <!--end::Base Scripts -->
 </body>

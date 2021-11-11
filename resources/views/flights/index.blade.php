@@ -26,10 +26,10 @@
                     <tbody>
                         @foreach ($flights as $flight)
                             <tr>
-                                <td class="first-column">{{$flight->NR_VOO}}</td>
-                                <td>{{$flight->NR_ROTA_VOO}}</td>
-                                <td>{{$flight->CD_ARNV}}</td>
-                                <td>{{$flight->DT_SAIDA_VOO}}</td>
+                                <td class="first-column">{{ $flight->NR_VOO }}</td>
+                                <td>{{ $flight->NR_ROTA_VOO }}</td>
+                                <td>{{ $flight->CD_ARNV }}</td>
+                                <td>{{ $flight->DT_SAIDA_VOO }}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
                                         <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
@@ -126,7 +126,6 @@
                                 data-dismiss="modal">Cancelar</button>
                             <button type="button" class="delete-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
-
 
                     </form>
                 </div>

@@ -77,3 +77,66 @@ function closeAllSelect(elmnt) {
 /*if the user clicks anywhere outside the select box,
 then close all select boxes:*/
 document.addEventListener("click", closeAllSelect);
+
+
+class popupAlert {
+    constructor(message, type, time = null) {
+        this.message = message;
+        this.type = type;
+        this.time = time;
+    }
+    create() {
+        const popup = document.createElement('div');
+        const icon = document.createElement('i');
+        if (this.type == 1) {
+            popup.className = 'popup';
+            icon.className = 'far fa-check-circle icon';
+
+        }else if(this.type == 2){
+            popup.className = 'popup-alert';
+            icon.className = 'fas fa-exclamation icon';
+        }
+
+
+        const header = document.createElement('div');
+        header.className = 'popup-header';
+
+        const div_close = document.createElement('div');
+        div_close.className = 'popup-close';
+        const img_close = document.createElement('i');
+        img_close.className = 'fas fa-times';
+
+        div_close.appendChild(img_close);
+        div_close.addEventListener('click', () => {
+            popup.remove();
+        });
+
+        header.appendChild(icon);
+        header.appendChild(div_close);
+
+        const message = document.createElement('div');
+        message.className = 'popup-body';
+        message.innerText = this.message;
+
+        const progress = document.createElement('div');
+        progress.className = 'popup-progress';
+
+        popup.appendChild(header);
+        popup.appendChild(message);
+        popup.appendChild(progress);
+
+        document.getElementById('alerts').appendChild(popup);
+
+        var width = 100;
+        var progress_running = setInterval(progressRun, (this.time / 100));
+        function progressRun() {
+            if (width <= 0) {
+                clearInterval(progress_running);
+                popup.remove();
+            } else {
+                width--;
+                progress.style.width = `${width}%`;
+            }
+        }
+    }
+}
