@@ -13,6 +13,7 @@ class ReserveController extends Controller
     public function index()
     {
         $reserves = Reserve::all();
+        // $reserves = Reserve::limit(5)->get(); // Apenas para testes
 
         return view('reserves.index', compact('reserves'));
     }
@@ -97,5 +98,28 @@ class ReserveController extends Controller
         }
 
         return response()->json('Reserva excluida com sucesso!', 200);
+    }
+
+    public function filter($min, $max)
+    {
+        if(!is_numeric($min)) {
+            return response()->json('Código mínimo inválido! Digite apenas números.', 400);
+        }
+
+        if($max == 'Infinity') {
+            $reserves = Reserve::where('CD_PSGR', '>', $min)->get();
+        } else {
+            if(!is_numeric($max)) {
+                return response()->json('Código máximo inválido! Digite apenas números.', 400);
+            }
+
+            $reserves = Reserve::whereBetween('CD_PSGR', [$min, $max])->get();
+        }
+
+        foreach($reserves as $key => $reserve) {
+            $reserves[$key] = $reserve->only(['NR_VOO', 'DT_SAIDA_VOO', 'CD_PSGR']);
+        }
+
+        return response()->json($reserves, 200);
     }
 }

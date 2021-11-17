@@ -17,4 +17,9 @@ class Airship extends Model
         'CD_EQPT',
         'CMPN_AEREA',
     ];
+
+    public function equipment()
+    {
+        return $this->belongsTo(Equipment::class, 'CD_EQPT');
+    }
 }

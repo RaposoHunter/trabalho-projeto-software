@@ -11,9 +11,8 @@
         <h1 class="page-title">Aeroportos</h1>
         <div class="d-flex justify-content-end">
             <a href="{{ route('airports.create') }}">
-                <button class="btn-default btn-green mr-4">Cadastrar</button>
+                <button class="btn-default btn-green">Cadastrar</button>
             </a>
-            <button class="btn-default btn-blue ml-2 mr-1">Filtrar</button>
         </div>
 
         <div class="main-card blue-card">
@@ -31,8 +30,8 @@
                         <tr>
                             <td class="first-column">{{$airport->CD_ARPT}}</td>
                             <td>{{$airport->CD_PAIS}}</td>
-                            <td>{{$airport->SG_UF}}</td>
-                            <td>{{$airport->NM_CIDD}}</td>
+                            <td>{{$airport->SG_UF ?? '---'}}</td>
+                            <td>{{$airport->NM_CIDD}}</td> 
                             <td class="last-column">
                                 <div class="d-flex justify-content-center">
                                     <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
@@ -149,7 +148,7 @@
         $(function() {
             $('#table-id').DataTable({
                 language: {
-                    url: 'http://projeto.software/js/datatable.json'
+                    url: "<?= asset('js/datatable.json') ?>"
                 }
             });
 

@@ -37,6 +37,9 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', 'EquipmentController@store')->name('equipments.store');
         Route::put('/{id}', 'EquipmentController@update')->name('equipments.update');
         Route::delete('/{id}', 'EquipmentController@destroy')->name('equipments.destroy');
+
+        Route::get('/filtrar/1/{psgrs}/{type}', 'EquipmentController@filter1')->name('equipments.filter1');
+        Route::get('/filtrar/2/{name}/{type}', 'EquipmentController@filter2')->name('equipments.filter2');
     });
 
     Route::group(['prefix' => '/aeronaves'], function () {
@@ -55,6 +58,8 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', 'AirlineController@store')->name('airlines.store');
         Route::put('/{id}', 'AirlineController@update')->name('airlines.update');
         Route::delete('/{id}', 'AirlineController@destroy')->name('airlines.destroy');
+
+        Route::get('/filtrar/{type}', 'AirlineController@filter')->name('airlines.filter');
     });
 
     Route::group(['prefix' => 'voos'], function () {
@@ -64,6 +69,8 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', 'FlightController@store')->name('flights.store');
         Route::put('/{id}', 'FlightController@update')->name('flights.update');
         Route::delete('/{id}', 'FlightController@destroy')->name('flights.destroy');
+
+        Route::get('/filtrar/{from}/{to}', 'FlightController@filter')->name('flights.filter');
     });
 
     Route::group(['prefix' => 'passageiros'], function () {
@@ -73,6 +80,8 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', 'PassengerController@store')->name('passengers.store');
         Route::put('/{id}', 'PassengerController@update')->name('passengers.update');
         Route::delete('/{id}', 'PassengerController@destroy')->name('passengers.destroy');
+
+        Route::get('/filtrar/{civil}/{sex}', 'PassengerController@filter')->name('passengers.filter');
     });
 
     Route::group(['prefix' => 'paises'], function () {
@@ -91,6 +100,8 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', 'FlightRouteController@store')->name('flightroutes.store');
         Route::put('/{id}', 'FlightRouteController@update')->name('flightroutes.update');
         Route::delete('/{id}', 'FlightRouteController@destroy')->name('flightroutes.destroy');
+
+        Route::get('/filtrar/{tipo}', 'FlightRouteController@filter')->name('flightroutes.filter');
     });
 
     Route::group(['prefix' => 'reservas'], function () {
@@ -100,6 +111,8 @@ Route::group(['prefix' => '/'], function () {
         Route::post('/', 'ReserveController@store')->name('reserves.store');
         Route::put('/{id}', 'ReserveController@update')->name('reserves.update');
         Route::delete('/{id}', 'ReserveController@destroy')->name('reserves.destroy');
+
+        Route::get('/filtrar/{min}/{max}', 'ReserveController@filter')->name('reserves.filter');
     });
 
     Route::group(['prefix' => 'aeroportos'], function () {

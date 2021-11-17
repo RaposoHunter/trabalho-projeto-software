@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Passenger extends Model
@@ -18,4 +19,14 @@ class Passenger extends Model
         'IC_ESTD_CIVIL',
         'CD_PSGR_RESP',
     ];
+
+    public function getAge()
+    {
+        if(!is_null($this->DT_NASC_PSGR)) {
+            $dt_nasc = str_replace('/', '-', $this->DT_NASC_PSGR);
+            $this->ID_PSGR = Carbon::parse($dt_nasc)->diffInYears(now());
+        } else {
+            $this->ID_PSGR = null;
+        }
+    }
 }

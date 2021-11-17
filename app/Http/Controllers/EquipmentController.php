@@ -92,4 +92,36 @@ class EquipmentController extends Controller
 
         return response()->json('Equipamento excluido com sucesso!', 200);
     }
+
+    public function filter1($psgrs, $type)
+    {
+        if(!is_numeric($psgrs) && $psgrs != 'Infinity') {
+            return response()->json('Capacidade inválida. Digite apenas números', 400);
+        }
+        
+        if(!in_array($type, ['HELICOPTERO', 'TURBO HELICE', 'JATO'])) {
+            return response()->json('Tipo inválido.', 400);
+        }
+
+        if($psgrs == 'Infinity') {
+            $equipments = Equipment::where('DC_TIPO_EQPT', '<>', $type)->get();
+        } else {
+            $equipments = Equipment::where('DC_TIPO_EQPT', '<>', $type)->where('QT_PSGR', '<=', $psgrs)->get();
+        }
+
+        return response()->json($equipments, 200);
+    }
+
+    public function filter2($name, $type)
+    {
+        if(!in_array($type, ['HELICOPTERO', 'TURBO HELICE', 'JATO'])) {
+            return response()->json('Tipo inválido.', 400);
+        }
+
+        if($name == 'null') $name = '';
+
+        $equipments = Equipment::where('DC_TIPO_EQPT', $type)->where('NM_EQPT', 'like', "%{$name}%")->get();
+
+        return response()->json($equipments, 200);
+    }
 }

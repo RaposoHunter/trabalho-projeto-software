@@ -39,7 +39,10 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_PAIS">
                                 <option value="">Selecione o país de origem</option>
-                                <option value="1">teste</option>
+                                
+                                @foreach ($countries->toQuery()->orderBy('NM_PAIS')->get() as $country)
+                                    <option value="{{ $country->CD_PAIS }}">{{ $country->NM_PAIS }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -49,12 +52,11 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="IC_ESTD_CIVIL">
                                 <option value="">Selecione o estado cívil</option>
-                                <option value="">Solteiro(a)</option>
-                                <option value="">Casado(a)</option>
-                                <option value="">Separado(a)</option>
-                                <option value="">Divorciado(a)</option>
-                                <option value="">Viúvo(a)</option>
-
+                                <option value="S">Solteiro(a)</option>
+                                <option value="C">Casado(a)</option>
+                                {{-- <option value="">Separado(a)</option> --}}
+                                {{-- <option value="">Divorciado(a)</option> --}}
+                                {{-- <option value="">Viúvo(a)</option> --}}
                             </select>
                         </div>
                     </div>
@@ -63,14 +65,14 @@
                         <div class="d-flex">
                             <div class="d-flex justify-content-center">
                                 <label class="radio-container mr-1">
-                                    <input class="radio-input" type="radio" name="" value="0">
+                                    <input class="radio-input" type="radio" name="has_responsible" value="0">
                                     <span class="radio-span"></span>
                                 </label>
                                 <div class="register-label ml-4">Não</div>
                             </div>
                             <div class="d-flex justify-content-center ml-5">
                                 <label class="radio-container mr-1">
-                                    <input class="radio-input" type="radio" name="" value="1">
+                                    <input class="radio-input" type="radio" name="has_responsible" value="1">
                                     <span class="radio-span"></span>
                                 </label>
                                 <div class="register-label ml-4">Sim</div>
@@ -81,7 +83,10 @@
                             <div class="custom-select-2">
                                 <select class="register-input" name="CD_PSGR_RESP">
                                     <option value="">Selecione o responsável</option>
-                                    <option value="1">teste</option>
+
+                                    @foreach ($passengers->toQuery()->orderBy('NM_PSGR')->get() as $passenger)
+                                        <option value="{{ $passenger->CD_PSGR }}">{{ $passenger->NM_PSGR }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

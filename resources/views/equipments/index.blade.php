@@ -11,7 +11,7 @@
         <h1 class="page-title">Equipamentos</h1>
         <div class="d-flex justify-content-end">
             <a href="{{ route('equipments.create') }}"><button class="btn-default btn-green mr-4">Cadastrar</button></a>
-            <button class="btn-default btn-blue ml-2 mr-1" data-toggle="modal" data-target="">Filtrar</button>
+            <button class="btn-default btn-blue ml-2 mr-1" data-toggle="modal" data-target="#filterModal">Filtrar</button>
         </div>
 
         <div class="main-card blue-card">
@@ -28,31 +28,33 @@
                     </thead>
                     <tbody>
                         @foreach ($equipments as $equipment)
-                            <td class="first-column" data-id="{{ $equipment->CD_EQPT }}" data-index="CD_EQPT">
-                                {{ $equipment->CD_EQPT ?? '---' }}</td>
-                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="NM_EQPT">
-                                {{ $equipment->NM_EQPT ?? '---' }}
-                            </td>
-                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">
-                                {{ $equipment->DC_TIPO_EQPT ?? '---' }}</td>
-                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_MOTOR">
-                                {{ $equipment->QT_MOTOR ?? '---' }}
-                            </td>
-                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="IC_TIPO_PRPS">
-                                {{ $equipment->IC_TIPO_PRPS ?? '---' }}</td>
-                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_PSGR">
-                                {{ $equipment->QT_PSGR ?? '---' }}
-                            </td>
-                            <td class="last-column">
-                                <div class="d-flex justify-content-center">
-                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-edit eqpt-edit" data-toggle="modal" data-target="#editModal">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-delete delete" data-toggle="modal" data-target="#deleteModal">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
+                            <tr>    
+                                <td class="first-column" data-id="{{ $equipment->CD_EQPT }}" data-index="CD_EQPT">
+                                    {{ $equipment->CD_EQPT ?? '---' }}</td>
+                                    <td data-id="{{ $equipment->CD_EQPT }}" data-index="NM_EQPT">
+                                        {{ $equipment->NM_EQPT ?? '---' }}
+                                    </td>
+                                    <td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">
+                                        {{ $equipment->DC_TIPO_EQPT ?? '---' }}</td>
+                                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_MOTOR">
+                                            {{ $equipment->QT_MOTOR ?? '---' }}
+                                        </td>
+                                        <td data-id="{{ $equipment->CD_EQPT }}" data-index="IC_TIPO_PRPS">
+                                            {{ $equipment->IC_TIPO_PRPS ?? '---' }}</td>
+                                            <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_PSGR">
+                                                {{ $equipment->QT_PSGR ?? '---' }}
+                                </td>
+                                <td class="last-column">
+                                    <div class="d-flex justify-content-center">
+                                        <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-edit eqpt-edit" data-toggle="modal" data-target="#editModal">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button data-id="{{ $equipment->CD_EQPT }}" class="icon icon-delete delete" data-toggle="modal" data-target="#deleteModal">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
@@ -143,8 +145,115 @@
                             </div>
                         </form>
                     </div>
-
                 </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Filtro --}}
+    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content modal-content-default">
+                <div class="modal-header-default text-white">
+                    <h5 class="modal-title" id="filterModalLabel">
+                        Filtrar tabela de Equipaments
+                    </h5>
+                </div>
+
+                <div class="modal-body">
+                    <div class="alert alert-info alert-dismissable" role="alert" style="background-color: #53b1f8ef">
+                        <i style="font-size: 125%" class="fa fa-exclamation-circle mr-2"></i>Este filtro deve responder às perguntas: 38 e 40
+                        
+                        <span style="cursor: pointer" data-dismiss="alert" class="close p-0" aria-label="Close"></span>
+                    </div>
+                    <div class="form-row">
+                        <label class="register-label" for="">Selecionar Filtro</label><br>
+                        <div class="d-flex">
+                            <div class="d-flex justify-content-center">
+                                <label class="radio-container mr-1">
+                                    <input class="radio-input" type="radio" name="filter_type" value="0">
+                                    <span class="radio-span"></span>
+                                </label>
+                                <div class="register-label ml-4">Filtro 1 (Pergunta 38)</div>
+                            </div>
+                            <div class="d-flex justify-content-center ml-5">
+                                <label class="radio-container mr-1">
+                                    <input class="radio-input" type="radio" name="filter_type" value="1">
+                                    <span class="radio-span"></span>
+                                </label>
+                                <div class="register-label ml-4">Filtro 2 (Pergunta 40)</div>
+                            </div>
+                        </div>
+
+                        {{-- FILTRO 1 - 38 --}}
+                        <div class="filter_1 col-md-6 px-5 my-2 my-md-4" style="display: none">
+                            <label class="register-label" for="type">Capacidade Max. Passageiros</label>
+                            <input class="register-input" name="psgrs" type="number" min="1" placeholder="1...">
+                        </div>
+                        <div class="filter_1 col-md-6 px-5 my-2 my-md-4" style="display: none">
+                            <label class="register-label" for="type">Tipo diferente de</label>
+                            <div class="custom-select-2">
+                                <select class="register-input" name="type1">
+                                    <option value="null">Selecione o tipo de equipamento</option>
+                                    <option value="HELICOPTERO">Helicóptero</option>
+                                    <option value="TURBO HELICE">Turbo Hélice</option>
+                                    <option value="JATO">Jato</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        {{-- FILTRO 2 - 40 --}}
+                        <div class="filter_2 col-md-6 px-5 my-2 my-md-4" style="display: none">
+                            <label class="register-label" for="type">Tipo</label>
+                            <div class="custom-select-2">
+                                <select class="register-input" name="type2">
+                                    <option value="null">Selecione o tipo de equipamento</option>
+                                    <option value="HELICOPTERO">Helicóptero</option>
+                                    <option value="TURBO HELICE">Turbo Hélice</option>
+                                    <option value="JATO">Jato</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter_2 col-md-6 px-5 my-2 my-md-4" style="display: none">
+                            <label class="register-label" for="type">Nome</label>
+                            <input class="register-input" style="text-transform: uppercase" name="name" placeholder="DOUGLAS">
+                        </div>
+                        
+                    </div>
+
+                    <div id="filter-table-container-1" class="table-responsive" style="display: none">
+                        <table id="filter-table-1" class="table table-stripped dt-bootstrap5">
+                            <thead>
+                                <th class="first-column">Nome</th>
+                                <th class="last-column">Tipo</th>
+                            </thead>
+                            <tbody id="filter-table-body-1" style="display: none">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="filter-table-container-2" class="table-responsive" style="display: none">
+                        <table id="filter-table-2" class="table table-stripped dt-bootstrap5">
+                            <thead>
+                                <th class="first-column">Código</th>
+                                <th>Nome</th>
+                                <th class="last-column">Qtd. Motores</th>
+                            </thead>
+                            <tbody id="filter-table-body-2" style="display: none">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="btn-div d-flex justify-content-end">
+                        <button type="button" class="filter-dismiss btn-default btn-red"
+                            data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="filter-submit btn-default btn-blue ml-4" disabled>Filtrar</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -152,146 +261,254 @@
 
 @push('js')
     <script>
+        let filter_table = null;
+
         $(function() {
             $('#table-id').DataTable({
                 language: {
-                    url: 'http://projeto.software/js/datatable.json'
+                    url: "<?=  asset('js/datatable.json') ?>"
                 }
             });
-            // EVENTOS RELACIONADOS COM O UPDATE - BEGIN
+            
+            $('.delete-dismiss').on('click', function() {
+                $('#deleteModal').modal('hide')
+            });
 
-            $('.eqpt-edit').on('click', function() {
-                const id = this.dataset.id;
+            $('input[name=filter_type]').on('change', function () {
+                $('.filter-submit').prop('disabled', false);
 
-                if (!id) {
-                    toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
-                    return;
-                }
+                if(this.value === '0') {
+                    $('.filter_2').fadeOut('swing', function () {
+                        $('.filter_1').fadeIn();
+                    });
+                } else {
+                    $('.filter_1').fadeOut('swing', function () {
+                        $('.filter_2').fadeIn();
+                    });
+                } 
+            });
+
+            $('.filter-submit').on('click', function () {
+                $('.filter-submit').html(`<img width="25" src="{{ asset('images/icons/loading.gif') }}">`);
+                const filter = $('input[name=filter_type]:checked').val();
+
+                const psgrs = $('input[name=psgrs]').val() || Infinity;
+                const type1 = $('select[name=type1]').val();
+                
+                const name = $('input[name=name]').val() || null;
+                const type2 = $('select[name=type2]').val();
+                
+                const url = filter === '0' ? 
+                    "<?= route('equipments.filter1', ['_psgrs_', '_type_']) ?>".replace('_psgrs_', psgrs).replace('_type_', type1) : 
+                    "<?= route('equipments.filter2', ['_name_', '_type_'],) ?>".replace('_name_', name).replace('_type_', type2)
+                ; 
 
                 $.ajax({
                     method: 'GET',
-                    url: `/equipamentos/${id}`,
+                    url,
                     success: res => {
-                        $('#eqpt-edit-code').html(res.CD_EQPT);
+                        if(filter === '0') {
+                            $('#filter-table-body-2').fadeOut('swing', function () {
+                                $('#filter-table-container-2').fadeOut('swing', function () {
+                                    $('#filter-table-container-1').fadeIn();
+                                    $('#filter-table-body-1').fadeOut('swing', function () {
+                                        if(filter_table) {
+                                            filter_table.destroy();
 
-                        $('input#CD_EQPT').val(res.CD_EQPT);
-                        $('input[name=NM_EQPT]').val(res.NM_EQPT);
-                        $('input[name=DC_TIPO_EQPT]').val(res.DC_TIPO_EQPT);
-                        $('input[name=QT_MOTOR]').val(res.QT_MOTOR);
-                        $('select[name=IC_TIPO_PRPS]').val(res.IC_TIPO_PRPS);
-                        $('input[name=QT_PSGR]').val(res.QT_PSGR);
+                                            $('#filter-table-body-1').html('');
+                                        }
 
-                        $('.eqpt-edit-submit').attr('data-id', res.CD_EQPT);
+                                        for(let equipment of res) {
+                                            $('#filter-table-body-1').append(`
+                                                <tr>
+                                                    <td class="first-column">${equipment.NM_EQPT}</td>
+                                                    <td class="last-column">${equipment.DC_TIPO_EQPT}</td>
+                                                </tr>
+                                            `);
+                                        }
+                                        
+                                        filter_table = $('#filter-table-1').DataTable({
+                                            language: {
+                                                url: "<?= asset('js/datatable.json') ?>"
+                                            }
+                                        });
 
-                        $('#eqptUpdateModal').modal('show');
-                    },
-                    error: err => {
-                        console.log(err);
-                    }
-                });
-            });
+                                        $('#filter-table-body-1').fadeIn();
+                                        $('.filter-submit').html('Filtrar');
+                                    });
+                                });
+                            });
+                        } else {
+                            $('#filter-table-body-1').fadeOut('swing', function () {
+                                $('#filter-table-container-1').fadeOut('swing', function () {
+                                    $('#filter-table-container-2').fadeIn();
+                                    $('#filter-table-body-2').fadeOut('swing', function () {
+                                        if(filter_table) {
+                                            filter_table.destroy();
 
-            $('.edit-submit').on('click', function() {
-                const id = this.dataset.id;
+                                            $('#filter-table-body-2').html('');
+                                        }
 
-                if (!id) {
-                    toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
-                    return;
-                }
+                                        for(let equipment of res) {
+                                            if(name.toUpperCase() === 'DOUGLAS') equipment.QT_MOTOR++;
 
-                $.ajax({
-                    method: 'PUT',
-                    url: `/equipamentos/${id}`,
-                    data: {
-                        '_token': $('meta[name=csrf-token]').attr('content'),
-                        '_method': 'PUT',
-                        NM_EQPT: $('input[name=NM_EQPT]').val(),
-                        DC_TIPO_EQPT: $('input[name=DC_TIPO_EQPT]').val(),
-                        QT_MOTOR: $('input[name=QT_MOTOR]').val(),
-                        IC_TIPO_PRPS: $('select[name=IC_TIPO_PRPS]').val(),
-                        QT_PSGR: $('input[name=QT_PSGR]').val(),
-                    },
-                    success: res => {
-                        $('#eqptUpdateModal').modal('hide');
+                                            $('#filter-table-body-2').append(`
+                                                <tr>
+                                                    <td class="first-column">${equipment.CD_EQPT}</td>
+                                                    <td>${equipment.NM_EQPT}</td>
+                                                    <td class="last-column">${equipment.QT_MOTOR}</td>
+                                                </tr>
+                                            `);
+                                        }
+                                        
+                                        filter_table = $('#filter-table-2').DataTable({
+                                            language: {
+                                                url: "<?= asset('js/datatable.json') ?>"
+                                            }
+                                        });
 
-                        toastr.success(res.message);
-
-                        for (let td of $(`td[data-id=${id}]`)) {
-                            $(td).html(res.equipment[td.dataset.index]);
+                                        $('#filter-table-body-2').fadeIn();
+                                        $('.filter-submit').html('Filtrar');
+                                    });
+                                });
+                            });
                         }
                     },
                     error: err => {
                         console.log(err);
-                        toastr.error(err.responseJSON);
                     }
                 });
             });
 
-            $('#eqptUpdateModal').on('hidden.bs.modal', function() {
-                $('input#CD_EQPT').val('');
-                $('input[name=NM_EQPT]').val('');
-                $('input[name=DC_TIPO_EQPT]').val('');
-                $('input[name=QT_MOTOR]').val('');
-                $('select[name=IC_TIPO_PRPS]').val('');
-                $('input[name=QT_PSGR]').val('');
-            });
-            // EVENTOS RELACIONADOS COM O UPDATE - END
+            // EVENTOS RELACIONADOS COM O UPDATE - BEGIN
 
-            // EVENTOS RELACIONADOS COM O DELETE - BEGIN
-            $('.delete').on('click', function() {
-                console.log(10);
-                const id = this.dataset.id;
+            // $('.eqpt-edit').on('click', function() {
+            //     const id = this.dataset.id;
 
-                if (!id) {
-                    toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
-                    return;
-                }
+            //     if (!id) {
+            //         toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
+            //         return;
+            //     }
 
-                $('#delete-code').html(id);
-                $('#delete-code-em').html(id);
-                $('.delete-submit').attr('data-id', id);
+            //     $.ajax({
+            //         method: 'GET',
+            //         url: `/equipamentos/${id}`,
+            //         success: res => {
+            //             $('#eqpt-edit-code').html(res.CD_EQPT);
 
-                $('#deleteModal').modal('show');
-            });
+            //             $('input#CD_EQPT').val(res.CD_EQPT);
+            //             $('input[name=NM_EQPT]').val(res.NM_EQPT);
+            //             $('input[name=DC_TIPO_EQPT]').val(res.DC_TIPO_EQPT);
+            //             $('input[name=QT_MOTOR]').val(res.QT_MOTOR);
+            //             $('select[name=IC_TIPO_PRPS]').val(res.IC_TIPO_PRPS);
+            //             $('input[name=QT_PSGR]').val(res.QT_PSGR);
 
-            $('.delete-submit').on('click', function() {
-                const id = this.dataset.id;
+            //             $('.eqpt-edit-submit').attr('data-id', res.CD_EQPT);
 
-                if (!id) {
-                    toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
-                    return;
-                }
+            //             $('#eqptUpdateModal').modal('show');
+            //         },
+            //         error: err => {
+            //             console.log(err);
+            //         }
+            //     });
+            // });
 
-                $.ajax({
-                    method: 'DELETE',
-                    url: `/equipamentos/${id}`,
-                    data: {
-                        '_token': $('meta[name=csrf-token]').attr('content'),
-                        '_method': 'DELETE',
-                    },
-                    success: res => {
-                        $('#deleteModal').modal('hide');
-                        $(`tr[data-id=${id}]`).remove()
+            // $('.edit-submit').on('click', function() {
+            //     const id = this.dataset.id;
 
-                        toastr.success(res);
-                    },
-                    error: err => {
-                        console.log(err);
-                        toastr.error(err.responseJSON);
-                    }
-                });
-            });
+            //     if (!id) {
+            //         toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
+            //         return;
+            //     }
 
-            $('#deleteModal').on('hidden.bs.modal', function() {
-                $('#delete-code').html('');
-                $('#delete-code-em').html('');
-                $('.delete-submit').attr('data-id', '');
-            });
+            //     $.ajax({
+            //         method: 'PUT',
+            //         url: `/equipamentos/${id}`,
+            //         data: {
+            //             '_token': $('meta[name=csrf-token]').attr('content'),
+            //             '_method': 'PUT',
+            //             NM_EQPT: $('input[name=NM_EQPT]').val(),
+            //             DC_TIPO_EQPT: $('input[name=DC_TIPO_EQPT]').val(),
+            //             QT_MOTOR: $('input[name=QT_MOTOR]').val(),
+            //             IC_TIPO_PRPS: $('select[name=IC_TIPO_PRPS]').val(),
+            //             QT_PSGR: $('input[name=QT_PSGR]').val(),
+            //         },
+            //         success: res => {
+            //             $('#eqptUpdateModal').modal('hide');
 
-            $('.delete-dismiss').on('click', function() {
-                $('#deleteModal').modal('hide')
-            })
-            // EVENTOS RELACIONADOS COM O DELETE - END
+            //             toastr.success(res.message);
+
+            //             for (let td of $(`td[data-id=${id}]`)) {
+            //                 $(td).html(res.equipment[td.dataset.index]);
+            //             }
+            //         },
+            //         error: err => {
+            //             console.log(err);
+            //             toastr.error(err.responseJSON);
+            //         }
+            //     });
+            // });
+
+            // $('#eqptUpdateModal').on('hidden.bs.modal', function() {
+            //     $('input#CD_EQPT').val('');
+            //     $('input[name=NM_EQPT]').val('');
+            //     $('input[name=DC_TIPO_EQPT]').val('');
+            //     $('input[name=QT_MOTOR]').val('');
+            //     $('select[name=IC_TIPO_PRPS]').val('');
+            //     $('input[name=QT_PSGR]').val('');
+            // });
+            // // EVENTOS RELACIONADOS COM O UPDATE - END
+
+            // // EVENTOS RELACIONADOS COM O DELETE - BEGIN
+            // $('.delete').on('click', function() {
+            //     console.log(10);
+            //     const id = this.dataset.id;
+
+            //     if (!id) {
+            //         toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
+            //         return;
+            //     }
+
+            //     $('#delete-code').html(id);
+            //     $('#delete-code-em').html(id);
+            //     $('.delete-submit').attr('data-id', id);
+
+            //     $('#deleteModal').modal('show');
+            // });
+
+            // $('.delete-submit').on('click', function() {
+            //     const id = this.dataset.id;
+
+            //     if (!id) {
+            //         toastr.warning('O código do equipamento não foi informado. Tente recarregar a página!');
+            //         return;
+            //     }
+
+            //     $.ajax({
+            //         method: 'DELETE',
+            //         url: `/equipamentos/${id}`,
+            //         data: {
+            //             '_token': $('meta[name=csrf-token]').attr('content'),
+            //             '_method': 'DELETE',
+            //         },
+            //         success: res => {
+            //             $('#deleteModal').modal('hide');
+            //             $(`tr[data-id=${id}]`).remove()
+
+            //             toastr.success(res);
+            //         },
+            //         error: err => {
+            //             console.log(err);
+            //             toastr.error(err.responseJSON);
+            //         }
+            //     });
+            // });
+
+            // $('#deleteModal').on('hidden.bs.modal', function() {
+            //     $('#delete-code').html('');
+            //     $('#delete-code-em').html('');
+            //     $('.delete-submit').attr('data-id', '');
+            // });
         });
     </script>
 

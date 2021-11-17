@@ -94,4 +94,28 @@ class FlightRouteController extends Controller
 
         return response()->json('Rota de Vôo excluida com sucesso!', 200);
     }
+
+    public function filter($type)
+    {
+        if(!in_array($type, ['null', 'reserva', 'passagem', 'todas'])) {
+            return response()->json('Tipo inválido!', 400);
+        }
+
+        switch($type) {
+            case 'null':
+            case 'todas':
+                $flight_routes = FlightRoute::all();
+            break;
+
+            case 'reserva':
+                $flight_routes = FlightRoute::getNotReserved();
+            break;
+
+            case 'passagem':
+                $flight_routes = FlightRoute::whereNull('VR_PASG')->get();
+            break;
+        }
+
+        return response()->json($flight_routes, 200);
+    }
 }

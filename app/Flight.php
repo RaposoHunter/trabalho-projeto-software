@@ -15,4 +15,9 @@ class Flight extends Model
         'NR_ROTA_VOO',
         'CD_ARNV',
     ];
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class, 'NR_ROTA_VOO');
+    }
 }

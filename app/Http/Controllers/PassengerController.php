@@ -11,7 +11,8 @@ class PassengerController extends Controller
 {
     public function index()
     {
-        $passengers = Passenger::all();
+        // $passengers = Passenger::all();
+        $passengers = Passenger::limit(5)->get();
 
         return view('passengers.index', compact('passengers'));
     }
@@ -20,10 +21,16 @@ class PassengerController extends Controller
     {
         // TODO: Tratativa dos inputs
         /* ME CONSERTA */
+
+        $input = $request->except('_token');
+        
+        $input['NM_PSGR'] = strtoupper($input['NM_PSGR']);
+        $input['DT_NASC_PSGR'] = implode('/', array_reverse(explode('/', $input['DT_NASC_PSGR'])));
+
         try {
             DB::beginTransaction();
 
-            Passenger::create($request->all());
+            Passenger::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
@@ -97,5 +104,37 @@ class PassengerController extends Controller
         }
 
         return response()->json('Passageiro excluido com sucesso!', 200);
+    }
+
+    public function filter($civil, $sex)
+    {
+        if(!in_array($civil, ['null', 'C', 'S'])) {
+            return response()->json('Estado Civil inválido!', 400);
+        }
+
+        if(!in_array($sex, ['null', 'M', 'F', 'O'])) {
+            return response()->json('Sexo inválido!', 400);
+        }
+
+        $passengers = Passenger::select('NM_PSGR', 'DT_NASC_PSGR');
+
+        
+        if($civil != 'null') {
+            $passengers = $passengers->where('IC_ESTD_CIVIL', $civil);
+        }
+
+        if($sex != 'null') {
+            $passengers = $passengers->where('IC_SEXO_PSGR', $sex);
+        }
+
+        $passengers = $passengers->get();
+
+        foreach($passengers as $passenger) {
+            $passenger->getAge();
+        }
+ 
+        $avg_age = $passengers->avg('ID_PSGR');
+
+        return response()->json(['passengers' => $passengers, 'avg_age' => $avg_age], 200);
     }
 }

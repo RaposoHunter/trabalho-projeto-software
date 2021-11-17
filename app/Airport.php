@@ -18,4 +18,26 @@ class Airport extends Model
         'SG_UF',
         'NM_CIDD',
     ];
+
+    public static function getCodes()
+    {
+        $codes = [];
+
+        foreach(self::select('CD_ARPT')->get() as $airport) {
+            $codes[] = $airport->CD_ARPT;
+        }
+
+        return $codes;
+    }
+
+    public static function getCities()
+    {
+        $cities = [];
+
+        foreach(self::select('NM_CIDD')->distinct()->orderBy('NM_CIDD')->get() as $airport) {
+            $cities[] = $airport->NM_CIDD;
+        }
+
+        return $cities;
+    }
 }

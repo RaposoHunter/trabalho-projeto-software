@@ -95,4 +95,39 @@ class AirlineController extends Controller
 
         return response()->json('Companhia aérea excluida com sucesso!', 200);
     }
+
+    public function filter($type)
+    {
+        if($type == 'null') {
+            return response()->json('Informe o Tipo de Companhia', 400);
+        }
+        
+        if(!in_array($type, ['nacional', 'estrangeira', 'sem-pais', 'todas'])) {
+            return response()->json('Informe um Tipo de Companhia válido', 400);
+        }
+
+        switch($type) {
+            case 'nacional':
+                $airlines = Airline::where('CD_PAIS', 'BR')->get();
+            break;
+
+            case 'estrangeira':
+                $airlines = Airline::where('CD_PAIS', '<>', 'BR')->get();
+            break;
+
+            case 'sem-pais':
+                $airlines = Airline::whereNull('CD_PAIS', )->get();
+            break;
+
+            default:
+                $airlines = Airline::all();
+        }
+
+        foreach($airlines as $key => $airline) {
+            $airline->getPassengerCapacity();
+            $airlines[$key] = $airline->only('NM_CMPN_AEREA', 'CD_PAIS', 'QT_TOTAL_PSGR');
+        }
+
+        return response()->json($airlines, 200);
+    }
 }

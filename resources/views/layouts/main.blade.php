@@ -193,9 +193,9 @@
 
     <!--begin::Base Scripts -->
 
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/jquery.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/select.js') }}" type="text/javascript"></script>
     <script src="{{ asset('mask/dist/jquery.mask.min.js') }}" type="text/javascript"></script>

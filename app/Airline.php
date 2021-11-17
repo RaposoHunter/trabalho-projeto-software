@@ -17,4 +17,23 @@ class Airline extends Model
         'NM_CMPN_AEREA',
         'CD_PAIS',
     ];
+
+    public function airships()
+    {
+        return $this->hasMany(Airship::class, 'CD_CMPN_AEREA');
+    }
+
+    public function getPassengerCapacity()
+    {
+        $capacity = 0;
+
+        $airships = $this->airships;
+
+        foreach($airships as $airship) {
+            $capacity += $airship->equipment->QT_PSGR;
+        }
+
+        unset($this->airships);
+        $this->QT_TOTAL_PSGR = $capacity;
+    }
 }
