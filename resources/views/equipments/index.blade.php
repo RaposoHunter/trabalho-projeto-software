@@ -168,23 +168,27 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="alert alert-info alert-dismissable" role="alert" style="background-color: #53b1f8ef">
+                    <div class="alert alert-color alert-dismissable" role="alert">
                         <i style="font-size: 125%" class="fa fa-exclamation-circle mr-2"></i>Este filtro deve responder às
                         perguntas: 38 e 40
 
                         <span style="cursor: pointer" data-dismiss="alert" class="close p-0" aria-label="Close"></span>
                     </div>
                     <div class="form-row">
-                        <label class="register-label" for="">Selecionar Filtro</label><br>
-                        <div class="d-flex">
-                            <div class="d-flex justify-content-center">
+                        <div class="col-12 px-5">
+                            <h3 class="register-label" for="">Selecionar Filtro</h3>
+                        </div>
+                        <div class="col-md-6 px-5">
+                            <div class="d-flex">
                                 <label class="radio-container mr-1">
                                     <input class="radio-input" type="radio" name="filter_type" value="0">
                                     <span class="radio-span"></span>
                                 </label>
                                 <div class="register-label ml-4">Filtro 1 (Pergunta 38)</div>
                             </div>
-                            <div class="d-flex justify-content-center ml-5">
+                        </div>
+                        <div class="col-md-6 px-5">
+                            <div class="d-flex ml-5">
                                 <label class="radio-container mr-1">
                                     <input class="radio-input" type="radio" name="filter_type" value="1">
                                     <span class="radio-span"></span>

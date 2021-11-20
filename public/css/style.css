@@ -681,6 +681,9 @@ table tbody .icon:hover {
   background: linear-gradient(225deg, #DC3545 0%, rgba(255, 255, 255, 0) 100%), #F88792;
 }
 
+.modal .modal-dialog {
+  max-width: 1000px !important;
+}
 .modal .modal-dialog .modal-content-default {
   max-width: 1000px;
   border-radius: 12px;

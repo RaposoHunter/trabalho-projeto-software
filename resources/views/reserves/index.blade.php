@@ -150,7 +150,7 @@
                 </div>
 
                 <div class="modal-body">
-                    <div class="alert alert-info alert-dismissable" role="alert" style="background-color: #53b1f8ef">
+                    <div class="alert alert-color alert-dismissable" role="alert">
                         <i style="font-size: 125%" class="fa fa-exclamation-circle mr-2"></i>Este filtro deve responder à pergunta: 5
 
                         <span style="cursor: pointer" data-dismiss="alert" class="close p-0" aria-label="Close"></span>
