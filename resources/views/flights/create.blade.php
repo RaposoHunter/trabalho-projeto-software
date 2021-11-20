@@ -23,8 +23,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="NR_ROTA_VOO">
                                 <option value="">Selecione o número da rota</option>
-                                <option value="1">teste</option>
-
+                                @foreach ($flight_routes->toQuery()->orderBy('NR_ROTA_VOO')->get() as $flight_route)
+                                    <option value="{{ $flight_route->NR_ROTA_VOO }}">{{ $flight_route->NR_ROTA_VOO }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -34,7 +35,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_ARNV">
                                 <option value="">Selecione o código da aeronave</option>
-                                <option value="1">teste</option>
+                                @foreach ($airships->toQuery()->orderBy('CD_ARNV')->get() as $airship)
+                                    <option value="{{ $airship->CD_ARNV }}">{{ $airship->CD_ARNV }}</option>
+                                @endforeach
 
                             </select>
                         </div>

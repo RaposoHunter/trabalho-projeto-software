@@ -16,12 +16,12 @@ class UserSeeder extends Seeder
             'name' => 'Pedro Raposo Felix de Sousa',
             'email' => 'pedro.raposo.dev@gmail.com',
             'password' => bcrypt('123456'),
-        ])->assign('admin');
+        ]);
 
         User::create([
             'name' => 'Victor de Oliveira Martins Azevedo',
             'email' => 'vitinho69deliciaximbinha@gmail.com',
             'password' => bcrypt('123456'),
-        ])->assign('admin');
+        ]);
     }
 }

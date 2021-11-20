@@ -12,8 +12,11 @@ class FlightRouteController extends Controller
     public function index()
     {
         $flight_routes = FlightRoute::all();
+        $airports = Airport::all();
 
-        return view('flight_routes.index', compact('flight_routes'));
+        return view('flight_routes.index', compact('flight_routes'), [
+            'airports' => $airports,
+        ]);
     }
 
     public function store(Request $request)

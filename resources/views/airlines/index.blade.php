@@ -25,18 +25,23 @@
                     </thead>
                     <tbody>
                         @foreach ($airlines as $airline)
-                            <tr>
+                            <tr id="linha-{{$airline->CD_CMPN_AEREA}}">
                                 <td class="first-column">{{$airline->CD_CMPN_AEREA}}</td>
                                 <td>{{$airline->NM_CMPN_AEREA}}</td>
                                 <td>{{$airline->CD_PAIS}}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
-                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                        <button id="edit-{{ $airline->CD_CMPN_AEREA }}" class="icon icon-edit" data-toggle="modal" data-target="#editModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                        <button type="button" form="delete_{{ $airline->CD_CMPN_AEREA }}" class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                        <form method="POST" action="{{ route('airlines.destroy', $airline->CD_CMPN_AEREA) }}"
+                                            id="delete_{{ $airline->CD_CMPN_AEREA }}" class="form-delete-client">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -67,7 +72,7 @@
                     <div class="btn-div d-flex justify-content-end">
                         <button type="button" class="delete-dismiss btn-default btn-red"
                             data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
+                        <button id="modal-button-delete" type="submit" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
                     </div>
                 </div>
 
@@ -86,23 +91,25 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="">
+                    <form id="edit-form" action="" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Nome da Companhia</label>
-                                <input class="register-input" type="text" placeholder="Insira o nome da companhia">
+                                <input class="register-input" type="text" name="NM_CMPN_AEREA" placeholder="Insira o nome da companhia">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Código da Companhia</label>
-                                <input class="register-input" type="text" placeholder="Insira o código do país">
+                                <input class="register-input" type="text" name="CD_CMPN_AEREA" placeholder="Insira o código do país">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
-                                <label class="register-label" for="">Códido do País</label>
+                                <label class="register-label" for="">Código do País</label>
                                 <div class="custom-select-2">
-                                    <select class="register-input" name="">
+                                    <select class="register-input" name="CD_PAIS">
                                         <option value="">Selecione o código do país</option>
-                                        <option value="O">xd</option>
+                                        @foreach ($countries->toQuery()->orderBy('CD_PAIS')->get() as $country)
+                                            <option value="{{ $country->CD_PAIS }}">{{ $country->CD_PAIS }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -111,8 +118,9 @@
                         <div class="btn-div d-flex justify-content-end">
                             <button type="button" class="delete-dismiss btn-default btn-red"
                                 data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="delete-submit btn-default btn-blue ml-4">Editar</button>
+                            <button type="submit" class="delete-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
+                        @method('PUT');
                     </form>
                 </div>
 
@@ -134,7 +142,7 @@
                 <div class="modal-body">
                     <div class="alert alert-info alert-dismissable" role="alert" style="background-color: #53b1f8ef">
                         <i style="font-size: 125%" class="fa fa-exclamation-circle mr-2"></i>Este filtro deve responder às perguntas: 4, 8 e 83
-                        
+
                         <span style="cursor: pointer" data-dismiss="alert" class="close p-0" aria-label="Close"></span>
                     </div>
                     <div class="form-row">
@@ -160,7 +168,7 @@
                                 <th class="last-column">Capacidade total</th>
                             </thead>
                             <tbody id="filter-table-body" style="display: none">
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -188,9 +196,36 @@
                     url: "<?= asset('js/datatable.json') ?>"
                 }
             });
-            
+
             $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide')
+            });
+
+            /* deletar */
+            $('.icon-delete').on('click', function() {
+                let id = $(this).attr('form').split('_')[1];
+                $('#delete-code-em').html($(`#linha-${id}`).children().eq(1).html())
+                $("#modal-button-delete").attr('form', $(this).attr('form'));
+            });
+
+            /* editar */
+            $('.icon-edit').on('click', function() {
+                let id = $(this).attr('id').split('-')[1];
+                let td_array = $(`#linha-${id}`).children();
+                let input_array = $('#edit-form :input');
+                $('#edit-form').attr('action', "<?= route('airlines.update', ['_id_']) ?>".replace('_id_',
+                    id));
+                for (i = 0; i < td_array.length; i++) {
+                    // -1 pois n ignoramos o id aqui
+                    if (input_array.eq(i).attr('type') == "hidden") continue;
+                    if (input_array.eq(i).attr('type') == undefined) {
+                        input_array.eq(i).val(td_array.eq(i - 1).html());
+                        input_array.eq(i).next().html(td_array.eq(i - 1).html()).addClass(
+                            'select-item-black');
+                    } else {
+                        input_array.eq(i).val(td_array.eq(i - 1).html());
+                    }
+                }
             });
 
             $('.filter-submit').on('click', function () {
@@ -220,7 +255,7 @@
                                     </tr>
                                 `);
                             }
-                            
+
                             filter_table = $('#filter-table').DataTable({
                                 language: {
                                     url: "<?= asset('js/datatable.json') ?>"
@@ -236,6 +271,11 @@
                     }
                 });
             });
+            $('.custom-select-2').on('click', function() {
+                $(this).find('.select-selected').addClass('select-item-black');
+            });
+
+            $('.date').mask('00/00/0000');
 
             // Não funciona. Choro e lágrimas
             // $('#filterModal').on('transitioncancel', function(e) {

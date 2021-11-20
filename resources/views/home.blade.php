@@ -71,23 +71,23 @@
                     <ul>
                         <li class="second-li">
                             <span class="link-text">N° de Companhias Aéreas</span>
-                            <span class="link-number">12</span>
+                            <span class="link-number">{{$airline_count}}</span>
                         </li>
                         <li class="second-li">
                             <span class="link-text">N° de Países</span>
-                            <span class="link-number">42</span>
+                            <span class="link-number">{{$country_count}}</span>
                         </li>
                         <li class="second-li">
                             <span class="link-text">N° de UFs</span>
-                            <span class="link-number">25</span>
+                            <span class="link-number">{{$state_count}}</span>
                         </li>
                         <li class="second-li">
                             <span class="link-text">N° de Equipamentos</span>
-                            <span class="link-number">1252</span>
+                            <span class="link-number">{{$equipament_count}}</span>
                         </li>
                         <li class="second-li">
                             <span class="link-text">N° de Rotas de Voos</span>
-                            <span class="link-number">4052</span>
+                            <span class="link-number">{{$flightRoute_count}}</span>
                         </li>
                     </ul>
                 </div>

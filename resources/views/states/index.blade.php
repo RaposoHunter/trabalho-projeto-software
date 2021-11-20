@@ -24,18 +24,23 @@
                     </thead>
                     <tbody>
                         @foreach ($states as $state)
-                            <tr>
-                                <td class="first-column" data-id="{{ $state->NM_UF }}" data-index="NM_UF">
-                                    {{ $state->NM_UF }}</td>
+
+                            <tr id="linha-{{ $state->SG_UF }}">
+                                <td class="first-column" data-id="{{ $state->NM_UF }}" data-index="NM_UF">{{ $state->NM_UF }}</td>
                                 <td data-id="{{ $state->SG_UF }}" data-index="SG_UF">{{ $state->SG_UF }}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
-                                        <button class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                        <button id="edit-{{ $state->SG_UF }}" class="icon icon-edit" data-toggle="modal" data-target="#editModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                        <button type="button" form="delete_{{ $state->SG_UF }}" class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
                                             <i class="fas fa-trash"></i>
                                         </button>
+                                        <form method="POST" action="{{ route('states.destroy', $state->SG_UF) }}"
+                                            id="delete_{{ $state->SG_UF }}" class="form-delete-client">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </div>
                                 </td>
                             </tr>
@@ -65,7 +70,7 @@
                     <div class="btn-div d-flex justify-content-end">
                         <button type="button" class="delete-dismiss btn-default btn-red"
                             data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
+                        <button id="modal-button-delete" type="submit" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
                     </div>
                 </div>
 
@@ -84,24 +89,25 @@
                 </div>
 
                 <div class="modal-body">
-                    <form action="">
+                    <form id="edit-form" action="" method="POST">
                         @csrf
                         <div class="form-row">
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Nome do estado</label>
-                                <input class="register-input" type="text" placeholder="Insira o nome d estado">
+                                <input class="register-input" name="NM_UF" type="text" placeholder="Insira o nome d estado">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Sigla do estado</label>
-                                <input class="register-input" type="text" placeholder="Insira a sigla do estado">
+                                <input class="register-input" name="SG_UF" type="text" placeholder="Insira a sigla do estado">
                             </div>
                         </div>
 
                         <div class="btn-div d-flex justify-content-end">
                             <button type="button" class="delete-dismiss btn-default btn-red"
                                 data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="delete-submit btn-default btn-blue ml-4">Editar</button>
+                            <button type="submit" class="delete-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
+                        @method('PUT');
                     </form>
                 </div>
 
@@ -120,7 +126,39 @@
             });
             $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide');
-            })
+            });
+            /* deletar */
+            $('.icon-delete').on('click', function() {
+                let id = $(this).attr('form').split('_')[1];
+                $('#delete-code-em').html($(`#linha-${id}`).children().eq(0).html())
+                $("#modal-button-delete").attr('form', $(this).attr('form'));
+            });
+
+            /* editar */
+            $('.icon-edit').on('click', function() {
+                let id = $(this).attr('id').split('-')[1];
+                let td_array = $(`#linha-${id}`).children();
+                let input_array = $('#edit-form :input');
+                $('#edit-form').attr('action', "<?= route('states.update', ['_id_']) ?>".replace('_id_',
+                    id));
+                for (i = 0; i < td_array.length; i++) {
+                    // -1 pois n ignoramos o id aqui
+                    if (input_array.eq(i).attr('type') == "hidden") continue;
+                    if (input_array.eq(i).attr('type') == undefined) {
+                        input_array.eq(i).val(td_array.eq(i - 1).html());
+                        input_array.eq(i).next().html(td_array.eq(i - 1).html()).addClass(
+                            'select-item-black');
+                    } else {
+                        input_array.eq(i).val(td_array.eq(i - 1).html());
+                    }
+                }
+            });
+
+            $('.custom-select-2').on('click', function() {
+                $(this).find('.select-selected').addClass('select-item-black');
+            });
+
+            $('.date').mask('00/00/0000');
         });
     </script>
 

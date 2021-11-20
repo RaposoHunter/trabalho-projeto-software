@@ -12,10 +12,15 @@ class ReserveController extends Controller
 {
     public function index()
     {
-        $reserves = Reserve::all();
-        // $reserves = Reserve::limit(5)->get(); // Apenas para testes
+        // $reserves = Reserve::all();
+        $passengers = Passenger::all();
+        $flights = Flight::all();
+        $reserves = Reserve::limit(5)->get(); // Apenas para testes
 
-        return view('reserves.index', compact('reserves'));
+        return view('reserves.index', compact('reserves'), [
+            'passengers' => $passengers,
+            'flights' => $flights,
+        ]);
     }
 
     public function store(Request $request)

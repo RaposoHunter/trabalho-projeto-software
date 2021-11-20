@@ -23,7 +23,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_PAIS">
                                 <option value="">Selecione o código do país</option>
-                                <option value="O">xd</option>
+                                @foreach ($countries->toQuery()->orderBy('CD_PAIS')->get() as $country)
+                                    <option value="{{ $country->CD_PAIS }}">{{ $country->CD_PAIS }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -32,7 +34,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="SG_UF">
                                 <option value="">Selecione sua unidade federativa</option>
-                                <option value="O">xd</option>
+                                @foreach ($states->toQuery()->orderBy('SG_UF')->get() as $state)
+                                    <option value="{{ $state->SG_UF }}">{{ $state->SG_UF }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -41,7 +45,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="NM_CIDD">
                                 <option value="">Selecione a Cidade</option>
-                                <option value="O">xd</option>
+                                @foreach ($states->toQuery()->orderBy('NM_UF')->get() as $state)
+                                    <option value="{{ $state->NM_UF }}">{{ $state->NM_UF }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

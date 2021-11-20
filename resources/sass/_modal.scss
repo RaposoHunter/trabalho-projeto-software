@@ -1,8 +1,7 @@
 .modal {
     .modal-dialog {
-        margin-top: 12rem;
         .modal-content-default{
-            max-width: 800px;
+            max-width: 1000px;
             border-radius: 12px;
             .modal-header-default {
                 position: relative;
@@ -13,6 +12,20 @@
                 }
             }
             .modal-body {
+                .alert-color{
+                    margin-right: 2.5rem;
+                    margin-left: 2.5rem;
+                    background-color: $blue-2;
+                    color: $white;
+                    span{
+                        padding-top: 0.2rem !important;
+                        color: $white;
+                        opacity: 0.8;
+                        &:hover{
+                            filter: brightness(0.8);
+                        }
+                    }
+                }
                 .modal-text {
                     font-size: 20px;
                     font-family: "Mulish Regular", Arial, Helvetica, sans-serif;
@@ -24,10 +37,14 @@
                         width: 100px;
                     }
                 }
+                #filter-table-container{
+                    height: 550px;
+                    overflow-y: auto;
+                }
             }
         }
         .modal-content-delete {
-            height: 260px;
+            max-height: 400px;
             width: 500px;
             border-radius: 12px;
             .modal-header-delete {

@@ -11,6 +11,7 @@
     }
     .register-input {
         display: block;
+        text-transform: uppercase;
         width: 100%;
         max-width: 450px;
         border: 1px solid $input-border;
@@ -37,6 +38,7 @@
         -ms-user-select: none;
         user-select: none;
         cursor: default;
+        text-transform: uppercase;
         .radio-input {
             position: absolute;
             opacity: 0;
@@ -59,6 +61,7 @@
             border-radius: 2px;
             border: 1px solid $blue;
             background: $white;
+            text-transform: uppercase;
             &::after {
                 content: "";
                 position: absolute;
@@ -86,6 +89,7 @@
         width: 100%;
         max-width: 450px;
         cursor: pointer;
+        text-transform: uppercase;
         select {
             display: none; /*hide original SELECT element:*/
         }
@@ -94,6 +98,7 @@
     .select-selected {
         background-color: $input-bg;
         border: 1px solid $input-border;
+        text-transform: uppercase;
         line-height: 3.1;
         border-radius: 8px;
         color: rgba(75, 80, 109, 0.4);
@@ -137,6 +142,7 @@
     .select-items {
         position: absolute;
         background-color: $input-bg;
+        text-transform: uppercase;
         color: $black !important;
         font-size: 16px;
         border-right: 1px solid $input-border;
@@ -204,6 +210,7 @@
         width: 100%;
         max-width: 450px;
         border: 1px solid $input-border;
+        text-transform: uppercase;
         background-color: $input-bg;
         border-radius: 8px;
         height: 50px;
@@ -227,6 +234,7 @@
         -ms-user-select: none;
         user-select: none;
         cursor: default;
+        text-transform: uppercase;
         .radio-input {
             position: absolute;
             opacity: 0;
@@ -249,6 +257,7 @@
             border-radius: 2px;
             border: 1px solid $blue;
             background: $white;
+            text-transform: uppercase;
             &::after {
                 content: "";
                 position: absolute;
@@ -275,6 +284,7 @@
         height: 50px;
         width: 100%;
         max-width: 450px;
+        text-transform: uppercase;
         cursor: pointer;
         select {
             display: none; /*hide original SELECT element:*/
@@ -284,6 +294,7 @@
     .select-selected {
         background-color: $input-bg;
         border: 1px solid $input-border;
+        text-transform: uppercase;
         line-height: 3.1;
         border-radius: 8px;
         color: rgba(75, 80, 109, 0.4);

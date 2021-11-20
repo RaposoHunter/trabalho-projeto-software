@@ -16,16 +16,23 @@
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Passageiro</label>
-                        <input class="register-input" name="CD_PSGR" type="text" placeholder="Insira o código do passageiro">
+                        <div class="custom-select-2">
+                            <select class="register-input" name="CD_PSGR">
+                                <option value="">Selecione o código do passageiro</option>
+                                @foreach ($passengers->toQuery()->orderBy('CD_PSGR')->get() as $passenger)
+                                    <option value="{{ $passenger->CD_PSGR }}">{{ $passenger->CD_PSGR }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">N° do Voo</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="NR_VOO">
                                 <option value="">Selecione o número do voo</option>
-                                <option value="M">Masculino</option>
-                                <option value="F">Feminino</option>
-                                <option value="O">Outros</option>
+                                {{-- @foreach ($flights->toQuery()->orderBy('NR_VOO')->get() as $flight)
+                                    <option value="{{ $flight->NR_VOO }}">{{ $flight->NR_VOO }}</option>
+                                @endforeach --}}
                             </select>
                         </div>
                     </div>

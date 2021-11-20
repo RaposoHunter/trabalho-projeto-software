@@ -12,8 +12,10 @@ class AirlineController extends Controller
     public function index()
     {
         $airlines = Airline::all();
-
-        return view('airlines.index', compact('airlines'));
+        $countries = Country::all();
+        return view('airlines.index', compact('airlines'), [
+            'countries' => $countries,
+        ]);
     }
 
     public function store(Request $request)
@@ -101,7 +103,7 @@ class AirlineController extends Controller
         if($type == 'null') {
             return response()->json('Informe o Tipo de Companhia', 400);
         }
-        
+
         if(!in_array($type, ['nacional', 'estrangeira', 'sem-pais', 'todas'])) {
             return response()->json('Informe um Tipo de Companhia válido', 400);
         }

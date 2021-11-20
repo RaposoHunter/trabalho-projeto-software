@@ -16,15 +16,29 @@
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Aeroporto de Origem</label>
-                        <input class="register-input" type="text" name="CD_ARPT_ORIG" placeholder="Insira o código do aeroporto de origem">
+                        <div class="custom-select-2">
+                            <select class="register-input" name="CD_ARPT_ORIG">
+                                <option value="">Selecione o cód. do aeroporto</option>
+                                @foreach ($airports->toQuery()->orderBy('CD_ARPT')->get() as $airport)
+                                    <option value="{{ $airport->CD_ARPT }}">{{ $airport->CD_ARPT }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Aeroporto de Destino</label>
-                        <input class="register-input" type="text" name="CD_ARPT_DEST" placeholder="Insira o código do aeroporto de destino">
+                        <div class="custom-select-2">
+                            <select class="register-input" name="CD_ARPT_DEST">
+                                <option value="">Selecione o cód. do aeroporto</option>
+                                @foreach ($airports->toQuery()->orderBy('CD_ARPT')->get() as $airport)
+                                    <option value="{{ $airport->CD_ARPT }}">{{ $airport->CD_ARPT }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Valor da Passagem</label>
-                        <input class="register-input" type="text" name="VR_PASG" placeholder="Insira o código do aeroporto de origem">
+                        <input class="register-input" type="text" name="VR_PASG" placeholder="Insira o valor da passagem">
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">
