@@ -10,13 +10,17 @@
     <div class="main-container">
         <h1 class="page-title">Cadastro de Aeronaves</h1>
 
+        @foreach ($errors->all() as $msg)
+            {{ $msg }}
+        @endforeach
+        
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{ route('airships.store') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Código da Aeronave</label>
-                        <input class="register-input" type="text" name="CD_ARNV" placeholder="Insira o código da aeronave">
+                        <label class="register-label" for="CD_ARNV">Código da Aeronave</label>
+                        <input class="register-input" type="text" name="CD_ARNV" placeholder="Insira o código da aeronave" style="text-transform: uppercase">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código da Companhia Aérea</label>

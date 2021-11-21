@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Passageiros')
+@section('title', 'Passageiros | Novo')
 
 @push('css')
 
@@ -16,7 +16,10 @@
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Nome</label>
-                        <input class="register-input" name="NM_PSGR" type="text" placeholder="Insira o nome">
+                        <input class="register-input" name="NM_PSGR" type="text" placeholder="Insira o nome" value="{{ old('NM_PSGR') }}">
+                        @error('NM_PSGR')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Sexo</label>
@@ -28,11 +31,16 @@
                                 <option value="O">Outros</option>
                             </select>
                         </div>
-
+                        @error('IC_SEXO_PSGR')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Nascimento</label>
-                        <input class="register-input date" name="DT_NASC_PSGR" type="text" placeholder="Insira a data de nascimento">
+                        <input class="register-input date" name="DT_NASC_PSGR" type="text" placeholder="Insira a data de nascimento" value="{{ old('DT_NASC_PSGR') }}">
+                        @error('DT_NASC_PSGR')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">País de Origem</label>
@@ -45,6 +53,9 @@
                                 @endforeach
                             </select>
                         </div>
+                        @error('CD_PAIS')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
 
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
@@ -59,6 +70,9 @@
                                 {{-- <option value="">Viúvo(a)</option> --}}
                             </select>
                         </div>
+                        @error('IC_ESTD_CIVIL')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Tem Responsável</label>
@@ -89,6 +103,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            @error('CD_PSGR_RESP')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 

@@ -7,6 +7,7 @@ use App\Airship;
 use App\Equipment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AirshipFormRequest;
 
 class AirshipController extends Controller
 {
@@ -17,9 +18,11 @@ class AirshipController extends Controller
         return view('airships.index', compact('airships'));
     }
 
-    public function store(Request $request)
-    {
-        // TODO: Tratativa dos inputs
+    public function store(AirshipFormRequest $request)
+    {   
+        $input = $request->except('_token');
+        $input['CD_ARNV'] = strtoupper($input['CD_ARNV']);
+
         try {
             DB::beginTransaction();
 
@@ -56,7 +59,7 @@ class AirshipController extends Controller
         return response()->json($airship, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(AirshipFormRequest $request, $id)
     {
         if(!$airship = Airship::find($id)) {
             return response()->json('Esta aeronave não existe! Tente recarregar a página.', 404);

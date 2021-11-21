@@ -16,7 +16,7 @@ class FlightRouteController extends Controller
         return view('flight_routes.index', compact('flight_routes'));
     }
 
-    public function store(Request $request)
+    public function store(FlightRouteFormRequest $request)
     {
         // TODO: Tratativa dos inputs
         try {
@@ -52,7 +52,7 @@ class FlightRouteController extends Controller
         return response()->json($flight_route, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(FlightRouteFormRequest $request, $id)
     {
         if(!$flight_route = FlightRoute::find($id)) {
             return response()->json('Esta rota de vôo não existe! Tente recarregar a página.', 404);

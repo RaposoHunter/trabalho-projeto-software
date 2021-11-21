@@ -10,8 +10,7 @@
     <div class="main-container">
         <h1 class="page-title">Países</h1>
         <div class="d-flex justify-content-end">
-            <a href="{{ route('countries.create') }}"><button class="btn-default btn-green mr-4">Cadastrar</button></a>
-            <button class="btn-default btn-blue ml-2 mr-1" data-toggle="modal" data-target="#filterModal">Filtrar</button>
+            <a href="{{ route('countries.create') }}"><button class="btn-default btn-green">Cadastrar</button></a>
         </div>
 
         <div class="main-card blue-card">
@@ -75,33 +74,6 @@
         </div>
     </div>
 
-    {{-- FILTRAR --}}
-    <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content modal-content-default">
-                <div class="modal-header-default text-white">
-                    <h5 class="modal-title" id="filterModalLabel">
-                        Filtrar tabela de Países
-                    </h5>
-                </div>
-
-                <div class="modal-body">
-                    <p class="modal-text">
-                        Deseja realmente deletar o País
-                        <span id="delete-code-em"></span>?
-                    </p>
-                    <div class="btn-div d-flex justify-content-end">
-                        <button type="button" class="delete-dismiss btn-default btn-red"
-                            data-dismiss="modal">Cancelar</button>
-                        <button type="button" class="delete-submit btn-default btn-blue ml-4">Filtrar</button>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
     {{-- EDITAR --}}
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
         aria-hidden="true">
@@ -138,7 +110,6 @@
                         </div>
                     </form>
                 </div>
-
             </div>
         </div>
     </div>
@@ -149,7 +120,7 @@
         $(function() {
             $('#table-id').DataTable({
                 language: {
-                    url: 'http://projeto.software/js/datatable.json'
+                    url: '<?= asset('js/datatable.json') ?>'
                 }
             });
             $('.delete-dismiss').on('click', function() {

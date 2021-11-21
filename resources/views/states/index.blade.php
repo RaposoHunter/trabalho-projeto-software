@@ -115,9 +115,10 @@
         $(function() {
             $('#table-id').DataTable({
                 language: {
-                    url: 'http://projeto.software/js/datatable.json'
+                    url: '<?= asset('js/datatable.json') ?>'
                 }
             });
+            
             $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide');
             })

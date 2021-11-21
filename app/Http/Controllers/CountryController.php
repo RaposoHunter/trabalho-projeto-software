@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\CountryFormRequest;
 
 class CountryController extends Controller
 {
@@ -15,19 +16,22 @@ class CountryController extends Controller
         return view('countries.index', compact('countries'));
     }
 
-    public function store(Request $request)
+    public function store(CountryFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['CD_PAIS'] = strtoupper($input['CD_PAIS']);
+        $input['NM_PAIS'] = strtoupper($input['NM_PAIS']);
+
         try {
             DB::beginTransaction();
 
-            Country::create($request->all());
+            Country::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return back()->with('error', 'Erro na adição de um País: '.$e->getMessage());
+            return back()->with('error', 'Erro na adição de um País. Tente novamente mais tarde!');
         }
 
         return redirect()->route('countries.index')->with('success', 'País adicionado com sucesso!');
@@ -48,17 +52,20 @@ class CountryController extends Controller
         return response()->json($country, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(CountryFormRequest $request, $id)
     {
         if(!$country = Country::find($id)) {
             return response()->json('Este país não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['CD_PAIS'] = strtoupper($input['CD_PAIS']);
+        $input['NM_PAIS'] = strtoupper($input['NM_PAIS']);
+
         try {
             DB::beginTransaction();
 
-            $country->update($request->all());
+            $country->update($input);
 
             DB::commit();
         } catch(\Exception $e) {

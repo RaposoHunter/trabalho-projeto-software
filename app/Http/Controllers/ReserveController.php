@@ -7,30 +7,32 @@ use App\Reserve;
 use App\Passenger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\ReserveFormRequest;
 
 class ReserveController extends Controller
 {
     public function index()
     {
         $reserves = Reserve::all();
-        // $reserves = Reserve::limit(5)->get(); // Apenas para testes
 
         return view('reserves.index', compact('reserves'));
     }
 
-    public function store(Request $request)
+    public function store(ReserveFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
+        $input = $request->all();
+        $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
+        
         try {
             DB::beginTransaction();
 
-            Reserve::create($request->all());
+            Reserve::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return back()->with('error', 'Erro na adição de uma Reserva: '.$e->getMessage());
+            return back()->with('error', 'Erro na adição de uma Reserva. Tente novamente mais tarde!');
         }
 
         return redirect()->route('reserves.index')->with('success', 'Reserva adicionada com sucesso!');
@@ -39,7 +41,7 @@ class ReserveController extends Controller
     public function create()
     {
         $passengers = Passenger::all();
-        $flights = Flight::all();
+        $flights = Flight::select('NR_VOO')->distinct()->get();
 
         return view('reserves.create', [
             'passengers' => $passengers,
@@ -57,17 +59,19 @@ class ReserveController extends Controller
         return response()->json($reserve, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(ReserveFormRequest $request, $id)
     {
         if(!$reserve = Reserve::find($id)) {
             return response()->json('Esta reserva não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->all();
+        $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
+
         try {
             DB::beginTransaction();
 
-            $reserve->update($request->all());
+            $reserve->update($input);
 
             DB::commit();
         } catch(\Exception $e) {

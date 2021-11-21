@@ -8,6 +8,7 @@ use App\Airship;
 use App\FlightRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\FlightFormRequest;
 
 class FlightController extends Controller
 {
@@ -19,18 +20,21 @@ class FlightController extends Controller
         return view('flights.index', compact('flights'));
     }
 
-    public function store(Request $request)
+    public function store(FlightFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
+
         try {
             DB::beginTransaction();
-
-            Flight::create($request->all());
+            
+            Flight::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
-            return back()->with('error', 'Erro na adição de um Vôo: '.$e->getMessage());
+
+            return back()->with('success', 'Algo deu errado ao adicionar o voo. Tente novamente mais tarde!');
         }
 
         return redirect()->route('flights.index')->with('success', 'Vôo adicionado com sucesso!');
@@ -57,17 +61,19 @@ class FlightController extends Controller
         return response()->json($flight, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(FlightFormRequest $request, $id)
     {
         if(!$flight = Flight::find($id)) {
             return response()->json('Este vôo não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
+
         try {
             DB::beginTransaction();
 
-            $flight->update($request->all());
+            $flight->update($input);
 
             DB::commit();
         } catch(\Exception $e) {

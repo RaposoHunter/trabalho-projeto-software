@@ -204,28 +204,28 @@
 
     @if(Session::has('success'))
     <script>
-        const success = new popupAlert('<?= Session::get('success'); ?>', 1, 3000 );
+        const success = new popupAlert("<?= Session::get('success'); ?>", 1, 3000 );
         success.create();
     </script>
     @endif
 
     @if(Session::has('error'))
     <script>
-        const error = new popupAlert('<?= Session::get('error'); ?>', 2, 3000 );
+        const error = new popupAlert("<?= Session::get('error'); ?>", 2, 3000 );
         error.create();
     </script>
     @endif
 
     @if(Session::has('info'))
     <script>
-        const info = new popupAlert('<?= Session::get('info'); ?>', 1, 3000 );
+        const info = new popupAlert("<?= Session::get('info'); ?>", 1, 3000 );
         info.create();
     </script>
     @endif
 
     @if(Session::has('warning'))
     <script>
-        const warning = new popupAlert('<?= Session::get('warning'); ?>', 2, 3000 );
+        const warning = new popupAlert("<?= Session::get('warning'); ?>", 2, 3000 );
         warning.create();
     </script>
     @endif

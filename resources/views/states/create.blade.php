@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Cadastro de Unidades Federativas')
+@section('title', 'Unidades Federativas | Novo')
 
 @push('css')
 
@@ -11,7 +11,7 @@
         <h1 class="page-title">Cadastro de Unidades Federativas</h1>
 
         <div class="register-card blue-card">
-            <form action="{{route('states.store')}}" method="POST">
+            <form action="{{ route('states.store') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
@@ -29,8 +29,6 @@
                 </div>
             </form>
         </div>
-
-
     </div>
 @endsection
 
@@ -40,6 +38,7 @@
             $('.custom-select-2').on('click', function() {
                 $(this).find('.select-selected').addClass('select-item-black');
             });
+            
             $('.date').mask('00/00/0000');
         });
     </script>

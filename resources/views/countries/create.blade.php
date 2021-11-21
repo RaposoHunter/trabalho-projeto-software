@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Cadastro de Países')
+@section('title', 'Países | Novo')
 
 @push('css')
 
@@ -11,19 +11,19 @@
         <h1 class="page-title">Cadastro de Países</h1>
 
         <div class="register-card blue-card">
-            <form action="{{route('countries.store')}}" method="POST">
+            <form action="{{ route('countries.store') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Código do País</label>
+                        <label class="register-label" for="CD_PAIS">Código do País</label>
                         <input class="register-input" name="CD_PAIS" type="text" placeholder="Insira o código do país">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Nome do País</label>
+                        <label class="register-label" for="NM_PAIS">Nome do País</label>
                         <input class="register-input" name="NM_PAIS" type="text" placeholder="Insira o nome do país">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">População do País</label>
+                        <label class="register-label" for="QT_PPLC_PAIS">População do País</label>
                         <input class="register-input" name="QT_PPLC_PAIS" type="text" placeholder="Insira a população do país">
                     </div>
                 </div>
@@ -33,8 +33,6 @@
                 </div>
             </form>
         </div>
-
-
     </div>
 @endsection
 
@@ -44,6 +42,7 @@
             $('.custom-select-2').on('click', function() {
                 $(this).find('.select-selected').addClass('select-item-black');
             });
+
             $('.date').mask('00/00/0000');
         });
     </script>
