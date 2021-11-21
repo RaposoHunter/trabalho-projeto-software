@@ -14,8 +14,13 @@ class AirportController extends Controller
     public function index()
     {
         $airports = Airport::all();
+        $countries = Country::all();
+        $states = State::all();
 
-        return view('airports.index', compact('airports'));
+        return view('airports.index', compact('airports'), [
+            'countries' => $countries,
+            'states' => $states,
+        ]);
     }
 
     public function store(AirportFormRequest $request)

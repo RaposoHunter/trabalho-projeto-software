@@ -129,6 +129,7 @@ table tbody .icon:hover {
 }
 .register-card .register-input {
   display: block;
+  text-transform: uppercase;
   width: 100%;
   max-width: 450px;
   border: 1px solid #F0F1F7;
@@ -153,6 +154,7 @@ table tbody .icon:hover {
   -ms-user-select: none;
   user-select: none;
   cursor: default;
+  text-transform: uppercase;
 }
 .register-card .radio-container .radio-input {
   position: absolute;
@@ -176,6 +178,7 @@ table tbody .icon:hover {
   border-radius: 2px;
   border: 1px solid #3751FF;
   background: #FFFFFF;
+  text-transform: uppercase;
 }
 .register-card .radio-container .radio-span::after {
   content: "";
@@ -198,6 +201,7 @@ table tbody .icon:hover {
   width: 100%;
   max-width: 450px;
   cursor: pointer;
+  text-transform: uppercase;
 }
 .register-card .custom-select-2 select {
   display: none;
@@ -206,6 +210,7 @@ table tbody .icon:hover {
 .register-card .select-selected {
   background-color: #FCFDFE;
   border: 1px solid #F0F1F7;
+  text-transform: uppercase;
   line-height: 3.1;
   border-radius: 8px;
   color: rgba(75, 80, 109, 0.4);
@@ -241,6 +246,7 @@ table tbody .icon:hover {
 .register-card .select-items {
   position: absolute;
   background-color: #FCFDFE;
+  text-transform: uppercase;
   color: #252733 !important;
   font-size: 16px;
   border-right: 1px solid #F0F1F7;
@@ -309,6 +315,7 @@ table tbody .icon:hover {
   width: 100%;
   max-width: 450px;
   border: 1px solid #F0F1F7;
+  text-transform: uppercase;
   background-color: #FCFDFE;
   border-radius: 8px;
   height: 50px;
@@ -330,6 +337,7 @@ table tbody .icon:hover {
   -ms-user-select: none;
   user-select: none;
   cursor: default;
+  text-transform: uppercase;
 }
 .modal-body .radio-container .radio-input {
   position: absolute;
@@ -353,6 +361,7 @@ table tbody .icon:hover {
   border-radius: 2px;
   border: 1px solid #3751FF;
   background: #FFFFFF;
+  text-transform: uppercase;
 }
 .modal-body .radio-container .radio-span::after {
   content: "";
@@ -374,6 +383,7 @@ table tbody .icon:hover {
   height: 50px;
   width: 100%;
   max-width: 450px;
+  text-transform: uppercase;
   cursor: pointer;
 }
 .modal-body .custom-select-2 select {
@@ -383,6 +393,7 @@ table tbody .icon:hover {
 .modal-body .select-selected {
   background-color: #FCFDFE;
   border: 1px solid #F0F1F7;
+  text-transform: uppercase;
   line-height: 3.1;
   border-radius: 8px;
   color: rgba(75, 80, 109, 0.4);
@@ -671,10 +682,10 @@ table tbody .icon:hover {
 }
 
 .modal .modal-dialog {
-  margin-top: 12rem;
+  max-width: 1000px !important;
 }
 .modal .modal-dialog .modal-content-default {
-  max-width: 800px;
+  max-width: 1000px;
   border-radius: 12px;
 }
 .modal .modal-dialog .modal-content-default .modal-header-default {
@@ -684,6 +695,20 @@ table tbody .icon:hover {
 }
 .modal .modal-dialog .modal-content-default .modal-header-default h5 {
   font-size: 22px;
+}
+.modal .modal-dialog .modal-content-default .modal-body .alert-color {
+  margin-right: 2.5rem;
+  margin-left: 2.5rem;
+  background-color: #007BFF;
+  color: #FFFFFF;
+}
+.modal .modal-dialog .modal-content-default .modal-body .alert-color span {
+  padding-top: 0.2rem !important;
+  color: #FFFFFF;
+  opacity: 0.8;
+}
+.modal .modal-dialog .modal-content-default .modal-body .alert-color span:hover {
+  filter: brightness(0.8);
 }
 .modal .modal-dialog .modal-content-default .modal-body .modal-text {
   font-size: 20px;
@@ -696,8 +721,12 @@ table tbody .icon:hover {
   border-radius: 12px;
   width: 100px;
 }
+.modal .modal-dialog .modal-content-default .modal-body #filter-table-container {
+  height: 550px;
+  overflow-y: auto;
+}
 .modal .modal-dialog .modal-content-delete {
-  height: 260px;
+  max-height: 400px;
   width: 500px;
   border-radius: 12px;
 }

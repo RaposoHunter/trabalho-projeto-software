@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Cadastro de Voo')
+@section('title', 'Voos | Novo')
 
 @push('css')
 

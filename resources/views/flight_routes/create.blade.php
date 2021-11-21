@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Valor da Passagem</label>
-                        <input class="register-input" type="text" name="VR_PASG" placeholder="Insira o código do aeroporto de origem">
+                        <input class="register-input" type="text" name="VR_PASG" placeholder="Insira o valor da passagem">
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">

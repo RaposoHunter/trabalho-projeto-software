@@ -102,7 +102,7 @@
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
                             <a href="{{ route('flights.index') }}" class="m-menu__link ">
-                                <img src="{{ asset('images/side-icons/flights.svg')}}" alt="">
+                                <img src="{{ asset('images/side-icons/flights.svg') }}" alt="">
 
                                 <span class="m-menu__link-text menu-span">Voos</span>
 
@@ -126,7 +126,7 @@
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
                             <a href="{{ route('airlines.index') }}" class="m-menu__link ">
-                                <img src="{{ asset('images/side-icons/airlines.svg')}}" alt="">
+                                <img src="{{ asset('images/side-icons/airlines.svg') }}" alt="">
 
                                 <span class="m-menu__link-text menu-span">C. Aéreas</span>
 
@@ -134,7 +134,7 @@
                         </li>
                         <li class="m-menu__item " aria-haspopup="true">
                             <a href="{{ route('countries.index') }}" class="m-menu__link ">
-                                <img src="{{ asset('images/side-icons/country.svg')}}" alt="">
+                                <img src="{{ asset('images/side-icons/country.svg') }}" alt="">
 
                                 <span class="m-menu__link-text menu-span">Países</span>
 
@@ -200,34 +200,43 @@
     <script src="{{ asset('js/select.js') }}" type="text/javascript"></script>
     <script src="{{ asset('mask/dist/jquery.mask.min.js') }}" type="text/javascript"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(function() {
+            $('.register-input').on('keydown', function() {
+                setTimeout(() => {
+                    $(this).val($(this).val().toUpperCase());
+                }, 1);
+            });
+        });
+    </script>
     @stack('js')
 
-    @if(Session::has('success'))
-    <script>
-        const success = new popupAlert("<?= Session::get('success'); ?>", 1, 3000 );
-        success.create();
-    </script>
+    @if (Session::has('success'))
+        <script>
+            const success = new popupAlert("<?= Session::get('success') ?>", 1, 3000);
+            success.create();
+        </script>
     @endif
 
     @if(Session::has('error'))
-    <script>
-        const error = new popupAlert("<?= Session::get('error'); ?>", 2, 3000 );
-        error.create();
-    </script>
+        <script>
+            const error = new popupAlert("<?= Session::get('error'); ?>", 2, 3000 );
+            error.create();
+        </script>
     @endif
 
     @if(Session::has('info'))
-    <script>
-        const info = new popupAlert("<?= Session::get('info'); ?>", 1, 3000 );
-        info.create();
-    </script>
+        <script>
+            const info = new popupAlert("<?= Session::get('info'); ?>", 1, 3000 );
+            info.create();
+        </script>
     @endif
 
     @if(Session::has('warning'))
-    <script>
-        const warning = new popupAlert("<?= Session::get('warning'); ?>", 2, 3000 );
-        warning.create();
-    </script>
+        <script>
+            const warning = new popupAlert("<?= Session::get('warning'); ?>", 2, 3000 );
+            warning.create();
+        </script>
     @endif
 
     <!--end::Base Scripts -->

@@ -14,8 +14,13 @@ class AirshipController extends Controller
     public function index()
     {
         $airships = Airship::all();
+        $airlines = Airline::all();
+        $equipments = Equipment::all();
 
-        return view('airships.index', compact('airships'));
+        return view('airships.index', compact('airships'), [
+            'airlines' => $airlines,
+            'equipments' => $equipments,
+        ]);
     }
 
     public function store(AirshipFormRequest $request)

@@ -47,8 +47,8 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_PAIS">
                                 <option value="">Selecione o país de origem</option>
-                                
-                                @foreach ($countries->toQuery()->orderBy('NM_PAIS')->get() as $country)
+
+                                @foreach ($countries->toQuery()->orderBy('CD_PAIS')->get() as $country)
                                     <option value="{{ $country->CD_PAIS }}">{{ $country->NM_PAIS }}</option>
                                 @endforeach
                             </select>

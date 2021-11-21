@@ -22,7 +22,7 @@
                         <input class="register-input" type="text" name="CD_CMPN_AEREA" placeholder="Insira o código do país">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Códido do País</label>
+                        <label class="register-label" for="">Código do País</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_PAIS">
                                 <option value="">Selecione o código do país</option>

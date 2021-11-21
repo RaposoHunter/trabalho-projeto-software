@@ -27,7 +27,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CMPN_AEREA">
                                 <option value="">Selecione código da companhia aérea</option>
-                                <option value="O">xd</option>
+                                @foreach ($airlines->toQuery()->orderBy('CD_CMPN_AEREA')->get() as $airline)
+                                    <option value="{{ $airline->CD_CMPN_AEREA }}">{{ $airline->CD_CMPN_AEREA }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -36,7 +38,9 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_EQPT">
                                 <option value="">Selecione código do equipamento</option>
-                                <option value="O">xd</option>
+                                @foreach ($equipments->toQuery()->orderBy('CD_EQPT')->get() as $equipment)
+                                    <option value="{{ $equipment->CD_EQPT }}">{{ $equipment->CD_EQPT }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

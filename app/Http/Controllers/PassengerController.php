@@ -13,14 +13,18 @@ class PassengerController extends Controller
     public function index()
     {
         $passengers = Passenger::all();
+        $countries = Country::all();
 
-        return view('passengers.index', compact('passengers'));
+        return view('passengers.index', compact('passengers'), [
+            'passengers' => $passengers,
+            'countries' => $countries,
+        ]);
     }
 
     public function store(PassengerFormRequest $request)
     {
         $input = $request->except('_token');
-        
+
         $input['NM_PSGR'] = strtoupper($input['NM_PSGR']);
         $input['DT_NASC_PSGR'] = implode('/', array_reverse(explode('/', $input['DT_NASC_PSGR'])));
 
@@ -119,7 +123,7 @@ class PassengerController extends Controller
 
         $passengers = Passenger::select('NM_PSGR', 'DT_NASC_PSGR');
 
-        
+
         if($civil != 'null') {
             $passengers = $passengers->where('IC_ESTD_CIVIL', $civil);
         }
@@ -133,7 +137,7 @@ class PassengerController extends Controller
         foreach($passengers as $passenger) {
             $passenger->getAge();
         }
- 
+
         $avg_age = $passengers->avg('ID_PSGR');
 
         return response()->json(['passengers' => $passengers, 'avg_age' => $avg_age], 200);
