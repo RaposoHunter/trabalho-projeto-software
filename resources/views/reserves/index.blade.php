@@ -107,7 +107,8 @@
                                             <option value="{{ $passenger->CD_PSGR }}">{{ $passenger->CD_PSGR }}</option>
                                         @endforeach
                                     </select>
-                                </div>                            </div>
+                                </div>
+                            </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">N° do Voo</label>
                                 <div class="custom-select-2">
@@ -122,6 +123,10 @@
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Data de Saída</label>
                                 <input class="register-input" type="text" placeholder="Insira a data de saída">
+                            </div>
+                            <div class="col-md-6 px-5 my-2 my-md-4">
+                                <label class="register-label" for="">Desconto da Passagem</label>
+                                <input class="register-input descount" type="text" name="PC_DESC_PASG" placeholder="Insira o desconto da passagem">
                             </div>
 
                         </div>

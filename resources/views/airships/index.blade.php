@@ -24,16 +24,18 @@
                     </thead>
                     <tbody>
                         @foreach ($airships as $airship)
-                            <tr id="linha-{{$airship->CD_ARNV}}">
-                                <td class="first-column">{{$airship->CD_ARNV}}</td>
-                                <td>{{$airship->CMPN_AEREA}}</td>
-                                <td>{{$airship->CD_EQPT}}</td>
+                            <tr id="linha-{{ $airship->CD_ARNV }}">
+                                <td class="first-column">{{ $airship->CD_ARNV }}</td>
+                                <td>{{ $airship->CMPN_AEREA }}</td>
+                                <td>{{ $airship->CD_EQPT }}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
-                                        <button id="edit-{{ $airship->CD_ARNV }}" class="icon icon-edit" data-toggle="modal" data-target="#editModal">
+                                        <button id="edit-{{ $airship->CD_ARNV }}" class="icon icon-edit"
+                                            data-toggle="modal" data-target="#editModal">
                                             <i class="fas fa-edit"></i>
                                         </button>
-                                        <button type="button" form="delete_{{ $airship->CD_ARNV }}" class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
+                                        <button type="button" form="delete_{{ $airship->CD_ARNV }}"
+                                            class="icon icon-delete" data-toggle="modal" data-target="#deleteModal">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                         <form method="POST" action="{{ route('airships.destroy', $airship->CD_ARNV) }}"
@@ -69,7 +71,8 @@
                     <div class="btn-div d-flex justify-content-end">
                         <button type="button" class="delete-dismiss btn-default btn-red"
                             data-dismiss="modal">Cancelar</button>
-                        <button  id="modal-button-delete" type="submit" class="delete-submit btn-default btn-blue ml-4">Deletar</button>
+                        <button id="modal-button-delete" type="submit"
+                            class="delete-submit btn-default btn-blue ml-4">Deletar</button>
                     </div>
                 </div>
 
@@ -93,15 +96,18 @@
                         <div class="form-row">
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Código da Aeronave</label>
-                                <input class="register-input" name="CD_ARNV" type="text" placeholder="Insira o cód. da aeronave">
+                                <input class="register-input" name="CD_ARNV" type="text"
+                                    placeholder="Insira o cód. da aeronave">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Cód. da companhia aérea</label>
                                 <div class="custom-select-2">
                                     <select class="register-input" name="CMPN_AEREA">
                                         <option value="">Selecione o cód. da c. aérea</option>
-                                        @foreach ($airlines->toQuery()->orderBy('CD_CMPN_AEREA')->get() as $airline)
-                                            <option value="{{ $airline->CD_CMPN_AEREA }}">{{ $airline->CD_CMPN_AEREA }}</option>
+                                        @foreach ($airlines->toQuery()->orderBy('CD_CMPN_AEREA')->get()
+        as $airline)
+                                            <option value="{{ $airline->CD_CMPN_AEREA }}">{{ $airline->CD_CMPN_AEREA }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -111,8 +117,10 @@
                                 <div class="custom-select-2">
                                     <select class="register-input" name="CD_EQPT">
                                         <option value="">Selecione o cód. do equipamento</option>
-                                        @foreach ($equipments->toQuery()->orderBy('CD_EQPT')->get() as $equipment)
-                                            <option value="{{ $equipment->CD_EQPT }}">{{ $equipment->CD_EQPT }}</option>
+                                        @foreach ($equipments->toQuery()->orderBy('CD_EQPT')->get()
+        as $equipment)
+                                            <option value="{{ $equipment->CD_EQPT }}">{{ $equipment->CD_EQPT }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -164,8 +172,11 @@
                     if (input_array.eq(i).attr('type') == "hidden") continue;
                     if (input_array.eq(i).attr('type') == undefined) {
                         input_array.eq(i).val(td_array.eq(i - 1).html());
+
                         input_array.eq(i).next().html(td_array.eq(i - 1).html()).addClass(
                             'select-item-black');
+                        if (input_array.eq(i).next().html() == "") input_array.eq(i).next().html('&nbsp;')
+
                     } else {
                         input_array.eq(i).val(td_array.eq(i - 1).html());
                     }

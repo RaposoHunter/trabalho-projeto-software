@@ -95,12 +95,12 @@
                         @csrf
                         <div class="form-row">
                             <div class="col-md-6 px-5 my-2 my-md-4">
-                                <label class="register-label" for="">Nome da Companhia</label>
-                                <input class="register-input" type="text" name="NM_CMPN_AEREA" placeholder="Insira o nome da companhia">
-                            </div>
-                            <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Código da Companhia</label>
                                 <input class="register-input" type="text" name="CD_CMPN_AEREA" placeholder="Insira o código do país">
+                            </div>
+                            <div class="col-md-6 px-5 my-2 my-md-4">
+                                <label class="register-label" for="">Nome da Companhia</label>
+                                <input class="register-input" type="text" name="NM_CMPN_AEREA" placeholder="Insira o nome da companhia">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Código do País</label>

@@ -725,27 +725,31 @@ table tbody .icon:hover {
   height: 550px;
   overflow-y: auto;
 }
-.modal .modal-dialog .modal-content-delete {
+
+.modal .modal-dialog-delete {
+  max-width: 500px !important;
+}
+.modal .modal-dialog-delete .modal-content-delete {
   max-height: 400px;
   width: 500px;
   border-radius: 12px;
 }
-.modal .modal-dialog .modal-content-delete .modal-header-delete {
+.modal .modal-dialog-delete .modal-content-delete .modal-header-delete {
   position: relative;
   padding: 20px 25px;
   border-bottom: 3px solid #3751FF;
 }
-.modal .modal-dialog .modal-content-delete .modal-header-delete h5 {
+.modal .modal-dialog-delete .modal-content-delete .modal-header-delete h5 {
   font-size: 22px;
 }
-.modal .modal-dialog .modal-content-delete .modal-body .modal-text {
+.modal .modal-dialog-delete .modal-content-delete .modal-body .modal-text {
   font-size: 20px;
   font-family: "Mulish Regular", Arial, Helvetica, sans-serif;
 }
-.modal .modal-dialog .modal-content-delete .modal-body .btn-div {
+.modal .modal-dialog-delete .modal-content-delete .modal-body .btn-div {
   margin-top: 4.75rem;
 }
-.modal .modal-dialog .modal-content-delete .modal-body .btn-div .btn-default {
+.modal .modal-dialog-delete .modal-content-delete .modal-body .btn-div .btn-default {
   border-radius: 12px;
   width: 100px;
 }
