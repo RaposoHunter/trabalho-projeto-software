@@ -20,4 +20,9 @@ class Flight extends Model
     {
         return $this->hasMany(Reserve::class, 'NR_ROTA_VOO');
     }
+
+    public function airship()
+    {
+        return $this->belongsTo(Airship::class, 'CD_ARNV');
+    }
 }

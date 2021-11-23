@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Cadastro de Voo')
+@section('title', 'Voos | Novo')
 
 @push('css')
 
@@ -17,17 +17,23 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">N° do Voo</label>
                         <input class="register-input" name="NR_VOO" type="text" placeholder="Insira o número do voo">
+                        @error('NR_VOO')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">N° da Rota</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="NR_ROTA_VOO">
                                 <option value="">Selecione o número da rota</option>
-                                @foreach ($flight_routes->toQuery()->orderBy('NR_ROTA_VOO')->get() as $flight_route)
-                                    <option value="{{ $flight_route->NR_ROTA_VOO }}">{{ $flight_route->NR_ROTA_VOO }}</option>
+                                @foreach($flight_routes as $flight_route)
+                                    <option value="{{ $flight_route->NR_ROTA_VOO }}">{{ $flight_route->NR_ROTA_VOO }} - {{ $flight_route->CD_ARPT_ORIG }} -> {{ $flight_route->CD_ARPT_DEST }}</option>
                                 @endforeach
                             </select>
                         </div>
+                        @error('NR_ROTA_VOO')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
 
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
@@ -35,16 +41,22 @@
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_ARNV">
                                 <option value="">Selecione o código da aeronave</option>
-                                @foreach ($airships->toQuery()->orderBy('CD_ARNV')->get() as $airship)
+                                @foreach($airships as $airship)
                                     <option value="{{ $airship->CD_ARNV }}">{{ $airship->CD_ARNV }}</option>
                                 @endforeach
 
                             </select>
                         </div>
+                        @error('CD_ARNV')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Data de Saída</label>
                         <input class="register-input date" type="text" name="DT_SAIDA_VOO" placeholder="Insira a data de saída">
+                        @error('DT_SAIDA_VOO')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="d-flex justify-content-end mt-4">

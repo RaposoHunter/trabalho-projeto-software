@@ -11,33 +11,33 @@
         <h1 class="page-title">Cadastro de Reservas</h1>
 
         <div class="register-card blue-card">
-            <form action="">
+            <form action="{{ route('reserves.store') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Código do Passageiro</label>
+                        <label class="register-label" for="CD_PSGR">Passageiro</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_PSGR">
-                                <option value="">Selecione o código do passageiro</option>
-                                @foreach ($passengers->toQuery()->orderBy('CD_PSGR')->get() as $passenger)
-                                    <option value="{{ $passenger->CD_PSGR }}">{{ $passenger->CD_PSGR }}</option>
+                                <option value="">Selecione o passageiro</option>
+                                @foreach ($passengers as $passenger)
+                                    <option value="{{ $passenger->CD_PSGR }}">{{ $passenger->CD_PSGR }} - {{ $passenger->NM_PSGR }}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">N° do Voo</label>
+                        <label class="register-label" for="NR_VOO">N° do Voo</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="NR_VOO">
                                 <option value="">Selecione o número do voo</option>
-                                {{-- @foreach ($flights->toQuery()->orderBy('NR_VOO')->get() as $flight)
+                                @foreach ($flights as $flight)
                                     <option value="{{ $flight->NR_VOO }}">{{ $flight->NR_VOO }}</option>
-                                @endforeach --}}
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
-                        <label class="register-label" for="">Data de Saída</label>
+                        <label class="register-label" for="DT_SAIDA_VOO">Data de Saída</label>
                         <input class="register-input" type="text" name="DT_SAIDA_VOO" placeholder="Insira a data de saída">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">

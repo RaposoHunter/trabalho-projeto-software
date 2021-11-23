@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Cadastro de Equipamentos')
+@section('title', 'Equipamentos | Novo')
 
 @push('css')
 
@@ -11,7 +11,7 @@
         <h1 class="page-title">Cadastro de Equipamentos</h1>
 
         <div class="register-card blue-card">
-            <form action="{{route('equipments.store')}}" method="POST">
+            <form action="{{ route('equipments.store') }}" method="POST">
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 px-5 my-2 my-md-4">

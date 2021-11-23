@@ -6,13 +6,13 @@ use App\Country;
 use App\Passenger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PassengerFormRequest;
 
 class PassengerController extends Controller
 {
     public function index()
     {
-        // $passengers = Passenger::all();
-        $passengers = Passenger::limit(5)->get();
+        $passengers = Passenger::all();
         $countries = Country::all();
 
         return view('passengers.index', compact('passengers'), [
@@ -21,11 +21,8 @@ class PassengerController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(PassengerFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
-        /* ME CONSERTA */
-
         $input = $request->except('_token');
 
         $input['NM_PSGR'] = strtoupper($input['NM_PSGR']);
@@ -67,17 +64,21 @@ class PassengerController extends Controller
         return response()->json($passenger, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(PassengerFormRequest $request, $id)
     {
         if(!$passenger = Passenger::find($id)) {
             return response()->json('Este passageiro não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        
+        $input['NM_PSGR'] = strtoupper($input['NM_PSGR']);
+        $input['DT_NASC_PSGR'] = implode('/', array_reverse(explode('/', $input['DT_NASC_PSGR'])));
+
         try {
             DB::beginTransaction();
 
-            $passenger->update($request->all());
+            $passenger->update($input);
 
             DB::commit();
         } catch(\Exception $e) {

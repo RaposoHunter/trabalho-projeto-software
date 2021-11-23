@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Country;
 use App\Airline;
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AirlineFormRequest;
 
 class AirlineController extends Controller
 {
@@ -18,13 +19,16 @@ class AirlineController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AirlineFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
+        $input = $request->all();
+        $input['CD_CMPN_AEREA'] = strtoupper($input['CD_CMPN_AEREA']);
+        $input['NM_CMPN_AEREA'] = strtoupper($input['NM_CMPN_AEREA']);
+
         try {
             DB::beginTransaction();
 
-            Airline::create($request->all());
+            Airline::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
@@ -55,17 +59,20 @@ class AirlineController extends Controller
         return response()->json($airline, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(AirlineFormRequest $request, $id)
     {
         if(!$airline = Airline::find($id)) {
             return response()->json('Esta companhia aérea não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->all();
+        $input['CD_CMPN_AEREA'] = strtoupper($input['CD_CMPN_AEREA']);
+        $input['NM_CMPN_AEREA'] = strtoupper($input['NM_CMPN_AEREA']);
+
         try {
             DB::beginTransaction();
 
-            $airline->update($request->all());
+            $airline->update($input);
 
             DB::commit();
         } catch(\Exception $e) {

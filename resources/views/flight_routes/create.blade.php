@@ -18,8 +18,8 @@
                         <label class="register-label" for="">Código do Aeroporto de Origem</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_ARPT_ORIG">
-                                <option value="">Selecione o cód. do aeroporto</option>
-                                @foreach ($airports->toQuery()->orderBy('CD_ARPT')->get() as $airport)
+                                <option value="">Selecione o código do aeroporto de origem</option>
+                                @foreach ($airports as $airport)
                                     <option value="{{ $airport->CD_ARPT }}">{{ $airport->CD_ARPT }}</option>
                                 @endforeach
                             </select>
@@ -29,8 +29,8 @@
                         <label class="register-label" for="">Código do Aeroporto de Destino</label>
                         <div class="custom-select-2">
                             <select class="register-input" name="CD_ARPT_DEST">
-                                <option value="">Selecione o cód. do aeroporto</option>
-                                @foreach ($airports->toQuery()->orderBy('CD_ARPT')->get() as $airport)
+                                <option value="">Selecione o código do aeroporto de destino</option>
+                                @foreach ($airports as $airport)
                                     <option value="{{ $airport->CD_ARPT }}">{{ $airport->CD_ARPT }}</option>
                                 @endforeach
                             </select>

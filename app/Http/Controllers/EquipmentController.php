@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Equipment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\EquipmentFormRequest;
 
 class EquipmentController extends Controller
 {
@@ -15,13 +16,17 @@ class EquipmentController extends Controller
         return view('equipments.index', compact('equipments'));
     }
 
-    public function store(Request $request)
+    public function store(EquipmentFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['CD_EQPT'] = strtoupper($input['CD_EQPT']);
+        $input['NM_EQPT'] = strtoupper($input['CD_EQPT']);
+        $input['DC_TIPO_EQPT'] = strtoupper($input['CD_EQPT']);
+        
         try {
             DB::beginTransaction();
 
-            Equipment::create($request->all());
+            Equipment::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
@@ -48,17 +53,21 @@ class EquipmentController extends Controller
         return response()->json($equipment, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(EquipmentFormRequest $request, $id)
     {
         if(!$equipment = Equipment::find($id)) {
             return response()->json('Este equipamento não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['CD_EQPT'] = strtoupper($input['CD_EQPT']);
+        $input['NM_EQPT'] = strtoupper($input['NM_EQPT']);
+        $input['DC_TIPO_EQPT'] = strtoupper($input['DC_TIPO_EQPT']);
+
         try {
             DB::beginTransaction();
 
-            $equipment->update($request->all());
+            $equipment->update($input);
 
             DB::commit();
         } catch(\Exception $e) {

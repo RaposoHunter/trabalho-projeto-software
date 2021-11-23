@@ -7,6 +7,7 @@ use App\Airport;
 use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\AirportFormRequest;
 
 class AirportController extends Controller
 {
@@ -22,22 +23,25 @@ class AirportController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AirportFormRequest $request)
     {
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['CD_ARPT'] = strtoupper($input['CD_ARPT']);
+        $input['NM_CIDD'] = strtoupper($input['NM_CIDD']);
+
         try {
             DB::beginTransaction();
 
-            Airport::create($request->all());
+            Airport::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return back()->with('error', 'Erro na adição de um Aeroporto: '.$e->getMessage());
+            return back()->with('error', 'Erro na adição de um Aeroporto. Tente novamente mais tarde!');
         }
-        return redirect()->route('airlines.index')->with('success', 'Aeroporto adicionado com sucesso!');
 
+        return redirect()->route('airports.index')->with('success', 'Aeroporto adicionado com sucesso!');
     }
 
     public function create()
@@ -61,17 +65,21 @@ class AirportController extends Controller
         return response()->json($airport, 200);
     }
 
-    public function update(Request $request, $id)
+    public function update(AirportFormRequest $request, $id)
     {
+        
         if(!$airport = Airport::find($id)) {
             return response()->json('Este aeroporto não existe! Tente recarregar a página.', 404);
         }
 
-        // TODO: Tratativa dos inputs
+        $input = $request->except('_token');
+        $input['CD_ARPT'] = strtoupper($input['CD_ARPT']);
+        $input['NM_CIDD'] = strtoupper($input['NM_CIDD']);
+
         try {
             DB::beginTransaction();
 
-            $airport->update($request->all());
+            $airport->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
