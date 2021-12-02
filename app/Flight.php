@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Flight extends Model
 {
     protected $table = 'itr_voo';
+    protected $primaryKey = 'NR_VOO';
+    protected $keyType = 'integer';
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
