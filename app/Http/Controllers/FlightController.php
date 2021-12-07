@@ -15,8 +15,8 @@ class FlightController extends Controller
 {
     public function index()
     {
-        // $flights = Flight::all();
-        $flights = Flight::limit(20)->get(); // Apenas para testes
+        $flights = Flight::all();
+        // $flights = Flight::limit(20)->get();
         $airships = Airship::all();
         $flight_routes = FlightRoute::all();
 
@@ -34,7 +34,7 @@ class FlightController extends Controller
 
         try {
             DB::beginTransaction();
-            
+
             Flight::create($input);
 
             DB::commit();

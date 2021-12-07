@@ -1,7 +1,7 @@
 .modal {
     .modal-dialog {
         max-width: 1000px !important;
-        .modal-content-default{
+        .modal-content-default {
             max-width: 1000px;
             border-radius: 12px;
             .modal-header-default {
@@ -13,16 +13,16 @@
                 }
             }
             .modal-body {
-                .alert-color{
+                .alert-color {
                     margin-right: 2.5rem;
                     margin-left: 2.5rem;
                     background-color: $blue-2;
                     color: $white;
-                    span{
+                    span {
                         padding-top: 0.2rem !important;
                         color: $white;
                         opacity: 0.8;
-                        &:hover{
+                        &:hover {
                             filter: brightness(0.8);
                         }
                     }
@@ -38,12 +38,18 @@
                         width: 100px;
                     }
                 }
-                #filter-table-container{
+                #filter-table-container {
                     height: 550px;
                     overflow-y: auto;
                 }
             }
         }
+    }
+}
+
+.modal {
+    .modal-dialog-delete {
+        max-width: 500px !important;
         .modal-content-delete {
             max-height: 400px;
             width: 500px;
@@ -70,7 +76,5 @@
                 }
             }
         }
-
-
     }
 }

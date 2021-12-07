@@ -12,7 +12,8 @@ class PassengerController extends Controller
 {
     public function index()
     {
-        $passengers = Passenger::all();
+        // $passengers = Passenger::all();
+        $passengers = Passenger::limit(5)->get();
         $countries = Country::all();
 
         return view('passengers.index', [
@@ -70,7 +71,7 @@ class PassengerController extends Controller
         }
 
         $input = $request->except('_token');
-        
+
         $input['NM_PSGR'] = strtoupper($input['NM_PSGR']);
         $input['DT_NASC_PSGR'] = implode('/', array_reverse(explode('/', $input['DT_NASC_PSGR'])));
 
