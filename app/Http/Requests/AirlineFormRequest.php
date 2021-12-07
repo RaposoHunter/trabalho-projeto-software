@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueAirline;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AirlineFormRequest extends FormRequest
@@ -24,7 +25,7 @@ class AirlineFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'CD_CMPN_AEREA' => 'required|unique:itr_cmpn_aerea,CD_CMPN_AEREA|max:2',
+            'CD_CMPN_AEREA' => ['required', new UniqueAirline, 'max:2'],
             'NM_CMPN_AEREA' => 'required|max:22',
             'CD_PAIS' => 'nullable|exists:itr_pais,CD_PAIS'
         ];

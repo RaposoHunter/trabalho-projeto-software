@@ -30,7 +30,7 @@
                                 <td class="first-column">{{ $flight->NR_VOO }}</td>
                                 <td>{{ $flight->NR_ROTA_VOO }}</td>
                                 <td>{{ $flight->CD_ARNV }}</td>
-                                <td>{{ $flight->DT_SAIDA_VOO }}</td>
+                                <td>{{ \Carbon\Carbon::parse($flight->DT_SAIDA_VOO)->format('d/m/Y') }}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
                                         <button id="edit_{{$flight->NR_VOO}}D{{$flight->DT_SAIDA_VOO}}" class="icon icon-edit" data-toggle="modal"
@@ -138,7 +138,9 @@
                                 data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="delete-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
-                        @method('PUT');
+                        @method('PUT')
+                        <input type="hidden" name="old_NR_VOO">
+                        <input type="hidden" name="old_DT_SAIDA_VOO">
                     </form>
                 </div>
 
@@ -247,6 +249,10 @@
             /* editar */
             $('.icon-edit').on('click', function() {
                 let id = $(this).attr('id').split('_')[1];
+
+                $('input[name=old_NR_VOO]').val(id.split('D')[0]);
+                $('input[name=old_DT_SAIDA_VOO]').val(id.split('D')[1]);
+
                 let td_array = $(`#linha_${id}`).children();
                 let input_array = $('#edit-form :input');
                 $('#edit-form').attr('action', "<?= route('flights.update', ['_id_']) ?>".replace('_id_',

@@ -62,7 +62,7 @@ class AirlineController extends Controller
     public function update(AirlineFormRequest $request, $id)
     {
         if(!$airline = Airline::find($id)) {
-            return response()->json('Esta companhia aérea não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Esta companhia aérea não existe! Tente recarregar a página.');
         }
 
         $input = $request->all();
@@ -72,26 +72,34 @@ class AirlineController extends Controller
         try {
             DB::beginTransaction();
 
+            if($airline->airships->count() > 0 && $request->segment(2) != $input['CD_CMPN_AEREA']) {
+                return back()->with('warning', "{$airline->airships->count()} aeronaves pertencem a esta c. aérea. Apague-as antes de alterar a companhia.");
+            }
+
             $airline->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição da uma Companhia Aérea {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição da uma Companhia Aérea {$id}: Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'Companhia aérea atualizada com sucesso', 'airline' => $airline], 200);
+        return redirect()->route('airlines.index')->with('success', 'Companhia aérea atualizada com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$airline = Airline::find($id)) {
-            return response()->json('Esta companhia aérea não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Esta companhia aérea não existe! Tente recarregar a página.', 404);
         }
 
         try {
             DB::beginTransaction();
+
+            if($airline->airships->count() > 0) {
+                return back()->with('warning', "{$airline->airships->count()} aeronaves pertencem a esta c. aérea. Apague-as antes de alterar a companhia.");
+            }
 
             $airline->delete();
 
@@ -99,10 +107,10 @@ class AirlineController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão da Companhia Aérea {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na exclusão da Companhia Aérea {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('Companhia aérea excluida com sucesso!', 200);
+        return redirect()->route('airlines.index')->with('success', 'Companhia aérea excluida com sucesso!');
     }
 
     public function filter($type)

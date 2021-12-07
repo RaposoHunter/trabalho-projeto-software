@@ -17,6 +17,9 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do Aeroporto</label>
                         <input class="register-input" type="text" name="CD_ARPT" placeholder="Insira o código do aeroporto">
+                        @error('CD_ARPT')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código do País</label>

@@ -25,7 +25,7 @@
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Código da Companhia Aérea</label>
                         <div class="custom-select-2">
-                            <select class="register-input" name="CMPN_AEREA">
+                            <select class="register-input" name="CD_CMPN_AEREA">
                                 <option value="">Selecione código da companhia aérea</option>
                                 @foreach ($airlines->toQuery()->orderBy('CD_CMPN_AEREA')->get() as $airline)
                                     <option value="{{ $airline->CD_CMPN_AEREA }}">{{ $airline->CD_CMPN_AEREA }}</option>

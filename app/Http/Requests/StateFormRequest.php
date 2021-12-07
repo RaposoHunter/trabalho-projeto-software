@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueState;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StateFormRequest extends FormRequest
@@ -24,7 +25,7 @@ class StateFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'SG_UF' => 'required|unique:itr_uf,SG_UF|max:2|min:2',
+            'SG_UF' => ['required', new UniqueState, 'max:2', 'min:2'],
             'NM_UF' => 'required|max:25',
         ];
     }

@@ -239,6 +239,13 @@
         </script>
     @endif
 
+    @if($errors->count() > 0 && strpos(url()->current(), 'cadastrar') === false)
+        <script>
+            console.log(JSON.parse('<?= json_encode($errors->all()) ?>'));
+            const errors = new popupAlert(JSON.parse('<?= json_encode($errors->all()) ?>').join(' | '), 2, 3000 );
+            errors.create();
+        </script>
+    @endif
     <!--end::Base Scripts -->
 </body>
 

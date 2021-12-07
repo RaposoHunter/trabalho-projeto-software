@@ -19,6 +19,11 @@ class Airport extends Model
         'NM_CIDD',
     ];
 
+    public function getFlightRoutes()
+    {
+        return FlightRoute::where('CD_ARPT_ORIG', $this->CD_ARPT)->orWhere('CD_ARPT_DEST', $this->CD_ARPT)->get();
+    }
+
     public static function getCodes()
     {
         $codes = [];

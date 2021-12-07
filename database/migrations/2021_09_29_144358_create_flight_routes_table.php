@@ -14,13 +14,12 @@ class CreateFlightRoutesTable extends Migration
     public function up()
     {
         Schema::create('itr_rota_voo', function (Blueprint $table) {
-            $table->integer('NR_ROTA_VOO');
+            $table->id('NR_ROTA_VOO');
             
             $table->string('CD_ARPT_ORIG', 3);
             $table->string('CD_ARPT_DEST', 3);
             $table->double('VR_PASG', 8, 2)->nullable();
             
-            $table->primary('NR_ROTA_VOO');
             $table->foreign('CD_ARPT_ORIG')->references('CD_ARPT')->on('itr_arpt');
             $table->foreign('CD_ARPT_DEST')->references('CD_ARPT')->on('itr_arpt');
         });

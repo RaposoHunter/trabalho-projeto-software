@@ -15,7 +15,7 @@ class PassengerController extends Controller
         $passengers = Passenger::all();
         $countries = Country::all();
 
-        return view('passengers.index', compact('passengers'), [
+        return view('passengers.index', [
             'passengers' => $passengers,
             'countries' => $countries,
         ]);
@@ -54,7 +54,6 @@ class PassengerController extends Controller
         ]);
     }
 
-    // show e edit
     public function getPassenger($id)
     {
         if(!$passenger = Passenger::find($id)) {
@@ -67,7 +66,7 @@ class PassengerController extends Controller
     public function update(PassengerFormRequest $request, $id)
     {
         if(!$passenger = Passenger::find($id)) {
-            return response()->json('Este passageiro não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este passageiro não existe! Tente recarregar a página.');
         }
 
         $input = $request->except('_token');
@@ -84,31 +83,35 @@ class PassengerController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição do Passageiro {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição do Passageiro {$id}. Tente novamente mais tarde!");
         }
 
-        return response()->json(['message' => 'Passageiro atualizado com sucesso', 'passenger' => $passenger], 200);
+        return redirect()->route('passengers.index')->with('success', 'Passageiro atualizado com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$passenger = Passenger::find($id)) {
-            return response()->json('Este passageiro não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este passageiro não existe. Tente recarregar a página!');
         }
 
         try {
             DB::beginTransaction();
 
-            $passenger->delete();
+            if($passenger->reserves->count() === 0) {
+                $passenger->delete();
+            } else {
+                return back()->with('warning', "O passageiro possui {$passenger->reserves->count()} reservas cadastradas. Cancele-as antes de apagar o passageiro.");
+            }
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão do Passageiro {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na exclusão do Passageiro {$id}. Tente novamente mais tarde!");
         }
 
-        return response()->json('Passageiro excluido com sucesso!', 200);
+        return redirect()->route('passengers.index')->with('success', 'Passageiro excluido com sucesso!');
     }
 
     public function filter($civil, $sex)
@@ -122,7 +125,6 @@ class PassengerController extends Controller
         }
 
         $passengers = Passenger::select('NM_PSGR', 'DT_NASC_PSGR');
-
 
         if($civil != 'null') {
             $passengers = $passengers->where('IC_ESTD_CIVIL', $civil);

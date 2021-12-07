@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueEquipment;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EquipmentFormRequest extends FormRequest
@@ -23,8 +24,10 @@ class EquipmentFormRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->all());
+
         return [
-            'CD_EQPT' => 'required|unique:itr_eqpt,CD_EQPT|max:3',
+            'CD_EQPT' => ['required', new UniqueEquipment, 'max:3'],
             'NM_EQPT' => 'required|max:38',
             'DC_TIPO_EQPT' => 'required|max:13',
             'QT_MOTOR' => 'required|integer|min:0',
@@ -36,7 +39,7 @@ class EquipmentFormRequest extends FormRequest
     public function messages()
     {
         return [
-            'required' => 'Campo Obrigatório',
+            'required' => ':attribute Campo Obrigatório',
             'CD_EQPT.unique' => 'O código do equipamento já está em uso',
             'CD_EQPT.max' => 'O código do equipamento deve ter até 3 caracteres',
             'NM_EQPT.max' => 'O nome do equipamento deve ter até 38 caracteres',

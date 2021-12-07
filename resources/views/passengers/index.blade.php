@@ -142,12 +142,8 @@
                                 <div class="custom-select-2">
                                     <select class="register-input" name="IC_ESTD_CIVIL">
                                         <option value="">Selecione o estado cívil</option>
-                                        <option value="">Solteiro(a)</option>
-                                        <option value="">Casado(a)</option>
-                                        <option value="">Separado(a)</option>
-                                        <option value="">Divorciado(a)</option>
-                                        <option value="">Viúvo(a)</option>
-
+                                        <option value="S">Solteiro(a)</option>
+                                        <option value="C">Casado(a)</option>
                                     </select>
                                 </div>
                             </div>
@@ -188,7 +184,7 @@
                                 data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="edit-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
-                        @method('PUT');
+                        @method('PUT')
                     </form>
                 </div>
 

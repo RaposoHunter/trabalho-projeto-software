@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Flight extends Model
 {
     protected $table = 'itr_voo';
+    protected $primaryKey = 'NR_VOO';
+    protected $keyType = 'integer';
+    public $incrementing = false;
     public $timestamps = false;
 
     protected $fillable = [
@@ -16,9 +19,9 @@ class Flight extends Model
         'CD_ARNV',
     ];
 
-    public function reserves()
+    public function getReserves()
     {
-        return $this->hasMany(Reserve::class, 'NR_ROTA_VOO');
+        return Reserve::where('NR_VOO', $this->NR_VOO)->where('DT_SAIDA_VOO', $this->DT_SAIDA_VOO)->get();
     }
 
     public function airship()

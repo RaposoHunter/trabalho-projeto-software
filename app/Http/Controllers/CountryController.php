@@ -55,7 +55,7 @@ class CountryController extends Controller
     public function update(CountryFormRequest $request, $id)
     {
         if(!$country = Country::find($id)) {
-            return response()->json('Este país não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este país não existe! Tente recarregar a página.');
         }
 
         $input = $request->except('_token');
@@ -65,26 +65,56 @@ class CountryController extends Controller
         try {
             DB::beginTransaction();
 
+            if($country->airlines->count() > 0 && $request->segment(2) != $input['CD_PAIS']) {
+                return back()->with('warning', "{$country->airships->count()} c. aéreas são deste país. Apague-as antes de alterar o país.");
+            }
+
+            if($country->airports->count() > 0 && $request->segment(2) != $input['CD_PAIS']) {
+                return back()->with('warning', "{$country->airports->count()} aeroportos são deste país. Apague-os antes de alterar o país.");
+            }
+
+            if($country->passengers->count() > 0 && $request->segment(2) != $input['CD_PAIS']) {
+                return back()->with('warning', "{$country->passengers->count()} passageiros são deste país. Apague-os antes de alterar o país.");
+            }
+
             $country->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição do País {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição do País {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'País atualizado com sucesso', 'country' => $country], 200);
+        return redirect()->route('countries.index')->with('success', 'País atualizado com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$country = Country::find($id)) {
-            return response()->json('Este país não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este país não existe! Tente recarregar a página.');
         }
 
         try {
             DB::beginTransaction();
+
+            $errors = [];
+
+            if($country->airlines->count() > 0) {
+                $errors[] = "{$country->airlines->count()} c. aéreas são deste país. Apague-as antes de alterar o país.";
+            }
+
+            if($country->airports->count() > 0) {
+                $errors[] = "{$country->airports->count()} aeroportos são deste país. Apague-os antes de alterar o país.";
+            }
+
+            if($country->passengers->count() > 0) {
+                $errors[] = "{$country->passengers->count()} passageiros são deste país. Apague-os antes de alterar o país.";
+            }
+
+            if(count($errors) > 0) {
+                return back()->with('warning', implode(' | ', $errors));
+            }
 
             $country->delete();
 
@@ -92,9 +122,11 @@ class CountryController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão do País {$id}: ".$e->getMessage(), 500);
+            dd($e->getMessage());
+
+            return back()->with('error', "Erro na exclusão do País {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('País excluido com sucesso!', 200);
+        return redirect()->route('countries.index')->with('success', 'País excluido com sucesso!');
     }
 }

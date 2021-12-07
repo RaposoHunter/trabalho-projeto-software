@@ -55,7 +55,7 @@ class StateController extends Controller
     public function update(StateFormRequest $request, $id)
     {
         if(!$state = State::find($id)) {
-            return response()->json('Este estado não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este estado não existe! Tente recarregar a página.');
         }
 
         $input = $request->except('_token');
@@ -65,26 +65,34 @@ class StateController extends Controller
         try {
             DB::beginTransaction();
 
-            $state->update($inpu);
+            if($state->airports->count() > 0 && $request->segment(2) != $input['SG_UF']) {
+                return back()->with('warning', "{$state->airports->count()} aeroportos são desta UF. Apague-os antes de alterar a UF.");
+            }
+
+            $state->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição do estado {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição do estado {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'Estado atualizado com sucesso', 'state' => $state], 200);
+        return redirect()->route('states.index')->with('success', 'Estado atualizado com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$state = State::find($id)) {
-            return response()->json('Este estado não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este estado não existe! Tente recarregar a página.');
         }
 
         try {
             DB::beginTransaction();
+
+            if($state->airports->count() > 0) {
+                return back()->with('warning', "{$state->airports->count()} aeroportos são desta UF. Apague-os antes de alterar a UF.");
+            }
 
             $state->delete();
 
@@ -92,9 +100,9 @@ class StateController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão do estado {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na exclusão do estado {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('Estado excluido com sucesso!', 200);
+        return redirect()->route('states.index')->with('success', 'Estado excluido com sucesso!');
     }
 }

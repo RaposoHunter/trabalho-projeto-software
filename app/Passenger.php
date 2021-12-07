@@ -20,6 +20,11 @@ class Passenger extends Model
         'CD_PSGR_RESP',
     ];
 
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class, 'CD_PSGR');
+    }
+
     public function getAge()
     {
         if(!is_null($this->DT_NASC_PSGR)) {

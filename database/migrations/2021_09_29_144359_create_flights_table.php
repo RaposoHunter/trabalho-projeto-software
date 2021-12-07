@@ -17,7 +17,7 @@ class CreateFlightsTable extends Migration
             $table->integer('NR_VOO');
             
             $table->date('DT_SAIDA_VOO');
-            $table->integer('NR_ROTA_VOO');
+            $table->unsignedBigInteger('NR_ROTA_VOO');
             $table->string('CD_ARNV', 5);
 
             $table->primary(['NR_VOO', 'DT_SAIDA_VOO']);

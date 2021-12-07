@@ -6,6 +6,7 @@ use App\Airport;
 use App\FlightRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\FlightRouteFormRequest;
 
 class FlightRouteController extends Controller
 {
@@ -57,34 +58,41 @@ class FlightRouteController extends Controller
 
     public function update(FlightRouteFormRequest $request, $id)
     {
+        $input = $request->all();
+
         if(!$flight_route = FlightRoute::find($id)) {
-            return response()->json('Esta rota de vôo não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Esta rota de vôo não existe! Tente recarregar a página.');
         }
 
-        // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();
 
-            $flight_route->update($request->all());
+            $flight_route->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição da Rota de Vôo {$id}: ".$e->getMessage(), 500);
+            dd($e->getMessage());
+
+            return back()->with('error', "Erro na edição da Rota de Vôo {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'Rota de Vôo atualizada com sucesso', 'flight_route' => $flight_route], 200);
+        return redirect()->route('flightroutes.index')->with('success', 'Rota de Vôo atualizada com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$flight_route = FlightRoute::find($id)) {
-            return response()->json('Esta rota de vôo não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Esta rota de vôo não existe! Tente recarregar a página.');
         }
 
         try {
             DB::beginTransaction();
+
+            if($flight_route->flights->count() > 0) {
+                return back()->with('warning', "{$flight_route->flights->count()} voos utilizam esta rota. Apague-os antes de excluir a rota.");
+            }
 
             $flight_route->delete();
 
@@ -92,10 +100,10 @@ class FlightRouteController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão da Rota de Vôo {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na exclusão da Rota de Vôo {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('Rota de Vôo excluida com sucesso!', 200);
+        return redirect()->route('flightroutes.index')->with('success', 'Rota de Vôo excluida com sucesso!');
     }
 
     public function filter($type)

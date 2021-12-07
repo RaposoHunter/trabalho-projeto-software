@@ -8,6 +8,12 @@
 
 @section('container')
     <div class="main-container">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+
         <h1 class="page-title">Cadastro de Equipamentos</h1>
 
         <div class="register-card blue-card">
@@ -28,7 +34,7 @@
                             <select class="register-input" name="IC_TIPO_PRPS">
                                 <option value="">Selecione o tipo do equipamento</option>
                                 <option value="M">M</option>
-                                <option value="C">C</option>
+                                <option value="R">R</option>
                             </select>
                         </div>
                     </div>

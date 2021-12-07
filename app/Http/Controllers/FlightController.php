@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Flight;
 use App\Airport;
 use App\Airship;
+use App\Reserve;
 use App\FlightRoute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,8 @@ class FlightController extends Controller
         $airships = Airship::all();
         $flight_routes = FlightRoute::all();
 
-        return view('flights.index', compact('flights'), [
+        return view('flights.index', [
+            'flights' => $flights,
             'airships' => $airships,
             'flight_routes' => $flight_routes,
         ]);
@@ -56,7 +58,6 @@ class FlightController extends Controller
         ]);
     }
 
-    // show e edit
     public function getFlight($id)
     {
         if(!$flight = Flight::find($id)) {
@@ -68,47 +69,69 @@ class FlightController extends Controller
 
     public function update(FlightFormRequest $request, $id)
     {
-        if(!$flight = Flight::find($id)) {
-            return response()->json('Este vôo não existe! Tente recarregar a página.', 404);
+        $flight_number = explode('D', $id)[0];
+        $flight_date = explode('D', $id)[1];
+
+        if(!$flight = Flight::where('NR_VOO', $flight_number)->where('DT_SAIDA_VOO', $flight_date)->first()) {
+            return back()->with('error', 'Este vôo não existe! Tente recarregar a página.');
         }
+
+        $flight_reserves = Reserve::where('NR_VOO', $flight->NR_VOO)->where('DT_SAIDA_VOO', $flight->DT_SAIDA_VOO)->get();
 
         $input = $request->except('_token');
         $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
-
+        
         try {
             DB::beginTransaction();
+            
+            $same_pks = $input['old_NR_VOO'] == $input['NR_VOO'] && $input['old_DT_SAIDA_VOO'] == $input['DT_SAIDA_VOO'];
+            
+            if(!$same_pks && $flight_reserves->count() > 0) {
+                return back()->with('warning', "O Voo possui {$flight_reserves->count()} reservas cadastradas. Cancele-as antes de alterar o voo.");
+            }
 
             $flight->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
-
-            return response()->json("Erro na edição do Vôo {$id}: ".$e->getMessage(), 500);
+            
+            return back()->with('error', 'Erro na edição do Vôo. Tente novamente mais tarde');
         }
 
-        return response()->json(['message' => 'Vôo atualizado com sucesso', 'flight' => $flight], 200);
+        return redirect()->route('flights.index')->with('success', 'Vôo atualizado com sucesso');
     }
 
     public function destroy($id)
     {
-        if(!$flight = Flight::find($id)) {
-            return response()->json('Este vôo não existe! Tente recarregar a página.', 404);
+        $flight_number = explode('D', $id)[0];
+        $flight_date = explode('D', $id)[1];
+
+        if(!$flight = Flight::where('NR_VOO', $flight_number)->where('DT_SAIDA_VOO', $flight_date)->first()) {
+            return back()->with('error', 'Este vôo não existe! Tente recarregar a página.');
         }
+
+        $flight_query = DB::table('itr_voo')->where('NR_VOO', $flight_number)->where('DT_SAIDA_VOO', $flight_date);
+        $flight = $flight_query->first();
+        $flight_reserves = Reserve::where('NR_VOO', $flight->NR_VOO)->where('DT_SAIDA_VOO', $flight->DT_SAIDA_VOO)->get();
 
         try {
             DB::beginTransaction();
 
-            $flight->delete();
+            if($flight_reserves->count() > 0) {
+                return back()->with('warning', "O Voo possui {$flight_reserves->count()} reservas cadastradas. Cancele-as antes de apagar o voo.");
+            }
+            
+            $flight_query->delete();
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão do Vôo {$id}: ".$e->getMessage(), 500);
+            return back()->with("Erro na exclusão do Vôo {$id}. Tente novamente mais tarde!");
         }
 
-        return response()->json('Vôo excluido com sucesso!', 200);
+        return redirect()->route('flights.index')->with('success', 'Vôo excluido com sucesso!');
     }
 
     public function filter($from, $to)

@@ -17,4 +17,19 @@ class Country extends Model
         'NM_PAIS',
         'QT_PPLC_PAIS',
     ];
+
+    public function airlines()
+    {
+        return $this->hasMany(Airline::class, 'CD_PAIS');
+    }
+
+    public function airports()
+    {
+        return $this->hasMany(Airport::class, 'CD_PAIS');
+    }
+
+    public function passengers()
+    {
+        return $this->hasMany(Passenger::class, 'CD_PAIS');
+    }
 }

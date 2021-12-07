@@ -31,10 +31,10 @@
                             <tr id="linha-{{ $equipment->CD_EQPT }}">
                                 <td class="first-column" data-id="{{ $equipment->CD_EQPT }}" data-index="CD_EQPT">{{ $equipment->CD_EQPT ?? '---' }}</td>
                                 <td data-id="{{ $equipment->CD_EQPT }}" data-index="NM_EQPT">{{ $equipment->NM_EQPT ?? '---' }}</td>
-                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">{{ $equipment->DC_TIPO_EQPT ?? '---' }}</td>
-                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_MOTOR">{{ $equipment->QT_MOTOR ?? '---' }}</td>
-                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="IC_TIPO_PRPS">{{ $equipment->IC_TIPO_PRPS ?? '---' }}</td>
-                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_PSGR">{{ $equipment->QT_PSGR ?? '---' }}</td>
+                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="DC_TIPO_EQPT">{{ $equipment->IC_TIPO_PRPS ?? '---' }}</td>
+                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_MOTOR">{{ $equipment->DC_TIPO_EQPT ?? '---' }}</td>
+                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="IC_TIPO_PRPS">{{ $equipment->QT_PSGR ?? '---' }}</td>
+                                <td data-id="{{ $equipment->CD_EQPT }}" data-index="QT_PSGR">{{ $equipment->QT_MOTOR ?? '---' }}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
                                         <button id="edit-{{ $equipment->CD_EQPT }}" class="icon icon-edit"
@@ -108,7 +108,7 @@
                             <div class="form-row">
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Código do Equipamento</label>
-                                    <input class="register-input" type="text" id="CD_EQPT" disabled
+                                    <input class="register-input" type="text" id="CD_EQPT" name="CD_EQPT"
                                         placeholder="Insira o código do equipamento">
                                 </div>
                                 <div class="col-md-6 px-5 my-2 my-md-4">
@@ -120,10 +120,10 @@
                                 <div class="col-md-6 px-5 my-2 my-md-4">
                                     <label class="register-label" for="">Selecione o Tipo do Equipamento</label>
                                     <div class="custom-select-2">
-                                        <select class="register-input" name="DC_TIPO_EQPT" id="IC_TIPO_PRPS">
+                                        <select class="register-input" name="IC_TIPO_PRPS" id="IC_TIPO_PRPS">
                                             <option value="">Selecione o tipo do equipamento</option>
                                             <option value="M">M</option>
-                                            <option value="C">C</option>
+                                            <option value="R">R</option>
                                         </select>
                                     </div>
                                 </div>

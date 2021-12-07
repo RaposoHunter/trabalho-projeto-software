@@ -67,9 +67,8 @@ class AirportController extends Controller
 
     public function update(AirportFormRequest $request, $id)
     {
-        
         if(!$airport = Airport::find($id)) {
-            return response()->json('Este aeroporto não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este aeroporto não existe! Tente recarregar a página.');
         }
 
         $input = $request->except('_token');
@@ -79,26 +78,34 @@ class AirportController extends Controller
         try {
             DB::beginTransaction();
 
+            if($airport->getFlightRoutes()->count() > 0 && $request->segment(2) != $input['CD_ARPT']) {
+                return back()->with('warning', "{$airport->getFlightRoutes()->count()} rotas utilizam este aeroporto. Apague-as antes de alterar o aeroporto.");
+            }
+            
             $airport->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição do Aeroporto {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição do Aeroporto {$id}! Tente novamente mais tarde.");
         }
 
-        return response()->json(['message' => 'Aeroporto atualizado com sucesso', 'airport' => $airport], 200);
+        return redirect()->route('airports.index')->with('success', 'Aeroporto atualizado com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$airport = Airport::find($id)) {
-            return response()->json('Este aeroporto não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este aeroporto não existe! Tente recarregar a página.');
         }
 
         try {
             DB::beginTransaction();
+
+            if($airport->getFlightRoutes()->count() > 0) {
+                return back()->with('warning', "{$airport->getFlightRoutes()->count()} rotas utilizam este aeroporto. Apague-as antes de apagar o aeroporto.");
+            }
 
             $airport->delete();
 
@@ -106,9 +113,9 @@ class AirportController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão do Aeroporto {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na exclusão do Aeroporto {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('Aeroporto excluido com sucesso!', 200);
+        return redirect()->route('airports.index')->with('success', 'Aeroporto excluido com sucesso!');
     }
 }

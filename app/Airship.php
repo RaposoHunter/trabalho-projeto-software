@@ -15,11 +15,16 @@ class Airship extends Model
     protected $fillable = [
         'CD_ARNV',
         'CD_EQPT',
-        'CMPN_AEREA',
+        'CD_CMPN_AEREA',
     ];
 
     public function equipment()
     {
         return $this->belongsTo(Equipment::class, 'CD_EQPT');
+    }
+
+    public function flights()
+    {
+        return $this->hasMany(Flight::class, 'CD_ARNV');
     }
 }

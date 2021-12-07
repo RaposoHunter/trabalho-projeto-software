@@ -20,8 +20,8 @@ class EquipmentController extends Controller
     {
         $input = $request->except('_token');
         $input['CD_EQPT'] = strtoupper($input['CD_EQPT']);
-        $input['NM_EQPT'] = strtoupper($input['CD_EQPT']);
-        $input['DC_TIPO_EQPT'] = strtoupper($input['CD_EQPT']);
+        $input['NM_EQPT'] = strtoupper($input['NM_EQPT']);
+        $input['DC_TIPO_EQPT'] = strtoupper($input['DC_TIPO_EQPT']);
         
         try {
             DB::beginTransaction();
@@ -56,7 +56,7 @@ class EquipmentController extends Controller
     public function update(EquipmentFormRequest $request, $id)
     {
         if(!$equipment = Equipment::find($id)) {
-            return response()->json('Este equipamento não existe! Tente recarregar a página.', 404);
+            return back()->with('success', 'Este equipamento não existe! Tente recarregar a página.');
         }
 
         $input = $request->except('_token');
@@ -67,26 +67,34 @@ class EquipmentController extends Controller
         try {
             DB::beginTransaction();
 
+            if($equipment->airships->count() > 0 && $request->segment(2) != $input['CD_EQPT']) {
+                return back()->with('warning', "{$equipment->airships->count()} aeronaves usam este equipamento. Apague-as antes de alterar o equipamento.");
+            }
+
             $equipment->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
-
-            return response()->json("Erro na edição do Equipamento {$id}: ".$e->getMessage(), 500);
+            
+            return back()->with('error', "Erro na edição do Equipamento {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'Equipamento atualizado com sucesso', 'equipment' => $equipment], 200);
+        return redirect()->route('equipments.index')->with('success', 'Equipamento atualizado com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$equipment = Equipment::find($id)) {
-            return response()->json('Este equipamento não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Este equipamento não existe! Tente recarregar a página.');
         }
 
         try {
             DB::beginTransaction();
+
+            if($equipment->airships->count() > 0) {
+                return back()->with('warning', "{$equipment->airships->count()} aeronaves usam este equipamento. Apague-as antes de alterar o equipamento.");
+            }
 
             $equipment->delete();
 
@@ -94,12 +102,10 @@ class EquipmentController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            $message = $e->getCode() == 23000 ? "Existem {$equipment->airships->count()} aeronaves que utilizam este equipamento. Você deve apagá-las primeiro." : $e->getMessage();
-
-            return response()->json("Erro na exclusão do Equipamento {$id}: ".$message, 500);
+            return back()->with('error', "Erro na exclusão do Equipamento {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('Equipamento excluido com sucesso!', 200);
+        return redirect()->route('equipments.index')->with('success', 'Equipamento excluido com sucesso!', 200);
     }
 
     public function filter1($psgrs, $type)

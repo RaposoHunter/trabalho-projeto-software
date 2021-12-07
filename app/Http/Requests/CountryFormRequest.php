@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueCountry;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CountryFormRequest extends FormRequest
@@ -24,7 +25,7 @@ class CountryFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'CD_PAIS' => 'required|unique:itr_pais,CD_PAIS|max:2',
+            'CD_PAIS' => ['required', new UniqueCountry ,'max:2'],
             'NM_PAIS' => 'required|max:25',
             'QT_PPLC_PAIS' => 'nullable|integer|min:0'
         ];

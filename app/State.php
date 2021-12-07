@@ -16,4 +16,9 @@ class State extends Model
         'SG_UF',
         'NM_UF',
     ];
+
+    public function airports()
+    {
+        return $this->hasMany(Airport::class, 'SG_UF');
+    }
 }

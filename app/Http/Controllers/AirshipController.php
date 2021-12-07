@@ -31,7 +31,7 @@ class AirshipController extends Controller
         try {
             DB::beginTransaction();
 
-            Airship::create($request->all());
+            Airship::create($input);
 
             DB::commit();
         } catch(\Exception $e) {
@@ -40,7 +40,7 @@ class AirshipController extends Controller
             return back()->with('error', 'Erro na adição de uma Aeronave: '.$e->getMessage());
         }
 
-        return redirect()->route('airlines.index')->with('success', 'Aeronave adicionada com sucesso!');
+        return redirect()->route('airships.index')->with('success', 'Aeronave adicionada com sucesso!');
     }
 
     public function create()
@@ -67,12 +67,15 @@ class AirshipController extends Controller
     public function update(AirshipFormRequest $request, $id)
     {
         if(!$airship = Airship::find($id)) {
-            return response()->json('Esta aeronave não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Esta aeronave não existe! Tente recarregar a página.');
         }
 
-        // TODO: Tratativa dos inputs
         try {
             DB::beginTransaction();
+
+            if($airship->flights->count() > 0 && $request->segment(2) != $request->CD_ARNV) {
+                return back()->with('warning', "{$airship->flights->count()} voos utilizam esta aeronave. Apague-os antes de alterar a aeronave.");
+            }
 
             $airship->update($request->all());
 
@@ -80,20 +83,24 @@ class AirshipController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição da Aeronave {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição da Aeronave {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'Aeronave atualizada com sucesso', 'airship' => $airship], 200);
+        return redirect()->route('airships.index')->with('success', 'Aeronave atualizada com sucesso');
     }
 
     public function destroy($id)
     {
         if(!$airship = Airship::find($id)) {
-            return response()->json('Esta aeronave não existe! Tente recarregar a página.', 404);
+            return back()->with('error', 'Esta aeronave não existe! Tente recarregar a página.');
         }
 
         try {
             DB::beginTransaction();
+
+            if($airship->flights->count() > 0) {
+                return back()->with('warning', "{$airship->flights->count()} voos utilizam esta aeronave. Apague-os antes de alterar a aeronave.");
+            }
 
             $airship->delete();
 
@@ -101,9 +108,9 @@ class AirshipController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão da Aeronave {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na exclusão da Aeronave {$id}! Tente novamente mais tarde");
         }
 
-        return response()->json('Aeronave excluida com sucesso!', 200);
+        return redirect()->route('airships.index')->with('success', 'Aeronave excluida com sucesso!');
     }
 }

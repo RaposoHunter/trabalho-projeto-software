@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueAirport;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AirportFormRequest extends FormRequest
@@ -24,7 +26,7 @@ class AirportFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'CD_ARPT' => 'required|unique:itr_arpt,CD_ARPT|max:3',
+            'CD_ARPT' => ['required', new UniqueAirport, 'max:3'],
             'CD_PAIS' => 'required|exists:itr_pais,CD_PAIS',
             'SG_UF' => 'nullable|exists:itr_uf,SG_UF',
             'NM_CIDD' => 'required|max:30'

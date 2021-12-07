@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqueAirship;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AirshipFormRequest extends FormRequest
@@ -24,7 +25,7 @@ class AirshipFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'CD_ARNV' => 'required|unique:itr_arnv,CD_EQPT|max:5',
+            'CD_ARNV' => ['required', new UniqueAirship, 'max:5'],
             'CD_EQPT' => 'required|exists:itr_eqpt,CD_EQPT',
             'CD_CMPN_AEREA' => 'required|exists:itr_cmpn_aerea,CD_CMPN_AEREA'
         ];

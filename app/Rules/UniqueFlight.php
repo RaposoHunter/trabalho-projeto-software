@@ -31,7 +31,15 @@ class UniqueFlight implements Rule
         $input = request()->all();
         $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
 
-        return is_null(Flight::where('NR_VOO', $input['NR_VOO'])->where('DT_SAIDA_VOO', $input['DT_SAIDA_VOO'])->first());
+        $flight = Flight::where('NR_VOO', $input['NR_VOO'])->where('DT_SAIDA_VOO', $input['DT_SAIDA_VOO'])->first();
+
+        if($input['_method'] === 'PUT') {
+            $same_pks = $input['old_NR_VOO'] == $input['NR_VOO'] && $input['old_DT_SAIDA_VOO'] == $input['DT_SAIDA_VOO'];
+
+            if($same_pks) return true;
+        }
+
+        return is_null($flight);
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Flight;
 use App\Reserve;
 use App\Passenger;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ReserveFormRequest;
@@ -13,8 +14,8 @@ class ReserveController extends Controller
 {
     public function index()
     {
-        $reserves = Reserve::all();
-        // $reserves = Reserve::limit(5)->get(); // Apenas para testes
+        // $reserves = Reserve::all();
+        $reserves = Reserve::limit(100)->get(); // Apenas para testes
         $passengers = Passenger::all();
         $flights = Flight::all();
 
@@ -58,7 +59,9 @@ class ReserveController extends Controller
     // show e edit
     public function getReserve($id)
     {
-        if(!$reserve = Reserve::find($id)) {
+        $id = preg_split('/[ND]/', $id);
+
+        if(!$reserve = Reserve::where('CD_PSGR', $id[0])->where('NR_VOO', $id[1])->where('DT_SAIDA_VOO', $id[2])->first()) {
             return response()->json('Esta reserva não existe! Tente recarregar a página.', 404);
         }
 
@@ -66,9 +69,12 @@ class ReserveController extends Controller
     }
 
     public function update(ReserveFormRequest $request, $id)
-    {
-        if(!$reserve = Reserve::find($id)) {
-            return response()->json('Esta reserva não existe! Tente recarregar a página.', 404);
+    {   
+        $id = preg_split('/[ND]/', $id);
+        $date = Carbon::parse($id[2])->format('d/m/Y');
+
+        if(!$reserve = Reserve::where('CD_PSGR', $id[0])->where('NR_VOO', $id[1])->where('DT_SAIDA_VOO', $id[2])->first()) {
+            return back()->with('error', 'Esta reserva não existe! Tente recarregar a página.');
         }
 
         $input = $request->all();
@@ -83,31 +89,35 @@ class ReserveController extends Controller
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na edição da Reserva {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição da Reserva do passageiro {$id[0]} no Voo {$id[1]} no dia {$date}! Tente novamente mais tarde");
         }
 
-        return response()->json(['message' => 'Reserva atualizada com sucesso', 'reserve' => $reserve], 200);
+        return redirect()->route('reserves.index')->with('success', 'Reserva atualizada com sucesso');
     }
 
     public function destroy($id)
     {
-        if(!$reserve = Reserve::find($id)) {
-            return response()->json('Esta reserva não existe! Tente recarregar a página.', 404);
+        $id = preg_split('/[ND]/', $id);
+        $date = Carbon::parse($id[2])->format('d/m/Y');
+
+        if(!$reserve = Reserve::where('CD_PSGR', $id[0])->where('NR_VOO', $id[1])->where('DT_SAIDA_VOO', $id[2])->first()) {
+            return back()->with('error', 'Esta reserva não existe! Tente recarregar a página.');
         }
+
 
         try {
             DB::beginTransaction();
 
-            $reserve->delete();
+            DB::table('itr_resv')->where('CD_PSGR', $id[0])->where('NR_VOO', $id[1])->where('DT_SAIDA_VOO', $id[2])->delete();
 
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
 
-            return response()->json("Erro na exclusão da Reserva {$id}: ".$e->getMessage(), 500);
+            return back()->with('error', "Erro na edição da Reserva do passageiro {$id[0]} no Voo {$id[1]} no dia {$date}! Tente novamente mais tarde");
         }
 
-        return response()->json('Reserva excluida com sucesso!', 200);
+        return redirect()->route('reserves.index')->with('success', 'Reserva excluida com sucesso!');
     }
 
     public function filter($min, $max)

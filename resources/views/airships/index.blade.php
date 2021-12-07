@@ -8,6 +8,9 @@
 
 @section('container')
     <div class="main-container">
+        @foreach ($errors->all() as $key => $error)
+            {{ $key.' -> '.$error }}
+        @endforeach
         <h1 class="page-title">Aeronaves</h1>
         <div class="d-flex justify-content-end">
             <a href="{{ route('airships.create') }}"><button class="btn-default btn-green">Cadastrar</button></a>
@@ -26,7 +29,7 @@
                         @foreach ($airships as $airship)
                             <tr id="linha-{{$airship->CD_ARNV}}">
                                 <td class="first-column">{{$airship->CD_ARNV}}</td>
-                                <td>{{$airship->CMPN_AEREA}}</td>
+                                <td>{{$airship->CD_CMPN_AEREA}}</td>
                                 <td>{{$airship->CD_EQPT}}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
@@ -98,7 +101,7 @@
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Cód. da companhia aérea</label>
                                 <div class="custom-select-2">
-                                    <select class="register-input" name="CMPN_AEREA">
+                                    <select class="register-input" name="CD_CMPN_AEREA">
                                         <option value="">Selecione o cód. da c. aérea</option>
                                         @foreach ($airlines->toQuery()->orderBy('CD_CMPN_AEREA')->get() as $airline)
                                             <option value="{{ $airline->CD_CMPN_AEREA }}">{{ $airline->CD_CMPN_AEREA }}</option>
