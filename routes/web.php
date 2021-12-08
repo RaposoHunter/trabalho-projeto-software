@@ -2,29 +2,28 @@
 
 use Illuminate\Support\Facades\Route;
 
-/*Route::get('/seed', function () {
-    $model_array = \App\Reserve::all()->toArray();
+/*
+    Todas as URLs passam por esse script que tem como objetivo instanciar rotas para responderem
+    a requisições HTTP para o servidor.
 
-    foreach($model_array as $model_instance) {
-        echo('Reserve::create([<br>');
+    Route::<método>(<url>, <controller@método>)->name(<nome>)
+        * método: Método HTTP (GET, HEAD, POST, PUT, DELETE, PATCH, ...)
+        * url: URL que causará a excecução da rota
+        * controller@método: Método de um Controlador responsável por lidar com a requisição
+        * ->name(<nome>): Método para atribuir um nome customizado à rota
+    
+    Route::group(): Responsável por agrupar rotas seguindo alguns critérios.
+    Nesse caso, o agrupamento é feito por prefixo de URL, ou seja, todas as
+    URL que possuam um prefixo específico são tratadas por rotas que estejam dentro
+    de um grupo que atenda ao prefixo específico
+*/
 
-        foreach($model_instance as $column_name => $column_value) {
-            if(is_null($column_value)) {
-                echo("&nbsp;&nbsp;&nbsp;&nbsp;'{$column_name}' => null,<br>");
-            } else if(gettype($column_value) == 'string') {
-                echo("&nbsp;&nbsp;&nbsp;&nbsp;'{$column_name}' => '{$column_value}',<br>");
-            } else {
-                echo("&nbsp;&nbsp;&nbsp;&nbsp;'{$column_name}' => {$column_value},<br>");
-            }
-        }
-
-        echo(']);<br><br>');
-    }
-});*/
+// Agrupando as rotas por um prefixo na URL
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', 'HomeController@index')->name('index');
 
+    // /equipamentos
     Route::group(['prefix' => 'equipamentos'], function () {
         Route::get('/', 'EquipmentController@index')->name('equipments.index');
         Route::get('/cadastrar', 'EquipmentController@create')->name('equipments.create');
@@ -37,6 +36,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/filtrar/2/{name}/{type}', 'EquipmentController@filter2')->name('equipments.filter2');
     });
 
+    // /aeronaves
     Route::group(['prefix' => '/aeronaves'], function () {
         Route::get('/', 'AirshipController@index')->name('airships.index');
         Route::get('/cadastrar', 'AirshipController@create')->name('airships.create');
@@ -46,6 +46,7 @@ Route::group(['prefix' => '/'], function () {
         Route::delete('/{id}', 'AirshipController@destroy')->name('airships.destroy');
     });
 
+    // /companhias-aereas
     Route::group(['prefix' => 'companhias-aereas'], function () {
         Route::get('/', 'AirlineController@index')->name('airlines.index');
         Route::get('/cadastrar', 'AirlineController@create')->name('airlines.create');
@@ -57,6 +58,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/filtrar/{type}', 'AirlineController@filter')->name('airlines.filter');
     });
 
+    // /voos
     Route::group(['prefix' => 'voos'], function () {
         Route::get('/', 'FlightController@index')->name('flights.index');
         Route::get('/cadastrar', 'FlightController@create')->name('flights.create');
@@ -67,7 +69,8 @@ Route::group(['prefix' => '/'], function () {
 
         Route::get('/filtrar/{from}/{to}', 'FlightController@filter')->name('flights.filter');
     });
-
+    
+    // /passageiros
     Route::group(['prefix' => 'passageiros'], function () {
         Route::get('/', 'PassengerController@index')->name('passengers.index');
         Route::get('/cadastrar', 'PassengerController@create')->name('passengers.create');
@@ -79,6 +82,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/filtrar/{civil}/{sex}', 'PassengerController@filter')->name('passengers.filter');
     });
 
+    // /paises
     Route::group(['prefix' => 'paises'], function () {
         Route::get('/', 'CountryController@index')->name('countries.index');
         Route::get('/cadastrar', 'CountryController@create')->name('countries.create');
@@ -88,6 +92,7 @@ Route::group(['prefix' => '/'], function () {
         Route::delete('/{id}', 'CountryController@destroy')->name('countries.destroy');
     });
 
+    // /rotas-de-voo
     Route::group(['prefix' => 'rotas-de-voo'], function () {
         Route::get('/', 'FlightRouteController@index')->name('flightroutes.index');
         Route::get('/cadastrar', 'FlightRouteController@create')->name('flightroutes.create');
@@ -99,6 +104,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/filtrar/{tipo}', 'FlightRouteController@filter')->name('flightroutes.filter');
     });
 
+    // /reservas
     Route::group(['prefix' => 'reservas'], function () {
         Route::get('/', 'ReserveController@index')->name('reserves.index');
         Route::get('/cadastrar', 'ReserveController@create')->name('reserves.create');
@@ -110,6 +116,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('/filtrar/{min}/{max}', 'ReserveController@filter')->name('reserves.filter');
     });
 
+    // /aeroportos
     Route::group(['prefix' => 'aeroportos'], function () {
         Route::get('/', 'AirportController@index')->name('airports.index');
         Route::get('/cadastrar', 'AirportController@create')->name('airports.create');
@@ -119,6 +126,7 @@ Route::group(['prefix' => '/'], function () {
         Route::delete('/{id}', 'AirportController@destroy')->name('airports.destroy');
     });
 
+    // /estados
     Route::group(['prefix' => 'estados'], function () {
         Route::get('/', 'StateController@index')->name('states.index');
         Route::get('/cadastrar', 'StateController@create')->name('states.create');

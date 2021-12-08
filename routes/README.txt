@@ -1,0 +1,1 @@
+A pasta \routes tem como objetivo reunir as rotas que serão utilizadas pela aplicação, bem como algumas regras que possam ser aplicadas sobre as mesmas

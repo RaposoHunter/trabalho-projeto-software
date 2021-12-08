@@ -13,6 +13,9 @@ class CreateEquipmentTable extends Migration
      */
     public function up()
     {
+        // Ao utilizar o comando "php artisan migrate" este método é executado
+        // e cria uma tabela com o nome e campos especificados
+
         Schema::create('itr_eqpt', function (Blueprint $table) {
             $table->string('CD_EQPT', 3);
 
@@ -33,6 +36,9 @@ class CreateEquipmentTable extends Migration
      */
     public function down()
     {
+        // Ao requisitar "php artisan migrate:fresh" este método é executado
+        // e realiza o DROP na tabela específica
+        
         Schema::dropIfExists('itr_eqpt');
     }
 }

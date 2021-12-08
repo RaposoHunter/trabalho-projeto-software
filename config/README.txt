@@ -1,0 +1,2 @@
+A pasta \config tem como objetivo reunir algumas configurações importantes que são usadas pelo framework
+no geral, mas que podem ser utilizadas através da função global "config()" dentro de qualquer script

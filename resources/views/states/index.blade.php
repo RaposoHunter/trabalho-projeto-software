@@ -107,7 +107,7 @@
                                 data-dismiss="modal">Cancelar</button>
                             <button type="submit" class="delete-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
-                        @method('PUT');
+                        @method('PUT')
                     </form>
                 </div>
 
@@ -143,7 +143,6 @@
                 $('#edit-form').attr('action', "<?= route('states.update', ['_id_']) ?>".replace('_id_',
                     id));
                 for (i = 0; i < td_array.length; i++) {
-                    // -1 pois n ignoramos o id aqui
                     if (input_array.eq(i).attr('type') == "hidden") continue;
                     if (input_array.eq(i).attr('type') == undefined) {
                         input_array.eq(i).val(td_array.eq(i - 1).html());
