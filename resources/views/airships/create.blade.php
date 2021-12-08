@@ -1,11 +1,10 @@
+{{-- importa a barra lateral e os scripts gerais --}}
 @extends('layouts.main')
 
+{{-- coloca o titulo da pagina atual --}}
 @section('title', 'Cadastro de Aeronaves')
 
-@push('css')
-
-@endpush
-
+{{-- conteudo da pagina com os inputs --}}
 @section('container')
     <div class="main-container">
         <h1 class="page-title">Cadastro de Aeronaves</h1>
@@ -13,7 +12,7 @@
         @foreach ($errors->all() as $msg)
             {{ $msg }}
         @endforeach
-        
+
         <div class="register-card blue-card">
             <form action="{{ route('airships.store') }}" method="POST">
                 @csrf
@@ -54,6 +53,7 @@
     </div>
 @endsection
 
+{{-- codigo JS / jQuery --}}
 @push('js')
     <script>
         $(function() {

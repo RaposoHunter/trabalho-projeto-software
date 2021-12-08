@@ -1,12 +1,10 @@
+{{-- importa a barra lateral e os scripts gerais --}}
 @extends('layouts.main')
 
+{{-- coloca o titulo da pagina atual --}}
 @section('title', 'Home')
 
-
-@push('css')
-
-@endpush
-
+{{-- conteudo da pagina com os inputs --}}
 @section('container')
     <div class="main-container">
         <h1 class="page-title">Home</h1>
@@ -97,6 +95,3 @@
     </div>
 @endsection
 
-@push('js')
-
-@endpush

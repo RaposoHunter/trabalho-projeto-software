@@ -1,11 +1,10 @@
+{{-- importa a barra lateral e os scripts gerais --}}
 @extends('layouts.main')
 
+{{-- coloca o titulo da pagina atual --}}
 @section('title', 'Unidades Federativas | Novo')
 
-@push('css')
-
-@endpush
-
+{{-- conteudo da pagina com os inputs --}}
 @section('container')
     <div class="main-container">
         <h1 class="page-title">Cadastro de Unidades Federativas</h1>
@@ -32,13 +31,14 @@
     </div>
 @endsection
 
+{{-- codigo JS / jQuery --}}
 @push('js')
     <script>
         $(function() {
             $('.custom-select-2').on('click', function() {
                 $(this).find('.select-selected').addClass('select-item-black');
             });
-            
+
             $('.date').mask('00/00/0000');
         });
     </script>

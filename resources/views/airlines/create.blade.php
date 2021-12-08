@@ -1,11 +1,9 @@
+{{-- importa a barra lateral e os scripts gerais --}}
 @extends('layouts.main')
-
+{{-- coloca o titulo da pagina atual --}}
 @section('title', 'Cadastro de Companhias Aéreas')
 
-@push('css')
-
-@endpush
-
+{{-- conteudo da pagina com os inputs --}}
 @section('container')
     <div class="main-container">
         <h1 class="page-title">Cadastro de Companhias Aéreas</h1>
@@ -39,11 +37,10 @@
                 </div>
             </form>
         </div>
-
-
     </div>
 @endsection
 
+{{-- codigo JS / jQuery --}}
 @push('js')
     <script>
         $(function() {
@@ -53,6 +50,5 @@
             $('.date').mask('00/00/0000');
         });
     </script>
-
 @endpush
 
