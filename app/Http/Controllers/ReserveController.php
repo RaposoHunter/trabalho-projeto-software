@@ -14,8 +14,8 @@ class ReserveController extends Controller
 {
     public function index()
     {
-        // $reserves = Reserve::all();
-        $reserves = Reserve::limit(100)->get(); // Apenas para testes
+        $reserves = Reserve::all();
+        // $reserves = Reserve::limit(100)->get(); // Apenas para testes
         $passengers = Passenger::all();
         $flights = Flight::all();
 
@@ -29,7 +29,7 @@ class ReserveController extends Controller
     {
         $input = $request->all();
         $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
-        
+
         try {
             DB::beginTransaction();
 
@@ -69,7 +69,7 @@ class ReserveController extends Controller
     }
 
     public function update(ReserveFormRequest $request, $id)
-    {   
+    {
         $id = preg_split('/[ND]/', $id);
         $date = Carbon::parse($id[2])->format('d/m/Y');
 
@@ -77,16 +77,17 @@ class ReserveController extends Controller
             return back()->with('error', 'Esta reserva não existe! Tente recarregar a página.');
         }
 
-        $input = $request->all();
+        $input = $request->except('_token', '_method');
         $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
 
         try {
             DB::beginTransaction();
 
-            $reserve->update($input);
+            DB::table('itr_resv')->where('CD_PSGR', $id[0])->where('NR_VOO', $id[1])->where('DT_SAIDA_VOO', $id[2])->update($input);
 
             DB::commit();
         } catch(\Exception $e) {
+            dd($e->getMessage());
             DB::rollback();
 
             return back()->with('error', "Erro na edição da Reserva do passageiro {$id[0]} no Voo {$id[1]} no dia {$date}! Tente novamente mais tarde");

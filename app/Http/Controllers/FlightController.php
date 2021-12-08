@@ -16,7 +16,6 @@ class FlightController extends Controller
     public function index()
     {
         $flights = Flight::all();
-        // $flights = Flight::limit(20)->get();
         $airships = Airship::all();
         $flight_routes = FlightRoute::all();
 
@@ -80,12 +79,12 @@ class FlightController extends Controller
 
         $input = $request->except('_token');
         $input['DT_SAIDA_VOO'] = implode('-', array_reverse(explode('/', $input['DT_SAIDA_VOO'])));
-        
+
         try {
             DB::beginTransaction();
-            
+
             $same_pks = $input['old_NR_VOO'] == $input['NR_VOO'] && $input['old_DT_SAIDA_VOO'] == $input['DT_SAIDA_VOO'];
-            
+
             if(!$same_pks && $flight_reserves->count() > 0) {
                 return back()->with('warning', "O Voo possui {$flight_reserves->count()} reservas cadastradas. Cancele-as antes de alterar o voo.");
             }
@@ -95,7 +94,7 @@ class FlightController extends Controller
             DB::commit();
         } catch(\Exception $e) {
             DB::rollback();
-            
+
             return back()->with('error', 'Erro na edição do Vôo. Tente novamente mais tarde');
         }
 
@@ -121,7 +120,7 @@ class FlightController extends Controller
             if($flight_reserves->count() > 0) {
                 return back()->with('warning', "O Voo possui {$flight_reserves->count()} reservas cadastradas. Cancele-as antes de apagar o voo.");
             }
-            
+
             $flight_query->delete();
 
             DB::commit();

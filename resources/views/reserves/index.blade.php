@@ -31,7 +31,7 @@
                             <tr id="linha_{{$reserve->CD_PSGR}}N{{$reserve->NR_VOO}}D{{$reserve->DT_SAIDA_VOO}}">
                                 <td class="first-column">{{$reserve->CD_PSGR}}</td>
                                 <td>{{$reserve->NR_VOO}}</td>
-                                <td>{{$reserve->DT_SAIDA_VOO}}</td>
+                                <td>{{\Carbon\Carbon::parse($reserve->DT_SAIDA_VOO)->format("d/m/Y")}}</td>
                                 <td>{{$reserve->PC_DESC_PASG}}</td>
                                 <td class="last-column">
                                     <div class="d-flex justify-content-center">
@@ -111,18 +111,11 @@
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">N° do Voo</label>
-                                <div class="custom-select-2">
-                                    <select class="register-input" name="NR_VOO">
-                                        <option value="">Selecione o número do voo</option>
-                                        {{-- @foreach ($flights->toQuery()->orderBy('NR_VOO')->get() as $flight)
-                                            <option value="{{ $flight->NR_VOO }}">{{ $flight->NR_VOO }}</option>
-                                        @endforeach --}}
-                                    </select>
-                                </div>
+                                <input class="register-input" type="text" name="NR_VOO">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Data de Saída</label>
-                                <input class="register-input" type="text" placeholder="Insira a data de saída">
+                                <input class="register-input" type="text" placeholder="Insira a data de saída" name="DT_SAIDA_VOO">
                             </div>
                             <div class="col-md-6 px-5 my-2 my-md-4">
                                 <label class="register-label" for="">Desconto da Passagem</label>
@@ -134,7 +127,7 @@
                         <div class="btn-div d-flex justify-content-end">
                             <button type="button" class="delete-dismiss btn-default btn-red"
                                 data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="delete-submit btn-default btn-blue ml-4">Editar</button>
+                            <button type="submit" class="delete-submit btn-default btn-blue ml-4">Editar</button>
                         </div>
                         @method('PUT');
                     </form>
@@ -214,8 +207,7 @@
             $('.icon-delete').on('click', function() {
 
                 let id = $(this).attr('form').split('_')[1];
-                console.log(id);
-                $('#delete-code-em').html($(`#linha_${id}`).children().eq(1).html())
+                $('#delete-code-em').html($(`#linha_${id}`).children().eq(0).html())
                 $("#modal-button-delete").attr('form', $(this).attr('form'));
             });
 

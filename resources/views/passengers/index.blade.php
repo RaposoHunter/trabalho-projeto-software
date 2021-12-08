@@ -404,7 +404,9 @@
 
                     });
                 }
-                if (civil == "S" && sex == "M")
+                if (civil == "S" && sex == "M") {
+                    $('#filter-table-container-1').hide();
+                    $('#filter-table-container-2').hide();
                     $.ajax({
                         method: 'GET',
                         url: "<?= route('passengers.filter', ['_civil_', '_sex_']) ?>".replace(
@@ -425,8 +427,6 @@
                                             </tr>
                                         `);
                                     }
-                                    // <td class="last-column">${passenger.ID_PSGR != null ? (passenger.ID_PSGR > res.avg_age ? 'Sim' : 'Não') : '---'}</td>
-
                                 }
                                 filter_table_3 = $('#filter-table-3').DataTable({
                                     language: {
@@ -442,7 +442,8 @@
                         }
 
                     });
-                //
+                    //
+                }
             });
 
             $('.custom-select-2').on('click', function() {

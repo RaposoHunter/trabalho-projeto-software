@@ -12,8 +12,7 @@ class PassengerController extends Controller
 {
     public function index()
     {
-        // $passengers = Passenger::all();
-        $passengers = Passenger::limit(5)->get();
+        $passengers = Passenger::all();
         $countries = Country::all();
 
         return view('passengers.index', [

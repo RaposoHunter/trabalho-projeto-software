@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="DT_SAIDA_VOO">Data de Saída</label>
-                        <input class="register-input" type="text" name="DT_SAIDA_VOO" placeholder="Insira a data de saída">
+                        <input class="register-input date" type="text" name="DT_SAIDA_VOO" placeholder="Insira a data de saída">
                     </div>
                     <div class="col-md-6 px-5 my-2 my-md-4">
                         <label class="register-label" for="">Desconto da Passagem</label>
