@@ -11,6 +11,12 @@ use App\Http\Requests\AirportFormRequest;
 
 class AirportController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Aeroportos
+
     public function index()
     {
         $airports = Airport::all();

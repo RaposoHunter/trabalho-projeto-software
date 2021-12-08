@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueReserve implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se a Reserva não existe, antes de ser adicionada,
+    // Ou se o vetor de dados <CD_PSGR, NR_VOO, DATA_SAIDA_VOO> já não está em uso por outra Reserva
+
     /**
      * Create a new rule instance.
      *

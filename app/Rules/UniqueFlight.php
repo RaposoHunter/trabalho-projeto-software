@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueFlight implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se o Voo não existe, antes de ser adicionada,
+    // Ou se o par <NR_VOO, DT_SAIDA_VOO> já não está em uso por outro Voo
+
     private $message = 'Já existe um voo cadastrado com este número e data de saída';
 
     /**

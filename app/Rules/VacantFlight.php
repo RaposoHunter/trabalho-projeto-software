@@ -8,6 +8,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class VacantFlight implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se o vôo requisitado na reserva possui vagas
+    // baseado na capacidade máxima da aeronave atrelada ao vôo
+
     /**
      * Create a new rule instance.
      *

@@ -7,6 +7,8 @@ use Illuminate\Contracts\Validation\Rule;
 
 class FlightValidDate implements Rule
 {
+    // Rule responsável por validar se o vôo escolhido está disponível para a data informada
+
     /**
      * Create a new rule instance.
      *
@@ -24,6 +26,8 @@ class FlightValidDate implements Rule
      * @param  mixed  $value
      * @return bool
      */
+
+    // Método para avaliar se o campo passou pelo critério de avaliação
     public function passes($attribute, $value)
     {
         $input = request()->all();
@@ -39,6 +43,8 @@ class FlightValidDate implements Rule
      *
      * @return string
      */
+
+    // Mensagem a ser mostrada caso o campo não passe pela validação
     public function message()
     {
         return 'A data de saída informada não consta para este voo';

@@ -9,6 +9,12 @@ use App\Http\Requests\StateFormRequest;
 
 class StateController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Unidades Federativas
+
     public function index()
     {
         $states = State::all();

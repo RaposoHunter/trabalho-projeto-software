@@ -9,6 +9,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ReserveFormRequest extends FormRequest
 {
+    /*
+     * Explicação geral dos FormRequests e métodos em AirlineFormRequest.php
+     **/
+
+    // FormRequest responsável por validar as requisições referentes à Reservas
+
     /**
      * Determine if the user is authorized to make this request.
      *

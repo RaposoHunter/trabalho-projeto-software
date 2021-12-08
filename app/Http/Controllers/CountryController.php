@@ -9,6 +9,12 @@ use App\Http\Requests\CountryFormRequest;
 
 class CountryController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Países
+
     public function index()
     {
         $countries = Country::all();

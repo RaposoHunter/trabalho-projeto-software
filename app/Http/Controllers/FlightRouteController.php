@@ -10,6 +10,12 @@ use App\Http\Requests\FlightRouteFormRequest;
 
 class FlightRouteController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Rotas de Vôo
+
     public function index()
     {
         $flight_routes = FlightRoute::all();
@@ -106,6 +112,7 @@ class FlightRouteController extends Controller
         return redirect()->route('flightroutes.index')->with('success', 'Rota de Vôo excluida com sucesso!');
     }
 
+    // Filtro para listagem de rotas seguindo o critério escolhido
     public function filter($type)
     {
         if(!in_array($type, ['null', 'reserva', 'passagem', 'todas'])) {

@@ -8,6 +8,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AirportFormRequest extends FormRequest
 {
+    /*
+     * Explicação geral dos FormRequests e métodos em AirlineController.php
+     **/
+
+    // FormRequest responsável por validar as requisições referentes à Aeroportos
+
     /**
      * Determine if the user is authorized to make this request.
      *

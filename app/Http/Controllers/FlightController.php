@@ -13,6 +13,12 @@ use App\Http\Requests\FlightFormRequest;
 
 class FlightController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Vôos
+
     public function index()
     {
         $flights = Flight::all();
@@ -133,6 +139,8 @@ class FlightController extends Controller
         return redirect()->route('flights.index')->with('success', 'Vôo excluido com sucesso!');
     }
 
+
+    // Filtro para listar os vôos com origem $from e origem $to
     public function filter($from, $to)
     {
         $cities = Airport::getCities();
@@ -145,12 +153,12 @@ class FlightController extends Controller
             return response()->json('Cidade de origem ou destino inválido!', 400);
         }
 
+        // SQL LEFT JOINs com a tabela `itr_voo` para obter o nome das cidades
         $flights = Flight::join('itr_rota_voo', 'itr_voo.NR_ROTA_VOO', 'itr_rota_voo.NR_ROTA_VOO')
                         ->leftJoin('itr_arpt as Origem', 'itr_rota_voo.CD_ARPT_ORIG', 'Origem.CD_ARPT')
                         ->leftJoin('itr_arpt as Destino', 'itr_rota_voo.CD_ARPT_DEST', 'Destino.CD_ARPT')
                         ->select('NR_VOO', 'itr_voo.NR_ROTA_VOO', 'VR_PASG', 'Origem.CD_ARPT as CD_ARPT_ORIG', 'Origem.NM_CIDD as NM_CIDD_ORIG', 'Destino.CD_ARPT as CD_ARPT_DEST', 'Destino.NM_CIDD as NM_CIDD_DEST')
         ;
-
 
         if($from != 'null') {
             $flights = $flights->where('Origem.NM_CIDD', $from);

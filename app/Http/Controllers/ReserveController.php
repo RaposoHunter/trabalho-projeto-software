@@ -12,10 +12,15 @@ use App\Http\Requests\ReserveFormRequest;
 
 class ReserveController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Reservas
+
     public function index()
     {
         $reserves = Reserve::all();
-        // $reserves = Reserve::limit(100)->get(); // Apenas para testes
         $passengers = Passenger::all();
         $flights = Flight::all();
 
@@ -59,6 +64,7 @@ class ReserveController extends Controller
     // show e edit
     public function getReserve($id)
     {
+        // Quebra a string usando Regex
         $id = preg_split('/[ND]/', $id);
 
         if(!$reserve = Reserve::where('CD_PSGR', $id[0])->where('NR_VOO', $id[1])->where('DT_SAIDA_VOO', $id[2])->first()) {
@@ -105,7 +111,6 @@ class ReserveController extends Controller
             return back()->with('error', 'Esta reserva não existe! Tente recarregar a página.');
         }
 
-
         try {
             DB::beginTransaction();
 
@@ -121,6 +126,8 @@ class ReserveController extends Controller
         return redirect()->route('reserves.index')->with('success', 'Reserva excluida com sucesso!');
     }
 
+
+    // Filtro responsável por listar as reservas dos passageiros cujos códigos estejam dentro do intervalo enviado
     public function filter($min, $max)
     {
         if(!is_numeric($min)) {

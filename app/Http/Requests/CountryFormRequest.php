@@ -7,6 +7,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class CountryFormRequest extends FormRequest
 {
+    /*
+     * Explicação geral dos FormRequests e métodos em AirlineFormRequest.php
+     **/
+
+    // FormRequest responsável por validar as requisições referentes à Países
+
     /**
      * Determine if the user is authorized to make this request.
      *

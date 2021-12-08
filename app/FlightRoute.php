@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlightRoute extends Model
 {
+    /*
+     * Explicação geral dos Models e métodos em Airline.php
+     **/
+
+    // Model responsável por gerir os registro referentes à Rotas de Vôo
+
     protected $table = 'itr_rota_voo';
     protected $primaryKey = 'NR_ROTA_VOO';
     protected $keyType = 'integer';
@@ -18,11 +24,13 @@ class FlightRoute extends Model
         'VR_PASG',
     ];
 
+    // Método responsável por recuperar os vôos que utilizam esta rota de vôo
     public function flights()
     {
         return $this->hasMany(Flight::class, 'NR_ROTA_VOO');
     }
 
+    // Método responsável por recuperar os códigos de todas as rotas de vôo
     public static function getCodes()
     {
         $codes = [];
@@ -34,6 +42,7 @@ class FlightRoute extends Model
         return collect($codes);
     }
 
+    // Método responsável por recuperar as rotas que não possuem nenhuma reserva cadastrada
     public static function getNotReserved()
     {
         $codes = self::getCodes();

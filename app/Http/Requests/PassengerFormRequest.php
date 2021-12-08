@@ -6,6 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class PassengerFormRequest extends FormRequest
 {
+    /*
+     * Explicação geral dos FormRequests e métodos em AirlineFormRequest.php
+     **/
+
+    // FormRequest responsável por validar as requisições referentes à Passageiros
+
     /**
      * Determine if the user is authorized to make this request.
      *

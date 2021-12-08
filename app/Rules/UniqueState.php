@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueState implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se a UF não existe, antes de ser adicionada,
+    // Ou se o SG_UF já não está em uso por outra UF
+
     /**
      * Create a new rule instance.
      *

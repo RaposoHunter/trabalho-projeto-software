@@ -9,6 +9,12 @@ use App\Http\Requests\EquipmentFormRequest;
 
 class EquipmentController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Equipamentos
+    
     public function index()
     {
         $equipments = Equipment::all();
@@ -108,6 +114,7 @@ class EquipmentController extends Controller
         return redirect()->route('equipments.index')->with('success', 'Equipamento excluido com sucesso!', 200);
     }
 
+    // Filtro responsável por listar equipamentos pela capacidade máxima de passageiros e tipo do eqpt
     public function filter1($psgrs, $type)
     {
         if(!is_numeric($psgrs) && $psgrs != 'Infinity') {
@@ -127,6 +134,7 @@ class EquipmentController extends Controller
         return response()->json($equipments, 200);
     }
 
+    // Filtro responsável por listar equipamentos pelo tipo e por uma string que esteja no nome
     public function filter2($name, $type)
     {
         if(!in_array($type, ['HELICOPTERO', 'TURBO HELICE', 'JATO'])) {

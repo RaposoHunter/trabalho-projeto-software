@@ -17,6 +17,8 @@ class CreateEquipmentTable extends Migration
         // e cria uma tabela com o nome e campos especificados
 
         Schema::create('itr_eqpt', function (Blueprint $table) {
+            // $table-><tipo_da_coluna>(<nome_da_coluna> [, opções]);
+
             $table->string('CD_EQPT', 3);
 
             $table->string('NM_EQPT', 38);

@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    // Controller responsável por gerir as requisições para o HomePage
+
     public function index()
     {
         $home_statistics = $this->getHomeStatistics();
@@ -23,7 +25,8 @@ class HomeController extends Controller
         return view('home', $home_statistics);
     }
 
-    public function getHomeStatistics()
+    // Método que encapsula a lógica para obtenção dos dados estatísticos de cada tabela
+    private function getHomeStatistics()
     {
         $passenger_count = Passenger::count();
         $flight_count = Flight::count();
@@ -34,10 +37,6 @@ class HomeController extends Controller
         $state_count = State::count();
         $equipament_count = Equipment::count();
         $flightRoute_count = FlightRoute::count();
-
-
-        // Parece que todas as reservas são de 1993
-        // $reserve_count = Reserve::whereDate('DT_SAIDA_VOO', '>=', now()->startOfDay()->format('Y-m-d'))->count();
 
         return [
             'passenger_count' => $passenger_count,

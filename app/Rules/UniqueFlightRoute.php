@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueFlightRoute implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se a Rota de Vôo não existe, antes de ser adicionada,
+    // Ou se o NR_ROTA_VOO já não está em uso por outra Rota de Vôo
+
     /**
      * Create a new rule instance.
      *

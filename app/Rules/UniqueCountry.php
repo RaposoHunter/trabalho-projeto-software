@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueCountry implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se o País não existe, antes de ser adicionado,
+    // Ou se o CD_PAISjá não está em uso por outro país
+
     /**
      * Create a new rule instance.
      *

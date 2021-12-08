@@ -28,6 +28,7 @@ class AirlineController extends Controller
      *      Responsável por remover um registro ou instanciar uma mensagem de erro caso o registro seja referenciado por outros
     **/
 
+    // Controller responsável por gerir as requisições referentes à Companhias Aéreas
 
     public function index()
     {

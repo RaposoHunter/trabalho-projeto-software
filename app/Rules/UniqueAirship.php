@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueAirship implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se a Aeronave não existe, antes de ser adicionada,
+    // Ou se o CD_ARNV já não está em uso por outra Aeronave
+
     /**
      * Create a new rule instance.
      *

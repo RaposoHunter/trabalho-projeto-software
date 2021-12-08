@@ -11,6 +11,12 @@ use App\Http\Requests\AirshipFormRequest;
 
 class AirshipController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Aeronaves
+
     public function index()
     {
         $airships = Airship::all();

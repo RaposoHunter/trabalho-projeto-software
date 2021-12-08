@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueAirline implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se a Companhia Aérea não existe, antes de ser adicionada,
+    // Ou se o CD_CMPN_AEREA já não está em uso por outra Companhia
+
     /**
      * Create a new rule instance.
      *

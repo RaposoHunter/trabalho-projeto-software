@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueEquipment implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se o Equipamento não existe, antes de ser adicionado,
+    // Ou se o CD_EQPT já não está em uso por outro Equipamento
+
     /**
      * Create a new rule instance.
      *

@@ -10,6 +10,12 @@ use App\Http\Requests\PassengerFormRequest;
 
 class PassengerController extends Controller
 {
+    /*
+     * Explicação geral dos controllers e métodos em AirlineController.php
+     **/
+
+    // Controller responsável por gerir as requisições referentes à Passageiros
+
     public function index()
     {
         $passengers = Passenger::all();
@@ -114,6 +120,7 @@ class PassengerController extends Controller
         return redirect()->route('passengers.index')->with('success', 'Passageiro excluido com sucesso!');
     }
 
+    // Filtro responsável pela listagem de passageiros baseado no estado civil e no sexo
     public function filter($civil, $sex)
     {
         if(!in_array($civil, ['null', 'C', 'S'])) {
@@ -140,6 +147,9 @@ class PassengerController extends Controller
             $passenger->getAge();
         }
 
+        // Calcula a média dos passageiros retornados
+        // ID_PSGR <=> Idade do Passageiro
+        // É um índice extra adicionado posteriormente em \app\Passenger.php
         $avg_age = $passengers->avg('ID_PSGR');
 
         return response()->json(['passengers' => $passengers, 'avg_age' => $avg_age], 200);

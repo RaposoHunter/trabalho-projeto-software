@@ -7,11 +7,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AirlineFormRequest extends FormRequest
 {
+    // FormRequest responsável por validar as requisições referentes à Companhias Aéreas
+    
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
+
+    // Método responsável por avaliar se a requisição é permitida
+    // Como não existem perfis ou uma camada de autenticação todos
+    // os métodos authorize() retornam true
     public function authorize()
     {
         return true;
@@ -22,6 +28,10 @@ class AirlineFormRequest extends FormRequest
      *
      * @return array
      */
+
+    // Método responsável por definir quais regras serão utilizadas para avliar cada campo
+    // As regras podem ser definidas em uma string usando '|' como caracter delimitador ou
+    // como um array contendo as regras individuais. A segunda abordagem é usada para regras customizadas
     public function rules()
     {
         return [
@@ -31,6 +41,7 @@ class AirlineFormRequest extends FormRequest
         ];
     }
 
+    // Método responsável por definir quais são as mensagens de erro para cada regra e/ou campo
     public function messages()
     {
         return [

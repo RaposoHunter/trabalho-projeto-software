@@ -6,6 +6,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class FlightRouteFormRequest extends FormRequest
 {
+    /*
+     * Explicação geral dos FormRequests e métodos em AirlineFormRequest.php
+     **/
+
+    // FormRequest responsável por validar as requisições referentes à Rotas de Vôo
+
     /**
      * Determine if the user is authorized to make this request.
      *

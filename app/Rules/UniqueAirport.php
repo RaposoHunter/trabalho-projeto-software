@@ -7,6 +7,13 @@ use Illuminate\Contracts\Validation\Rule;
 
 class UniqueAirport implements Rule
 {
+    /*
+     * Explicação geral das Rules e métodos em FlightValidDate.php
+     **/
+
+    // Rule responsável por validar se o Aeroporto não existe, antes de ser adicionado,
+    // Ou se o CD_ARPT já não está em uso por outro aeropoto
+
     /**
      * Create a new rule instance.
      *
