@@ -1,11 +1,10 @@
+{{-- importa a barra lateral e os scripts gerais --}}
 @extends('layouts.main')
 
+{{-- coloca o titulo da pagina atual --}}
 @section('title', 'Aeronaves')
 
-@push('css')
-
-@endpush
-
+{{-- conteudo da pagina com as tabelas --}}
 @section('container')
     <div class="main-container">
         @foreach ($errors->all() as $key => $error)
@@ -55,7 +54,7 @@
             </div>
         </div>
     </div>
-    {{-- DELETE --}}
+    {{-- MODAL DELETE --}}
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-delete" role="document">
@@ -82,7 +81,7 @@
             </div>
         </div>
     </div>
-    {{-- EDITAR --}}
+    {{-- MODAL EDITAR --}}
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -144,6 +143,7 @@
     </div>
 @endsection
 
+{{-- codigo JS / jQuery --}}
 @push('js')
     <script>
         $(function() {
@@ -152,7 +152,7 @@
                     url: '<?= asset('js/datatable.json') ?>'
                 }
             });
-            
+
             $('.delete-dismiss').on('click', function() {
                 $('#deleteModal').modal('hide')
             });

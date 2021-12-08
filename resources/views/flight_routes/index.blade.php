@@ -1,11 +1,10 @@
+{{-- importa a barra lateral e os scripts gerais --}}
 @extends('layouts.main')
 
+{{-- coloca o titulo da pagina atual --}}
 @section('title', 'Rotas de Voos')
 
-@push('css')
-
-@endpush
-
+{{-- conteudo da pagina com as tabelas --}}
 @section('container')
     <div class="main-container">
         <h1 class="page-title">Rotas de Voos</h1>
@@ -59,7 +58,7 @@
 
         </div>
     </div>
-    {{-- DELETE --}}
+    {{-- MODAL DELETE --}}
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-delete" role="document">
@@ -86,7 +85,7 @@
             </div>
         </div>
     </div>
-    {{-- EDITAR --}}
+    {{-- MODAL EDITAR --}}
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -142,7 +141,7 @@
         </div>
     </div>
 
-    {{-- Filtro --}}
+    {{-- MODAL Filtro --}}
     <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="filterModalLabel"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -200,6 +199,7 @@
     </div>
 @endsection
 
+{{-- codigo JS / jQuery --}}
 @push('js')
     <script>
         let filter_table = null;

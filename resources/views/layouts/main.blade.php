@@ -1,18 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="pt-br">
-
 <!-- begin::Head -->
-
 <head>
     <meta charset="utf-8" />
     <title>@yield('title')</title>
     <meta name="description" content="Voe bem">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-
     {{-- FONT IMPORT --}}
     <link href="{{ asset('font/style.css') }}" rel="stylesheet">
-
     <!--begin::Base Styles -->
     <link href="{{ asset('assets/vendors/base/vendors.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/demo/default/base/style.bundle.css') }}" rel="stylesheet" type="text/css" />
@@ -23,24 +18,21 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!--end::Base Styles -->
     <link rel="shortcut icon" href="{{ asset('assets/demo/default/media/img/logo/logo.svg') }}" />
-
 </head>
-
 <!-- end::Head -->
 
 <!-- begin::Body -->
 
 <body class="header-fixed header-mobile-fixed subheader-enabled subheader-fixed aside-enabled aside-fixed page-loading"
     cz-shortcut-listen="false">
-
     <!-- begin:: Page -->
     <div class="m-grid m-grid--hor m-grid--root m-page">
 
         <!-- BEGIN: Header -->
+        {{-- Cria a barra lateral --}}
         <header id="m_header" class="m-grid__item m-header ">
             <div class="m-container m-container--fluid m-container--full-height">
                 <div class="m-stack m-stack--ver m-stack--desktop">
-
                     <!-- BEGIN: Brand -->
                     <div class="m-stack__item m-brand" style="background: #363740 !important">
                         <div class="m-stack m-stack--ver m-stack--general">
@@ -55,10 +47,7 @@
                                     class="m-brand__icon m-brand__toggler m-brand__toggler--left m--visible-tablet-and-mobile-inline-block">
                                     <span></span>
                                 </a>
-
                                 <!-- END -->
-
-
                             </div>
                         </div>
                     </div>
@@ -69,7 +58,6 @@
                 </div>
             </div>
         </header>
-
         <!-- END: Header -->
 
         <!-- begin::Body -->
@@ -180,6 +168,7 @@
             </div>
             <!-- END: Left Aside -->
 
+            {{-- Importa o conteudo da pagina --}}
             <div class="m-grid__item m-grid__item--fluid m-wrapper" style="background: #F7F8FC !important">
                 @yield('container')
             </div>
@@ -188,11 +177,11 @@
         <!-- end:: Body -->
 
     </div>
+    {{-- popup com feedback --}}
     <div id="alerts"></div>
     <!-- end:: Page -->
 
     <!--begin::Base Scripts -->
-
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/base/vendors.bundle.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/demo/default/base/scripts.bundle.js') }}" type="text/javascript"></script>
@@ -211,6 +200,7 @@
     </script>
     @stack('js')
 
+    {{-- pega se houve sucesso ou não --}}
     @if (Session::has('success'))
         <script>
             const success = new popupAlert("<?= Session::get('success') ?>", 1, 3000);
