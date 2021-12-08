@@ -15,5 +15,27 @@
 * MySQL
 * jQuery
 * Bootstrap
+* XAMPP
 * <a href="https://keenthemes.com/metronic/">Metronic</a>
 * <a href="https://laravel.com/">Laravel</a>
+
+## Montando o Projeto
+
+<ol>
+    <li>Baixar o repositório</li>
+    <li>Criar um banco de dados MySQL com o nome "projeto_software" (alterável)</li>
+    <li>Abrir o arquivo</li>
+    <li>Navegar até o diretório do aquivo pelo prompt de comando e rodar os comandos:
+    </li>
+    <li><code>copy .env.example .env</code></li>
+    <li><code>composer install</code></li>
+    <li><code>npm install</code></li>
+    <li><code>php artisan key:generate</code></li>
+    <li><code>php artisan config:cache</code></li>
+    <li><code>php artisan migrate:fresh --seed</code></li>
+</ol>
+
+Ao final de todos estes passos o programa estará pronto para uso através da URL definida. <br>
+Ex.: http://localhost/trabalho-projeto-software/
+
+Aviso: A URL **pode** variar dependendo da configuração utilizada no XAMPP
